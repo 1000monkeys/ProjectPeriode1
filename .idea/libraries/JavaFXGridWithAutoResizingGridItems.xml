@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="JavaFXGridWithAutoResizingGridItems">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/JavaFXGridWithAutoResizingGridItems.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
