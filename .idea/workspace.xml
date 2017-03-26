@@ -6,28 +6,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="First Commit">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/interfaces/SceneImplementation.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/DatabaseInserter/com/kjellvos/school/kassaSystem/databaseInserter/AddNewItem.class" afterPath="$PROJECT_DIR$/out/production/DatabaseInserter/com/kjellvos/school/kassaSystem/databaseInserter/AddNewItem.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/DatabaseInserter/com/kjellvos/school/kassaSystem/databaseInserter/AddNewTemporaryPrice.class" afterPath="$PROJECT_DIR$/out/production/DatabaseInserter/com/kjellvos/school/kassaSystem/databaseInserter/AddNewTemporaryPrice.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/DatabaseInserter/com/kjellvos/school/kassaSystem/databaseInserter/GetItemsList.class" afterPath="$PROJECT_DIR$/out/production/DatabaseInserter/com/kjellvos/school/kassaSystem/databaseInserter/GetItemsList.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/DatabaseInserter/com/kjellvos/school/kassaSystem/databaseInserter/Main.class" afterPath="$PROJECT_DIR$/out/production/DatabaseInserter/com/kjellvos/school/kassaSystem/databaseInserter/Main.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/DatabaseInserter/com/kjellvos/school/kassaSystem/databaseInserter/MainMenu.class" afterPath="$PROJECT_DIR$/out/production/DatabaseInserter/com/kjellvos/school/kassaSystem/databaseInserter/MainMenu.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/DatabaseInserter/com/kjellvos/school/kassaSystem/databaseInserter/OverviewItem.class" afterPath="$PROJECT_DIR$/out/production/DatabaseInserter/com/kjellvos/school/kassaSystem/databaseInserter/OverviewItem.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/DatabaseInserter/com/kjellvos/school/kassaSystem/databaseInserter/database/Database.class" afterPath="$PROJECT_DIR$/out/production/DatabaseInserter/com/kjellvos/school/kassaSystem/databaseInserter/database/Database.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/DatabaseInserter/com/kjellvos/school/kassaSystem/databaseInserter/database/Item.class" afterPath="$PROJECT_DIR$/out/production/DatabaseInserter/com/kjellvos/school/kassaSystem/databaseInserter/database/Item.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/DatabaseInserter/com/kjellvos/school/kassaSystem/databaseInserter/functions/RegexAndFocusFunctions.class" afterPath="$PROJECT_DIR$/out/production/DatabaseInserter/com/kjellvos/school/kassaSystem/databaseInserter/functions/RegexAndFocusFunctions.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/AddNewItem.java" afterPath="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/AddNewItem.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/AddNewTemporaryPrice.java" afterPath="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/AddNewTemporaryPrice.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/GetItemsList.java" afterPath="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/GetItemsList.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/Main.java" afterPath="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/MainMenu.java" afterPath="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/MainMenu.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/OverviewItem.java" afterPath="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/OverviewItem.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/database/Database.java" afterPath="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/database/Database.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/database/Item.java" afterPath="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/database/Item.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/functions/RegexAndFocusFunctions.java" afterPath="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/functions/RegexAndFocusFunctions.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -146,7 +126,7 @@
       <file leaf-file-name="AddNewTemporaryPrice.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/AddNewTemporaryPrice.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="613">
+            <state relative-caret-position="523">
               <caret line="160" column="73" lean-forward="false" selection-start-line="160" selection-start-column="73" selection-end-line="160" selection-end-column="73" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -1078,7 +1058,7 @@
       <workItem from="1490530688841" duration="3547000" />
       <workItem from="1490544686304" duration="5814000" />
       <workItem from="1490550575856" duration="4429000" />
-      <workItem from="1490555495588" duration="219000" />
+      <workItem from="1490555495588" duration="431000" />
     </task>
     <task id="LOCAL-00001" summary="First Commit&#10;">
       <created>1489922116224</created>
@@ -1091,7 +1071,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="65811000" />
+    <option name="totallyTimeSpent" value="66023000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1104,6 +1084,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="960" height="1044" extended-state="4" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1119,7 +1100,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39375" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39375" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1471,8 +1452,8 @@
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="34">
-            <caret line="2" column="20" lean-forward="false" selection-start-line="2" selection-start-column="20" selection-end-line="2" selection-end-column="20" />
+          <first_editor relative-caret-position="238">
+            <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="72" />
             <folding />
           </first_editor>
           <second_editor />
@@ -1481,7 +1462,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/AddNewTemporaryPrice.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="613">
+        <state relative-caret-position="523">
           <caret line="160" column="73" lean-forward="false" selection-start-line="160" selection-start-column="73" selection-end-line="160" selection-end-column="73" />
           <folding>
             <element signature="imports" expanded="true" />
