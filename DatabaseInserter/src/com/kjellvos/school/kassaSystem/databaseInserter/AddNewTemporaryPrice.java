@@ -126,7 +126,7 @@ public class AddNewTemporaryPrice implements SceneImplementation {
 
         String price = priceTextField.getText();
         price = price.substring(1, price.length());
-        if(main.getDatabase().checkNewTemporaryPriceUpload(id, fromDateTime, tillDateTime))) {
+        if(main.getDatabase().checkNewTemporaryPriceUpload(id, fromDateTime, tillDateTime)) {
             if (fromDateTime == tillDateTime || fromDateTime.isBefore(tillDateTime)) {
                 if (fromDateTime.isAfter(LocalDateTime.now())) {
                     main.getDatabase().newTemporaryPriceUpload(id, fromDateTime, tillDateTime, Float.parseFloat(price));
