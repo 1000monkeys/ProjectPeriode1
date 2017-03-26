@@ -1,6 +1,7 @@
 package com.kjellvos.school.kassaSystem.databaseInserter;
 
 import com.kjellvos.os.gridHandler.GridHandler;
+import com.kjellvos.school.kassaSystem.databaseInserter.interfaces.SceneImplementation;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -12,9 +13,11 @@ import java.io.File;
 /**
  * Created by kjevo on 3/24/17.
  */
-public class AddNewItem {
+public class AddNewItem implements SceneImplementation {
     Main main;
     GridHandler gridHandler;
+
+    Scene scene;
 
     Button backToLastMenuButton, pickImageButton, submitButton;
     Text pickImageText, enterNameText, enterDescriptionText, priceText;
@@ -25,6 +28,11 @@ public class AddNewItem {
 
     public AddNewItem(Main main){
         this.main = main;
+    }
+
+    @Override
+    public void reload() {
+        //TODO
     }
 
     public Scene createAndGetScene() {
@@ -74,7 +82,13 @@ public class AddNewItem {
 
         gridHandler.add(0, 5, submitButton, 2, 1, false);
 
-        return gridHandler.getGridAsScene();
+        scene = gridHandler.getGridAsScene();
+        return scene;
+    }
+
+    @Override
+    public Scene getScene() {
+        return scene;
     }
 
     public File handlePickImageButtonClick() {

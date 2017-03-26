@@ -26,9 +26,10 @@ public class RegexAndFocusFunctions {
         if(!newValue){
             if (!textField.getText().matches("[€]+[0-9]{1,10}\\.[0-9]{2}")) {
                 String[] values = textField.getText().split("\\.");
-                System.out.println(values.length + " & " + textField.getText().length());
                 if(values[0].equals("€")){
                     values[0] = "0";
+                }else{
+                    values[0] = values[0].substring(1, values[0].length());
                 }
                 if(values[1].matches("[0-9]{1}")){
                     values[1] = values[1] + "0";
@@ -38,6 +39,7 @@ public class RegexAndFocusFunctions {
         }
     }
 
+    //TODO Change to HH:MM:SS
     public void doTimeRegex(TextField textField, String oldValue, String newValue){
         if (newValue.matches("([01]?[0-9]|2[0-3]):[0-5][0-9]")) {
             textField.setText(newValue);
@@ -54,6 +56,7 @@ public class RegexAndFocusFunctions {
         }
     }
 
+    //TODO Change to HH:MM:SS
     public void catchWrongInputOnFocusLeaveTime(TextField textField, boolean newValue){
         if(!newValue){
             if (!textField.getText().matches("[0-2]+[0-4]+:+[0-9]{2}")) {

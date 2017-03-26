@@ -1,6 +1,7 @@
 package com.kjellvos.school.kassaSystem.databaseInserter;
 
 import com.kjellvos.os.gridHandler.GridHandler;
+import com.kjellvos.school.kassaSystem.databaseInserter.interfaces.SceneImplementation;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -20,19 +21,24 @@ import java.time.format.DateTimeFormatter;
 /**
  * TODO Van datepicker naar textfield en dan net zoals tijd en prijs doen.
  */
-public class AddNewTemporaryPrice {
+public class AddNewTemporaryPrice implements SceneImplementation {
     Main main;
     GridHandler gridHandler;
+
+    Scene scene;
 
     Button backToLastMenuButton, submitButton;
     Text validFromDateText, validFromTimeText, validTillDateText, validTillTimeText, priceText;
     DatePicker validFromDatePicker, validTillDatePicker;
     TextField validFromTimeTextField, validTillTimeTextField, priceTextField;
 
+    int id;
+
     public AddNewTemporaryPrice(Main main) {
         this.main = main;
     }
 
+    @Override
     public Scene createAndGetScene() {
         gridHandler = new GridHandler();
 
@@ -41,12 +47,14 @@ public class AddNewTemporaryPrice {
             main.returnToPreviousScene();
         });
 
+        LocalDate now = LocalDate.now();
         validFromDateText = new Text("Geldig vanaf deze datum:");
-        validFromDatePicker = new DatePicker(LocalDate.now());
+        now = now.plusDays(1L);
+        validFromDatePicker = new DatePicker(now);
 
         validFromTimeText = new Text("Geldig vanaf deze tijd:");
         validFromTimeTextField = new TextField();
-        validFromTimeTextField.setText("00:00");
+        validFromTimeTextField.setText("00:00:01");
         validFromTimeTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             main.getRegexAndFocusFunctions().doTimeRegex(validFromTimeTextField, oldValue, newValue);
         });
@@ -55,11 +63,11 @@ public class AddNewTemporaryPrice {
         });
 
         validTillDateText = new Text("Geldig tot deze datum:");
-        validTillDatePicker = new DatePicker(LocalDate.now());
+        validTillDatePicker = new DatePicker(now);
 
         validTillTimeText = new Text("Geldig tot deze tijd:");
         validTillTimeTextField = new TextField();
-        validTillTimeTextField.setText("23:59");
+        validTillTimeTextField.setText("23:59:59");
         validTillTimeTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             main.getRegexAndFocusFunctions().doTimeRegex(validTillTimeTextField, oldValue, newValue);
         });
@@ -81,7 +89,7 @@ public class AddNewTemporaryPrice {
             main.getRegexAndFocusFunctions().catchWrongInputOnFocusLeavePrice(priceTextField, false);
         });
         submitButton.setOnMouseClicked((MouseEvent event) -> {
-            doSubmit();
+            doSubmit(id);
         });
 
         gridHandler.add(0, 0, backToLastMenuButton, 2, 1, false);
@@ -103,30 +111,70 @@ public class AddNewTemporaryPrice {
 
         gridHandler.add(0, 6, submitButton, 2, 1, false);
 
-        return gridHandler.getGridAsScene();
+        scene = gridHandler.getGridAsScene();
+        return scene;
     }
 
-    private void doSubmit() {
+    private void doSubmit(int id) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
         String from = validFromDatePicker.getValue().toString() + " " + validFromTimeTextField.getText();
-        String till = validTillDatePicker.getValue().toString() + " " + validFromTimeTextField.getText();
+        String till = validTillDatePicker.getValue().toString() + " " + validTillTimeTextField.getText();
 
         LocalDateTime fromDateTime = LocalDateTime.parse(from, formatter);
         LocalDateTime tillDateTime = LocalDateTime.parse(till, formatter);
 
         String price = priceTextField.getText();
         price = price.substring(1, price.length());
+        if(main.getDatabase().checkNewTemporaryPriceUpload(id, fromDateTime, tillDateTime))) {
+            if (fromDateTime == tillDateTime || fromDateTime.isBefore(tillDateTime)) {
+                if (fromDateTime.isAfter(LocalDateTime.now())) {
+                    main.getDatabase().newTemporaryPriceUpload(id, fromDateTime, tillDateTime, Float.parseFloat(price));
 
-        if (fromDateTime == tillDateTime || fromDateTime.isBefore(tillDateTime)) {
-            main.getDatabase().newTemporaryPriceUpload(fromDateTime, tillDateTime, Float.parseFloat(price));
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Ingevoerd!");
+                    alert.setHeaderText("Succesvol ingevoerd!");
+                    alert.setContentText("De waarden zijn succesvol ingevoerd!");
+
+                    alert.showAndWait();
+                    main.returnToPreviousScene();
+                }else{
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Oops!");
+                    alert.setHeaderText("Er gaat iets fout!");
+                    alert.setContentText("Je kan niet een andere prijs in het verleden toevoegen!");
+
+                    alert.showAndWait();
+                }
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Start datum na begin datum!");
+                alert.setHeaderText("De start datum is na het begin datum.");
+                alert.setContentText("Dit kan natuurlijk helemaal niet!");
+
+                alert.showAndWait();
+            }
         }else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Start datum na begin datum!");
-            alert.setHeaderText("De start datum is na het begin datum.");
-            alert.setContentText("Dit kan natuurlijk helemaal niet!");
+            alert.setTitle("Oops!");
+            alert.setHeaderText("Er gaat iets fout!");
+            alert.setContentText("Je kan niet 2 prijzen tegelijk hebben!");
 
             alert.showAndWait();
         }
+    }
+
+    @Override
+    public void reload() {
+        //TODO
+    }
+
+    @Override
+    public Scene getScene() {
+        return scene;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

@@ -2,8 +2,8 @@ package com.kjellvos.school.kassaSystem.databaseInserter;
 
 import com.kjellvos.school.kassaSystem.databaseInserter.database.Database;
 import com.kjellvos.school.kassaSystem.databaseInserter.functions.RegexAndFocusFunctions;
+import com.kjellvos.school.kassaSystem.databaseInserter.interfaces.SceneImplementation;
 import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.util.Stack;
@@ -20,8 +20,7 @@ public class Main extends Application{
     private AddNewItem addNewItem;
     private AddNewTemporaryPrice addNewTemporaryPrice;
     private OverviewItem overviewItem;
-    private Stack<Scene> scenes = new Stack<>();
-    private Scene scene;
+    private Stack<SceneImplementation> scenes = new Stack<>();
 
     @Override
     public void start(Stage primaryStage){
@@ -34,26 +33,25 @@ public class Main extends Application{
         addNewTemporaryPrice = new AddNewTemporaryPrice(this);
         overviewItem = new OverviewItem(this);
 
-        scene = scenes.push(this.getMainMenu().createAndGetScene());
-
+        scenes.add(mainMenu);
         this.primaryStage.setTitle("Kassa Database Inserter V0.1");
         this.primaryStage.setWidth(800D);
         this.primaryStage.setHeight(600D);
-        this.primaryStage.setScene(scene);
+        this.primaryStage.setScene(scenes.peek().createAndGetScene());
         this.primaryStage.show();
     }
 
-    public void changeScene(Scene scene){
-        this.scene = scene;
-        scenes.push(scene);
-        primaryStage.setScene(scene);
+    public void changeScene(SceneImplementation sceneImplementation){
+        scenes.push(sceneImplementation);
+        primaryStage.setScene(sceneImplementation.createAndGetScene());
         primaryStage.show();
     }
 
     public void returnToPreviousScene(){
         if (scenes.size() > 1) {
             scenes.pop();
-            primaryStage.setScene(scenes.peek());
+            scenes.get(scenes.size()-1).reload();
+            primaryStage.setScene(scenes.get(scenes.size()-1).getScene());
         }
     }
 
@@ -74,7 +72,8 @@ public class Main extends Application{
         return mainMenu;
     }
 
-    public AddNewTemporaryPrice getAddNewTemporaryPrice() {
+    public AddNewTemporaryPrice getAddNewTemporaryPrice(int id) {
+        addNewTemporaryPrice.setId(id);
         return addNewTemporaryPrice;
     }
 
@@ -90,7 +89,8 @@ public class Main extends Application{
         return getItemsList;
     }
 
-    public OverviewItem getOverviewItem(){
+    public OverviewItem getOverviewItem(int id){
+        overviewItem.setId(id);
         return overviewItem;
     }
 }

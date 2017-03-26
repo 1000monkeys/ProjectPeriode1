@@ -2,6 +2,7 @@ package com.kjellvos.school.kassaSystem.databaseInserter;
 
 import com.kjellvos.os.gridHandler.GridHandler;
 import com.kjellvos.school.kassaSystem.databaseInserter.database.Item;
+import com.kjellvos.school.kassaSystem.databaseInserter.interfaces.SceneImplementation;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -15,9 +16,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 /**
  * TODO Knop inbouwen voor meer info, die je naar pagina stuurt met info over alle prijzen en editen van de item en de prijzen verwijderen/editen
  */
-public class GetItemsList {
+public class GetItemsList implements SceneImplementation {
     private Main main;
     private GridHandler gridHandler;
+
+    private Scene scene;
 
     private Button backToLastMenuButton;
     private TableView tableView;
@@ -25,6 +28,11 @@ public class GetItemsList {
 
     public GetItemsList(Main main) {
         this.main = main;
+    }
+
+    @Override
+    public void reload() {
+        //TODO
     }
 
     public Scene createAndGetScene(){
@@ -59,6 +67,12 @@ public class GetItemsList {
         gridHandler.add(0, 0, backToLastMenuButton, false);
         gridHandler.add(0,1, tableView, 1, 5, false);
 
-        return gridHandler.getGridAsScene();
+        scene = gridHandler.getGridAsScene();
+        return scene;
+    }
+
+    @Override
+    public Scene getScene() {
+        return scene;
     }
 }
