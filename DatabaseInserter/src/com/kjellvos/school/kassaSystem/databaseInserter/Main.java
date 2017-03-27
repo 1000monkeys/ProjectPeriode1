@@ -4,6 +4,7 @@ import com.kjellvos.school.kassaSystem.databaseInserter.database.Database;
 import com.kjellvos.school.kassaSystem.databaseInserter.functions.RegexAndFocusFunctions;
 import com.kjellvos.school.kassaSystem.databaseInserter.interfaces.SceneImplementation;
 import javafx.application.Application;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.util.Stack;
@@ -11,6 +12,7 @@ import java.util.Stack;
 /**
  * Created by kjevo on 3/24/17.
  */
+//TODO na invoeren doorgestuurd naar de lijst met items
 public class Main extends Application{
     private Database database;
     private Stage primaryStage;
@@ -20,7 +22,9 @@ public class Main extends Application{
     private AddNewItem addNewItem;
     private AddNewTemporaryPrice addNewTemporaryPrice;
     private OverviewItem overviewItem;
+
     private Stack<SceneImplementation> scenes = new Stack<>();
+    private SceneImplementation scene;
 
     @Override
     public void start(Stage primaryStage){
@@ -43,15 +47,16 @@ public class Main extends Application{
 
     public void changeScene(SceneImplementation sceneImplementation){
         scenes.push(sceneImplementation);
-        primaryStage.setScene(sceneImplementation.createAndGetScene());
-        primaryStage.show();
+        scene = sceneImplementation;
+        primaryStage.setScene(scene.createAndGetScene());
     }
 
     public void returnToPreviousScene(){
         if (scenes.size() > 1) {
             scenes.pop();
-            scenes.get(scenes.size()-1).reload();
-            primaryStage.setScene(scenes.get(scenes.size()-1).getScene());
+            scene = scenes.get(scenes.size()-1);
+            scene.reload();
+            primaryStage.setScene(scene.getScene());
         }
     }
 
@@ -92,5 +97,9 @@ public class Main extends Application{
     public OverviewItem getOverviewItem(int id){
         overviewItem.setId(id);
         return overviewItem;
+    }
+
+    public SceneImplementation getScene() {
+        return scene;
     }
 }

@@ -31,7 +31,7 @@ public class OverviewItem implements SceneImplementation {
 
     Scene scene;
 
-    Button backToLastMenuButton, pickImageButton, showImageButton, addTemporaryPriceButton, submitButton;
+    Button backToLastMenuButton, pickImageButton, showImageButton, addTemporaryPriceButton, editTemporaryPriceButton, deleteTemporaryPriceButton, submitButton;
     Text pickImageText, enterNameText, enterDescriptionText, priceText;
     TextField enterNameTextField, enterDescriptionTextField, priceTextField;
 
@@ -49,7 +49,6 @@ public class OverviewItem implements SceneImplementation {
 
     @Override
     public Scene createAndGetScene() {
-        this.id = id;
         item = main.getDatabase().getItemInfo(id);
 
         gridHandler = new GridHandler();
@@ -124,12 +123,18 @@ public class OverviewItem implements SceneImplementation {
             main.changeScene(main.getAddNewTemporaryPrice(id));
         });
 
-        submitButton = new Button("Invoeren!");
+        deleteTemporaryPriceButton = new Button("Verwijderen.");
+        deleteTemporaryPriceButton.setOnMouseClicked(event -> {
+            Price price = (Price) tableView.getSelectionModel().getSelectedItem();
+            main.getDatabase().deleteTemporaryPrice(id, price.getId());
+        });
+
+        submitButton = new Button("Aanpassen!");
         submitButton.setOnMouseEntered((MouseEvent event) -> {
             main.getRegexAndFocusFunctions().catchWrongInputOnFocusLeavePrice(priceTextField, false);
         });
         submitButton.setOnMouseClicked(event -> {
-            main.getDatabase().itemUpdate(enterNameTextField.getText(), enterDescriptionTextField.getText(), Float.parseFloat(priceTextField.getText().substring(1, priceTextField.getText().length())), file);
+            main.getDatabase().itemUpdate(id, enterNameTextField.getText(), enterDescriptionTextField.getText(), Float.parseFloat(priceTextField.getText().substring(1, priceTextField.getText().length())), file);
         });
 
         gridHandler.add(0, 0, backToLastMenuButton, 4, 1, false);
@@ -148,7 +153,8 @@ public class OverviewItem implements SceneImplementation {
         gridHandler.add(3, 4, pickImageButton, 1, 1, false);
 
         gridHandler.add(0, 5, tableView, 3, 5, false);
-        gridHandler.add(3, 5, addTemporaryPriceButton, 1, 1, false);
+        gridHandler.add(3, 5, addTemporaryPriceButton, 1, 4, false);
+        gridHandler.add(3, 9, deleteTemporaryPriceButton, false);
 
         gridHandler.add(0, 10, submitButton, 4, 1, false);
 

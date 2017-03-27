@@ -3,8 +3,11 @@ package com.kjellvos.school.kassaSystem.databaseInserter.database;
 import com.kjellvos.school.kassaSystem.databaseInserter.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Region;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -29,6 +32,7 @@ public class Database {
         this.main = main;
     }
 
+    @SuppressWarnings("JpaQueryApiInspection")
     public void newItemUpload(String name, String description, float price, File image){
         try{
             connection = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -47,6 +51,12 @@ public class Database {
             preparedStatement.setBoolean(4, true);
             preparedStatement.setBlob(5, fileInputStream);
             preparedStatement.execute();
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Geupload!");
+            alert.setHeaderText("Succesvol geupload!");
+            alert.setContentText("Het item is succesbvol geupload!");
+            alert.showAndWait();
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (FileNotFoundException e) {
@@ -61,7 +71,6 @@ public class Database {
         }
     }
 
-    //TODO checker inbouwen of voor die datum al een aangepaste prijs bestaat
     public void newTemporaryPriceUpload(int id, LocalDateTime from, LocalDateTime till, float price){
         try{
             connection = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -89,8 +98,8 @@ public class Database {
         }
     }
 
-    public void itemUpdate(String name, String description, float price, File image){
-        //TODO
+    public void itemUpdate(int id, String name, String description, float price, File image){
+
     }
 
     public Item getItemInfo(int passedId){
@@ -214,7 +223,6 @@ public class Database {
             String sql = "SELECT Prices.FromWhen, Prices.TillWhen FROM Prices WHERE ItemsID=? AND Prices.TillWhen > NOW();";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);
-            preparedStatement.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Timestamp fromWhenTimestamp = resultSet.getTimestamp("FromWhen");
@@ -245,5 +253,87 @@ public class Database {
             }
         }
         return true;
+    }
+
+    public void updateTemporaryPrice(int itemsId, int pricesId, Timestamp tillwhen){
+        try{
+            connection = DriverManager.getConnection(DB_URL, USER, PASS);
+
+            String sql = "UPDATE Prices SET TillWhen=? WHERE ItemsID=? AND ID=?;";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setTimestamp(1, tillwhen);
+            preparedStatement.setInt(2, itemsId);
+            preparedStatement.setInt(3, pricesId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                preparedStatement.close();
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void deleteTemporaryPrice(int itemsId, int pricesId) {
+        try{
+            connection = DriverManager.getConnection(DB_URL, USER, PASS);
+
+            String sql = "SELECT Prices.FromWhen, Prices.TillWhen FROM Prices WHERE ItemsID=? AND Prices.ID=?";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, itemsId);
+            preparedStatement.setInt(2, pricesId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Timestamp fromWhen = resultSet.getTimestamp("FromWhen");
+
+                Timestamp now = Timestamp.valueOf(LocalDateTime.now());
+
+                //check if it is already active
+                if (now.before(fromWhen)) {
+                    //no problem go ahead and delete
+                    sql = "DELETE FROM Prices WHERE ItemsID=? AND Prices.ID=?";
+                    preparedStatement = connection.prepareStatement(sql);
+                    preparedStatement.setInt(1, itemsId);
+                    preparedStatement.setInt(2, pricesId);
+                    preparedStatement.executeUpdate();
+
+
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Verwijderd!");
+                    alert.setHeaderText("Succesvol verwijderd!");
+                    alert.setContentText("De tijdelijke prijs is succesvol verwijderd!");
+                    alert.showAndWait();
+                    main.getScene().reload();
+                }else{
+                    //problem cannot delete price because some people might have already bought this item at this price.
+                    //So update the old price to stop now
+                    Timestamp tillWhen = now;
+                    updateTemporaryPrice(itemsId, pricesId, tillWhen);
+
+
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Aangepast!");
+                    alert.setHeaderText("Succesvol aangepast!");
+                    alert.setContentText("Omdat de prijs zijn begin datum en tijd voor nu zijn, kunnen we hem niet verwijderen i.v.m. de mogelijkheid dat iemand dit product al voor deze prijs gekocht heeft!");
+                    alert.getDialogPane().getChildren().stream().filter(node -> node instanceof Label).forEach(node -> ((Label)node).setMinHeight(Region.USE_PREF_SIZE));
+
+                    alert.showAndWait();
+                    main.getScene().reload();
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                preparedStatement.close();
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
