@@ -41,15 +41,14 @@ public class Database {
             String sql =    "BEGIN;\n" +
                             "  INSERT INTO Items SET Name=?, Description=?;\n" +
                             "  SET @ItemsId = LAST_INSERT_ID();\n" +
-                            "  INSERT INTO Prices SET ItemsID=@ItemsId, Price=?, DefaultPrice=?;\n" +
+                            "  INSERT INTO DefaultPrices SET ItemsID=@ItemsId, Price=?;\n" +
                             "  INSERT INTO ItemsImages set ItemsId=@ItemsId, Image=?;\n" +
                             "COMMIT;";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, description);
             preparedStatement.setFloat(3, price);
-            preparedStatement.setBoolean(4, true);
-            preparedStatement.setBlob(5, fileInputStream);
+            preparedStatement.setBlob(4, fileInputStream);
             preparedStatement.execute();
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -78,7 +77,7 @@ public class Database {
             Timestamp fromTimestamp = Timestamp.valueOf(from);
             Timestamp tillTimeStamp = Timestamp.valueOf(till);
 
-            String sql = "INSERT INTO Prices SET ItemsID=?, FromWhen=?, TillWhen=?, Price=?, DefaultPrice=FALSE;";
+            String sql = "INSERT INTO Prices SET ItemsID=?, FromWhen=?, TillWhen=?, Price=?;";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);
             preparedStatement.setTimestamp(2, fromTimestamp);
@@ -99,14 +98,58 @@ public class Database {
     }
 
     public void itemUpdate(int id, String name, String description, float price, File image){
+        try{
+            connection = DriverManager.getConnection(DB_URL, USER, PASS);
 
+            if (image != null) {
+                FileInputStream fileInputStream = new FileInputStream(image);
+                String sql =    "BEGIN;\n" +
+                                "   UPDATE Items SET Name=?, Description=? WHERE ID=?;" +
+                                "   UPDATE DefaultPrices SET Price=? WHERE ItemsID=?;" +
+                                "   UPDATE ItemsImages SET Image=? WHERE ItemsID=?" +
+                                "COMMIT;";
+                preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.setString(1, name);
+                preparedStatement.setString(2, description);
+                preparedStatement.setInt(3, id);
+                preparedStatement.setFloat(4, price);
+                preparedStatement.setInt(5, id);
+                preparedStatement.setBlob(6, fileInputStream);
+                preparedStatement.setInt(7, id);
+            }else {
+                String sql =    "BEGIN;\n" +
+                                "   UPDATE Items SET Name=?, Description=? WHERE ID=?;" +
+                                "   UPDATE DefaultPrices SET Price=? WHERE ItemsID=?;" +
+                                "COMMIT;";
+                preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.setString(1, name);
+                preparedStatement.setString(2, description);
+                preparedStatement.setInt(3, id);
+                preparedStatement.setFloat(4, price);
+                preparedStatement.setInt(5, id);
+            }
+
+
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                preparedStatement.close();
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public Item getItemInfo(int passedId){
         try{
             connection = DriverManager.getConnection(DB_URL, USER, PASS);
 
-            String sql = "SELECT Items.ID, Items.Name, Items.Description, Prices.Price, ItemsImages.Image FROM Items LEFT JOIN Prices ON Items.ID = Prices.ItemsID LEFT JOiN ItemsImages ON Items.ID = ItemsImages.ItemsId WHERE Prices.DefaultPrice=true AND Items.ID=?;";
+            String sql = "SELECT Items.ID, Items.Name, Items.Description, DefaultPrices.Price, ItemsImages.Image FROM Items LEFT JOIN DefaultPrices ON Items.ID = DefaultPrices.ItemsID LEFT JOIN ItemsImages ON Items.ID = ItemsImages.ItemsId WHERE Items.ID=?;";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, passedId);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -140,7 +183,7 @@ public class Database {
         try{
             connection = DriverManager.getConnection(DB_URL, USER, PASS);
 
-            String sql = "SELECT Items.ID, Items.Name, Items.Description, Prices.Price FROM Items LEFT JOIN Prices ON Items.ID = Prices.ItemsID WHERE Prices.DefaultPrice=true;";
+            String sql = "SELECT Items.ID, Items.Name, Items.Description, DefaultPrices.Price FROM Items LEFT JOIN DefaultPrices ON Items.ID = DefaultPrices.ItemsID;";
             preparedStatement = connection.prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){

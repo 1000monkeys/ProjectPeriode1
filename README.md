@@ -17,10 +17,16 @@ Added checks for inserting temporary price so you don't have 2 temporary prices 
 
 **V0.2**<br />
 Added deleting a temporary prices with the needed checks so that if the price is active you just set the end date to now.<br />
+Added alert message to inserting a new item.<br />
+
+**V0.2.1**<br />
+Changed database so that there is a DefaultPrice table instead of having a boolean on the Prices table.<br />
+Fix float values overflowing from 99999999.99 to 10000000.<br />
+And float rounding errors.<br />
+Included database in release.<br />
+
+
 
 ## **Plans**<br />
-Add to database inserter ability to delete/edit temporary prices.<br />
-And if you delete one that is active it will save a temporary price to DB from start of temporary price to be deleted till  the delete time for if someone did buy that item during that time frame.<br />
-
 Add to the register ability to have customer cards and customer card discounts.<br />
 And build the normal things needed for a register, For example 'scanning' an item, that being added to the list of items being bought etc.<br />

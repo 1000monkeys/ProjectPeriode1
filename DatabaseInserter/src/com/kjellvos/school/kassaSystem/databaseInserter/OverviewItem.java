@@ -15,6 +15,7 @@ import javafx.scene.text.Text;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
@@ -68,7 +69,9 @@ public class OverviewItem implements SceneImplementation {
 
         priceText = new Text("De standaard prijs:");
         priceTextField = new TextField();
-        priceTextField.setText("€" + item.getPrice());
+        BigDecimal priceString = new BigDecimal(item.getPrice());
+        priceString = priceString.setScale(2, BigDecimal.ROUND_HALF_UP);
+        priceTextField.setText("€" + priceString.toPlainString());
         priceTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             main.getRegexAndFocusFunctions().doPriceRegex(priceTextField, oldValue, newValue);
         });
@@ -152,11 +155,11 @@ public class OverviewItem implements SceneImplementation {
         gridHandler.add(2, 4, showImageButton, 1, 1, false);
         gridHandler.add(3, 4, pickImageButton, 1, 1, false);
 
-        gridHandler.add(0, 5, tableView, 3, 5, false);
-        gridHandler.add(3, 5, addTemporaryPriceButton, 1, 4, false);
-        gridHandler.add(3, 9, deleteTemporaryPriceButton, false);
+        gridHandler.add(0, 5, submitButton, 4, 1, false);
 
-        gridHandler.add(0, 10, submitButton, 4, 1, false);
+        gridHandler.add(0, 6, tableView, 3, 5, false);
+        gridHandler.add(3, 6, addTemporaryPriceButton, 1, 4, false);
+        gridHandler.add(3, 10, deleteTemporaryPriceButton, false);
 
         scene = gridHandler.getGridAsScene();
         return scene;
