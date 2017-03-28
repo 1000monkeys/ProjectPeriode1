@@ -19,7 +19,9 @@ public class Main extends Application{
     private RegexAndFocusFunctions regexAndFocusFunctions;
     private MainMenu mainMenu;
     private GetItemsList getItemsList;
+    private GetCategorieList getCategorieList;
     private AddNewItem addNewItem;
+    private AddNewCategorie addNewCategorie;
     private AddNewTemporaryPrice addNewTemporaryPrice;
     private OverviewItem overviewItem;
 
@@ -32,8 +34,10 @@ public class Main extends Application{
         regexAndFocusFunctions = new RegexAndFocusFunctions();
         database = new Database(this);
         getItemsList = new GetItemsList(this);
+        getCategorieList = new GetCategorieList(this);
         mainMenu = new MainMenu(this);
         addNewItem = new AddNewItem(this);
+        addNewCategorie = new AddNewCategorie(this);
         addNewTemporaryPrice = new AddNewTemporaryPrice(this);
         overviewItem = new OverviewItem(this);
 
@@ -101,5 +105,13 @@ public class Main extends Application{
 
     public SceneImplementation getScene() {
         return scene;
+    }
+
+    public AddNewCategorie getAddNewCategorie() {
+        return addNewCategorie;
+    }
+
+    public GetCategorieList getCategorieList() {
+        return getCategorieList;
     }
 }

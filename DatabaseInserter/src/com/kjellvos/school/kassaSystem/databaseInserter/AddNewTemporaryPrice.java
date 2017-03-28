@@ -130,20 +130,12 @@ public class AddNewTemporaryPrice implements SceneImplementation {
             if (fromDateTime == tillDateTime || fromDateTime.isBefore(tillDateTime)) {
                 if (fromDateTime.isAfter(LocalDateTime.now())) {
                     main.getDatabase().newTemporaryPriceUpload(id, fromDateTime, tillDateTime, Float.parseFloat(price));
-
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Ingevoerd!");
-                    alert.setHeaderText("Succesvol ingevoerd!");
-                    alert.setContentText("De waarden zijn succesvol ingevoerd!");
-
-                    alert.showAndWait();
                     main.returnToPreviousScene();
                 }else{
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Oops!");
                     alert.setHeaderText("Er gaat iets fout!");
                     alert.setContentText("Je kan niet een andere prijs in het verleden toevoegen!");
-
                     alert.showAndWait();
                 }
             } else {
@@ -151,7 +143,6 @@ public class AddNewTemporaryPrice implements SceneImplementation {
                 alert.setTitle("Start datum na begin datum!");
                 alert.setHeaderText("De start datum is na het begin datum.");
                 alert.setContentText("Dit kan natuurlijk helemaal niet!");
-
                 alert.showAndWait();
             }
         }else{
@@ -159,7 +150,6 @@ public class AddNewTemporaryPrice implements SceneImplementation {
             alert.setTitle("Oops!");
             alert.setHeaderText("Er gaat iets fout!");
             alert.setContentText("Je kan niet 2 prijzen tegelijk hebben!");
-
             alert.showAndWait();
         }
     }

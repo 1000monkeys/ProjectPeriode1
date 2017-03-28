@@ -14,7 +14,7 @@ public class MainMenu implements SceneImplementation {
 
     Scene scene;
 
-    Button addNewItem, addNewTemporaryPrice, addNewCustomer;
+    Button addNewItem, addNewTemporaryPrice, addNewCustomer, addNewCategorie, categorieOverview;
 
     public MainMenu(Main main){
         this.main = main;
@@ -38,8 +38,23 @@ public class MainMenu implements SceneImplementation {
             main.changeScene(main.getItemsList());
         });
 
+        addNewCustomer = new Button("Nieuwe klantenkaard registereen.");
+
+        addNewCategorie = new Button("Nieuwe item categorie toevoegen.");
+        addNewCategorie.setOnMouseClicked(event -> {
+                main.changeScene(main.getAddNewCategorie());
+        });
+
+        categorieOverview = new Button("Lijst van alle categorieen bekijken.");
+        categorieOverview.setOnMouseClicked(event -> {
+            main.changeScene(main.getCategorieList());
+        });
+
         gridHandler.add(0, 0, addNewItem, false);
         gridHandler.add(0, 1, addNewTemporaryPrice, false);
+        gridHandler.add(0, 2, addNewCustomer, false);
+        gridHandler.add(0, 3, addNewCategorie, false);
+        gridHandler.add(0, 4, categorieOverview, false);
 
         scene = gridHandler.getGridAsScene();
         return scene;

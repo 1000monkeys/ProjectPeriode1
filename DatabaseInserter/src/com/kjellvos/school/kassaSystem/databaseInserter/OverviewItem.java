@@ -4,6 +4,7 @@ import com.kjellvos.os.gridHandler.GridHandler;
 import com.kjellvos.school.kassaSystem.databaseInserter.database.Item;
 import com.kjellvos.school.kassaSystem.databaseInserter.database.Price;
 import com.kjellvos.school.kassaSystem.databaseInserter.interfaces.SceneImplementation;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -32,9 +33,11 @@ public class OverviewItem implements SceneImplementation {
 
     Scene scene;
 
-    Button backToLastMenuButton, pickImageButton, showImageButton, addTemporaryPriceButton, editTemporaryPriceButton, deleteTemporaryPriceButton, submitButton;
-    Text pickImageText, enterNameText, enterDescriptionText, priceText;
+    Button backToLastMenuButton, pickImageButton, showImageButton, addTemporaryPriceButton, deleteTemporaryPriceButton, submitButton;
+    Text pickImageText, enterNameText, enterDescriptionText, priceText, categorieText;
     TextField enterNameTextField, enterDescriptionTextField, priceTextField;
+
+    ComboBox categorieComboBox;
 
     TableView tableView;
     TableColumn idTableColumn, fromWhenTableColumn, tillWhenTableColumn, priceTableColumn;
@@ -43,6 +46,7 @@ public class OverviewItem implements SceneImplementation {
     Image image;
 
     int id;
+    ObservableList categories;
 
     public OverviewItem(Main main) {
         this.main = main;
@@ -76,6 +80,10 @@ public class OverviewItem implements SceneImplementation {
             main.getRegexAndFocusFunctions().doPriceRegex(priceTextField, oldValue, newValue);
         });
 
+        categorieText = new Text("Selecteer een categorie:");
+        categories = main.getDatabase().getCategorieNamesList();
+        categorieComboBox = new ComboBox(categories);
+        categorieComboBox.getSelectionModel().select(item.getCategorie());
 
         pickImageText = new Text("Afbeelding aanpassen:");
         image = item.getImage();
@@ -151,15 +159,18 @@ public class OverviewItem implements SceneImplementation {
         gridHandler.add(0, 3, priceText, 2, 1, false);
         gridHandler.add(2, 3, priceTextField, 2, 1, false);
 
-        gridHandler.add(0, 4, pickImageText, 2, 1, false);
-        gridHandler.add(2, 4, showImageButton, 1, 1, false);
-        gridHandler.add(3, 4, pickImageButton, 1, 1, false);
+        gridHandler.add(0, 4, categorieText, 2, 1, false);
+        gridHandler.add(2, 4, categorieComboBox, 2, 1, false);
 
-        gridHandler.add(0, 5, submitButton, 4, 1, false);
+        gridHandler.add(0, 5, pickImageText, 2, 1, false);
+        gridHandler.add(2, 5, showImageButton, 1, 1, false);
+        gridHandler.add(3, 5, pickImageButton, 1, 1, false);
 
-        gridHandler.add(0, 6, tableView, 3, 5, false);
-        gridHandler.add(3, 6, addTemporaryPriceButton, 1, 4, false);
-        gridHandler.add(3, 10, deleteTemporaryPriceButton, false);
+        gridHandler.add(0, 6, submitButton, 4, 1, false);
+
+        gridHandler.add(0, 7, tableView, 3, 5, false);
+        gridHandler.add(3, 7, addTemporaryPriceButton, 1, 4, false);
+        gridHandler.add(3, 11, deleteTemporaryPriceButton, false);
 
         scene = gridHandler.getGridAsScene();
         return scene;
@@ -168,6 +179,8 @@ public class OverviewItem implements SceneImplementation {
     @Override
     public void reload() {
         tableView.setItems(main.getDatabase().getPricesOfItem(id));
+        categorieComboBox = new ComboBox(categories);
+        categorieComboBox.getSelectionModel().select(new String(item.getCategorie()));
     }
 
     @Override

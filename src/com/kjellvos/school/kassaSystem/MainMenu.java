@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TitledPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 /**
@@ -33,9 +34,17 @@ public class MainMenu {
         corrigeerButton = new Button("Corrigeer");
         betaalButton = new Button("Betaal");
 
-        categorieListView = new TitledPane("Categorieen", new Pane());
-        bonListView = new ListView();
+        AnchorPane pane = new AnchorPane();
+        TitledPane categorie1 = new TitledPane("Categorie 1", new Pane());
+        pane.setTopAnchor(categorie1, 0D);
+        pane.setBottomAnchor(categorie1, 0D);
+        pane.setLeftAnchor(categorie1, 0D);
+        pane.setRightAnchor(categorie1, 0D);
+        pane.getChildren().add(categorie1);
 
+        categorieListView = new TitledPane("Categorieen", pane);
+        categorieListView.setCollapsible(false);
+        bonListView = new ListView();
 
         gridHandler.add(0,0, productenButton, false);
         gridHandler.add(0, 1, bonnenButton, false);

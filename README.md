@@ -21,12 +21,19 @@ Added alert message to inserting a new item.<br />
 
 **V0.2.1**<br />
 Changed database so that there is a DefaultPrice table instead of having a boolean on the Prices table.<br />
-Fix float values overflowing from 99999999.99 to 10000000.<br />
-And float rounding errors.<br />
+Fixed float rounding errors.<br />
 Included database in release.<br />
 
+
+**V0.3**<br />
+Added categorie's to the database and retooled the database inserter to work with them.
 
 
 ## **Plans**<br />
 Add to the register ability to have customer cards and customer card discounts.<br />
 And build the normal things needed for a register, For example 'scanning' an item, that being added to the list of items being bought etc.<br />
+
+
+## **TODO**<br />
+Loads
+

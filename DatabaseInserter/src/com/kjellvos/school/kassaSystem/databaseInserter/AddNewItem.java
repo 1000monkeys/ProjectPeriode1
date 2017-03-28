@@ -2,8 +2,10 @@ package com.kjellvos.school.kassaSystem.databaseInserter;
 
 import com.kjellvos.os.gridHandler.GridHandler;
 import com.kjellvos.school.kassaSystem.databaseInserter.interfaces.SceneImplementation;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
@@ -20,11 +22,14 @@ public class AddNewItem implements SceneImplementation {
     Scene scene;
 
     Button backToLastMenuButton, pickImageButton, submitButton;
-    Text pickImageText, enterNameText, enterDescriptionText, priceText;
+    Text pickImageText, enterNameText, enterDescriptionText, priceText, categorieText;
     TextField enterNameTextField, enterDescriptionTextField, priceTextField;
+    ComboBox categorieComboBox;
 
     FileChooser fileChooser;
     File file;
+
+    ObservableList categories;
 
     public AddNewItem(Main main){
         this.main = main;
@@ -32,7 +37,8 @@ public class AddNewItem implements SceneImplementation {
 
     @Override
     public void reload() {
-        //TODO
+        main.returnToPreviousScene();
+        main.changeScene(main.getAddNewItem());
     }
 
     public Scene createAndGetScene() {
@@ -55,6 +61,10 @@ public class AddNewItem implements SceneImplementation {
             main.getRegexAndFocusFunctions().doPriceRegex(priceTextField, oldValue, newValue);
         });
 
+        categorieText = new Text("Selecteer een categorie:");
+        categories = main.getDatabase().getCategorieNamesList();
+        categorieComboBox = new ComboBox(categories);
+
         pickImageText = new Text("Kies een bijpassende afbeelding:");
         pickImageButton = new Button("Afbeelding kiezen.");
         pickImageButton.setOnMouseClicked(event -> {
@@ -63,7 +73,7 @@ public class AddNewItem implements SceneImplementation {
 
         submitButton = new Button("Invoeren!");
         submitButton.setOnMouseClicked(event -> {
-            main.getDatabase().newItemUpload(enterNameTextField.getText(), enterDescriptionTextField.getText(), Float.parseFloat(priceTextField.getText().substring(1, priceTextField.getText().length())), file);
+            main.getDatabase().newItemUpload(enterNameTextField.getText(), enterDescriptionTextField.getText(), Float.parseFloat(priceTextField.getText().substring(1, priceTextField.getText().length())), categorieComboBox.getSelectionModel().getSelectedItem().toString(), file);
         });
 
         gridHandler.add(0, 0, backToLastMenuButton, 2, 1, false);
@@ -77,10 +87,13 @@ public class AddNewItem implements SceneImplementation {
         gridHandler.add(0, 3, priceText, false);
         gridHandler.add(1, 3, priceTextField, false);
 
-        gridHandler.add(0, 4, pickImageText, false);
-        gridHandler.add(1, 4, pickImageButton, false);
+        gridHandler.add(0, 4, categorieText, false);
+        gridHandler.add(1, 4, categorieComboBox, false);
 
-        gridHandler.add(0, 5, submitButton, 2, 1, false);
+        gridHandler.add(0, 5, pickImageText, false);
+        gridHandler.add(1, 5, pickImageButton, false);
+
+        gridHandler.add(0, 6, submitButton, 2, 1, false);
 
         scene = gridHandler.getGridAsScene();
         return scene;
