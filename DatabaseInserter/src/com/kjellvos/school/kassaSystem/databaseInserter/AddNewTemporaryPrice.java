@@ -17,10 +17,6 @@ import java.time.format.DateTimeFormatter;
 /**
  * Created by kjevo on 3/24/17.
  */
-
-/**
- * TODO Van datepicker naar textfield en dan net zoals tijd en prijs doen.
- */
 public class AddNewTemporaryPrice implements SceneImplementation {
     Main main;
     GridHandler gridHandler;

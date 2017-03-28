@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ProjectPeriode1:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ProjectPeriode1_jar</output-path>
+    <root id="archive" name="ProjectPeriode1.jar">
+      <element id="module-output" name="ProjectPeriode1" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/mariadb-java-client-1.5.9.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/JavaFXGridWithAutoResizingGridItems.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

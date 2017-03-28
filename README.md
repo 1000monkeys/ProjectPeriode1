@@ -28,6 +28,10 @@ Included database in release.<br />
 **V0.3**<br />
 Added categorie's to the database and retooled the database inserter to work with them.
 
+**V0.3.1**<br />
+Added DBCP for faster database connections.<br />
+Small bug fixes.<br />
+We now use a mysql database located on a server.<br />
 
 ## **Plans**<br />
 Add to the register ability to have customer cards and customer card discounts.<br />
@@ -35,5 +39,6 @@ And build the normal things needed for a register, For example 'scanning' an ite
 
 
 ## **TODO**<br />
-Loads
+Lots.<br />
+Find a way to make sure an insert fails or succeeds
 

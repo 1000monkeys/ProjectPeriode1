@@ -16,20 +16,20 @@ import java.io.File;
  * Created by kjevo on 3/24/17.
  */
 public class AddNewItem implements SceneImplementation {
-    Main main;
-    GridHandler gridHandler;
+    private Main main;
+    private GridHandler gridHandler;
 
-    Scene scene;
+    private Scene scene;
 
-    Button backToLastMenuButton, pickImageButton, submitButton;
-    Text pickImageText, enterNameText, enterDescriptionText, priceText, categorieText;
-    TextField enterNameTextField, enterDescriptionTextField, priceTextField;
-    ComboBox categorieComboBox;
+    private Button backToLastMenuButton, pickImageButton, submitButton;
+    private Text pickImageText, enterNameText, enterDescriptionText, priceText, categorieText;
+    private TextField enterNameTextField, enterDescriptionTextField, priceTextField;
+    private ComboBox categorieComboBox;
 
-    FileChooser fileChooser;
-    File file;
+    private FileChooser fileChooser;
+    private File file;
 
-    ObservableList categories;
+    private ObservableList categories;
 
     public AddNewItem(Main main){
         this.main = main;

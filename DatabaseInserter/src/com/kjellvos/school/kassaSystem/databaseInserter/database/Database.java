@@ -2,18 +2,20 @@ package com.kjellvos.school.kassaSystem.databaseInserter.database;
 
 import com.kjellvos.school.kassaSystem.databaseInserter.Main;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Region;
+import org.apache.commons.dbcp2.BasicDataSource;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+import java.beans.PropertyVetoException;
+import java.io.*;
 import java.sql.*;
 import java.time.LocalDateTime;
 
@@ -22,49 +24,62 @@ import java.time.LocalDateTime;
  */
 public class Database {
     Main main;
+    BasicDataSource basicDataSource;
     Connection connection;
     PreparedStatement preparedStatement;
 
-    static final String DB_URL = "jdbc:mariadb://localhost:3306/KassaSystem?allowMultiQueries=true";
-    static final String USER = "KassaSystem";
-    static final String PASS = "password123321";
-
-    public Database(Main main) {
+    public Database(Main main) throws SQLException, PropertyVetoException, SQLException, IOException {
         this.main = main;
+
+        System.setProperty(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.fscontext.RefFSContextFactory");
+        System.setProperty(Context.PROVIDER_URL, "file:///tmp");
+        InitialContext ic = null;
+        try {
+            ic = new InitialContext();
+        } catch (NamingException e) {
+            e.printStackTrace();
+        }
+
+        basicDataSource = new BasicDataSource();
+        basicDataSource.setDriverClassName("com.mysql.jdbc.Driver");
+        basicDataSource.setUsername("KassaSystem");
+        basicDataSource.setPassword("password123321");
+        basicDataSource.setUrl("jdbc:mysql://213.154.224.189/KassaSystem");
+
+        connection = basicDataSource.getConnection();
     }
 
     @SuppressWarnings("JpaQueryApiInspection")
     public void newItemUpload(String name, String description, float price, String categorie, File image){
         try{
-            connection = DriverManager.getConnection(DB_URL, USER, PASS);
+            connection = basicDataSource.getConnection();
 
+            int categorieId = 0 ;
+            String sql = "SELECT ID FROM Categories WHERE Name=?;";
 
-                int categorieId = 0 ;
-                String sql = "SELECT ID FROM Categories WHERE Name=?;";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, categorie);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                categorieId = resultSet.getInt("ID");
+            }
 
-                preparedStatement = connection.prepareStatement(sql);
-                preparedStatement.setString(1, categorie);
-                ResultSet resultSet = preparedStatement.executeQuery();
-                while (resultSet.next()){
-                    categorieId = resultSet.getInt("ID");
-                }
-
-                FileInputStream fileInputStream = new FileInputStream(image);
-                sql =   "BEGIN;\n" +
-                        "   INSERT INTO Items SET Name=?, Description=?;\n" +
-                        "   SET @ItemsId = LAST_INSERT_ID();\n" +
-                        "   INSERT INTO DefaultPrices SET ItemsID=@ItemsId, Price=?;\n" +
-                        "   INSERT INTO ItemsImages set ItemsId=@ItemsId, Image=?;\n" +
-                        "   INSERT INTO CategorieItems SET ItemsId=@ItemsId, CategorieId=?;\n" +
-                        "COMMIT;\n";
-                preparedStatement = connection.prepareStatement(sql);
-                preparedStatement.setString(1, name);
-                preparedStatement.setString(2, description);
-                preparedStatement.setFloat(3, price);
-                preparedStatement.setBlob(4, fileInputStream);
-                preparedStatement.setInt(5, categorieId);
-                preparedStatement.executeUpdate();
-                //TODO figure out way to make sure it's inserted.
+            FileInputStream fileInputStream = new FileInputStream(image);
+            sql =   "BEGIN;\n" +
+                    "   INSERT INTO Items SET Name=?, Description=?;\n" +
+                    "   SET @ItemsId = LAST_INSERT_ID();\n" +
+                    "   INSERT INTO DefaultPrices SET ItemsID=@ItemsId, Price=?;\n" +
+                    "   INSERT INTO ItemsImages set ItemsId=@ItemsId, Image=?;\n" +
+                    "   INSERT INTO CategorieItems SET ItemsId=@ItemsId, CategorieId=?;\n" +
+                    "COMMIT;\n";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, description);
+            preparedStatement.setFloat(3, price);
+            preparedStatement.setBlob(4, fileInputStream);
+            preparedStatement.setInt(5, categorieId);
+            preparedStatement.executeUpdate();
+            //TODO figure out way to make sure it's inserted.
             //if () {
                 showSuccesfullyUploaded();
             //}else{
@@ -87,7 +102,7 @@ public class Database {
 
     public void newTemporaryPriceUpload(int id, LocalDateTime from, LocalDateTime till, float price){
         try{
-            connection = DriverManager.getConnection(DB_URL, USER, PASS);
+            connection = basicDataSource.getConnection();
 
             Timestamp fromTimestamp = Timestamp.valueOf(from);
             Timestamp tillTimeStamp = Timestamp.valueOf(till);
@@ -101,17 +116,18 @@ public class Database {
 
             boolean inserted = preparedStatement.execute();
 
-            if(inserted){
+            //TODO figure out way to make for sure it's inserted
+            //if(inserted){
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Ingevoerd!");
                 alert.setHeaderText("Succesvol ingevoerd!");
                 alert.setContentText("De waarden zijn succesvol ingevoerd!");
                 alert.showAndWait();
                 main.getScene().reload();
-            }else{
-                showOopsAlert();
-                System.out.println("Error 9");
-            }
+            //}else{
+            //   showOopsAlert();
+            //    System.out.println("Error 9");
+            //}
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -126,7 +142,7 @@ public class Database {
 
     public void itemUpdate(int id, String name, String description, float price, File image){
         try{
-            connection = DriverManager.getConnection(DB_URL, USER, PASS);
+            connection = basicDataSource.getConnection();
 
             if (image != null) {
                 FileInputStream fileInputStream = new FileInputStream(image);
@@ -186,7 +202,7 @@ public class Database {
 
     public Item getItemInfo(int passedId){
         try{
-            connection = DriverManager.getConnection(DB_URL, USER, PASS);
+            connection = basicDataSource.getConnection();
 
             String sql =    "SELECT Items.ID, Items.Name, Items.Description, DefaultPrices.Price, Categories.Name AS CName, ItemsImages.Image FROM Items \n" +
                             "   LEFT JOIN DefaultPrices ON Items.ID = DefaultPrices.ItemsID\n" +
@@ -233,7 +249,7 @@ public class Database {
     public ObservableList getItemsList() {
         ObservableList<Item> data = FXCollections.observableArrayList();
         try{
-            connection = DriverManager.getConnection(DB_URL, USER, PASS);
+            connection = basicDataSource.getConnection();
 
             String sql = "SELECT Items.ID, Items.Name, Items.Description, DefaultPrices.Price, Categories.Name AS CName FROM Items LEFT JOIN DefaultPrices ON Items.ID = DefaultPrices.ItemsID LEFT JOIN CategorieItems ON CategorieItems.ItemsId = Items.ID LEFT JOIN Categories ON Categories.ID = CategorieItems.CategorieId;";
             preparedStatement = connection.prepareStatement(sql);
@@ -276,7 +292,7 @@ public class Database {
     public ObservableList getPricesOfItem(int passedId){
         ObservableList<Price> data = FXCollections.observableArrayList();
         try{
-            connection = DriverManager.getConnection(DB_URL, USER, PASS);
+            connection = basicDataSource.getConnection();
 
             String sql = "SELECT Prices.ID, Prices.FromWhen, Prices.TillWhen, Prices.Price FROM Prices WHERE Prices.ItemsID=? ORDER BY Prices.FromWhen ASC, Prices.TillWhen ASC;";
             preparedStatement = connection.prepareStatement(sql);
@@ -321,7 +337,7 @@ public class Database {
      */
     public boolean checkNewTemporaryPriceUpload(int id, LocalDateTime fromDateTime, LocalDateTime tillDateTime) {
         try {
-            connection = DriverManager.getConnection(DB_URL, USER, PASS);
+            connection = basicDataSource.getConnection();
 
             String sql = "SELECT Prices.FromWhen, Prices.TillWhen FROM Prices WHERE ItemsID=? AND Prices.TillWhen > NOW();";
             preparedStatement = connection.prepareStatement(sql);
@@ -359,7 +375,7 @@ public class Database {
 
     public int updateTemporaryPrice(int itemsId, int pricesId, Timestamp tillwhen){
         try{
-            connection = DriverManager.getConnection(DB_URL, USER, PASS);
+            connection = basicDataSource.getConnection();
 
             String sql = "UPDATE Prices SET TillWhen=? WHERE ItemsID=? AND ID=?;";
             preparedStatement = connection.prepareStatement(sql);
@@ -382,7 +398,7 @@ public class Database {
 
     public void deleteTemporaryPrice(int itemsId, int pricesId) {
         try{
-            connection = DriverManager.getConnection(DB_URL, USER, PASS);
+            connection = basicDataSource.getConnection();
 
             String sql = "SELECT Prices.FromWhen, Prices.TillWhen FROM Prices WHERE ItemsID=? AND Prices.ID=?";
             preparedStatement = connection.prepareStatement(sql);
@@ -466,7 +482,7 @@ public class Database {
 
     public void newCategorieUpload(String categorieName) {
         try{
-            connection = DriverManager.getConnection(DB_URL, USER, PASS);
+            connection = basicDataSource.getConnection();
 
             String sql = "INSERT INTO Categories SET Name=?;";
             preparedStatement = connection.prepareStatement(sql);
@@ -493,7 +509,7 @@ public class Database {
     public ObservableList getCategorieList(){
         ObservableList<Categorie> data = FXCollections.observableArrayList();
         try{
-            connection = DriverManager.getConnection(DB_URL, USER, PASS);
+            connection = basicDataSource.getConnection();
 
             String sql = "SELECT * FROM Categories;";
             preparedStatement = connection.prepareStatement(sql);
@@ -527,7 +543,7 @@ public class Database {
     public ObservableList getCategorieNamesList(){
         ObservableList<String> data = FXCollections.observableArrayList();
         try{
-            connection = DriverManager.getConnection(DB_URL, USER, PASS);
+            connection = basicDataSource.getConnection();
 
             String sql = "SELECT * FROM Categories;";
             preparedStatement = connection.prepareStatement(sql);

@@ -5,7 +5,6 @@
       <module fileurl="file://$PROJECT_DIR$/DatabaseInserter/DatabaseInserter.iml" filepath="$PROJECT_DIR$/DatabaseInserter/DatabaseInserter.iml" />
       <module fileurl="file://$PROJECT_DIR$/ProjectPeriode1.iml" filepath="$PROJECT_DIR$/ProjectPeriode1.iml" />
       <module fileurl="file://$PROJECT_DIR$/Tests/Tests.iml" filepath="$PROJECT_DIR$/Tests/Tests.iml" />
-      <module fileurl="file://$PROJECT_DIR$/TornadoFx/TornadoFx.iml" filepath="$PROJECT_DIR$/TornadoFx/TornadoFx.iml" />
     </modules>
   </component>
 </project>

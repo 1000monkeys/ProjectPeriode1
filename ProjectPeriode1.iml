@@ -6,9 +6,12 @@
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/lib" type="java-resource" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="JavaFXGridWithAutoResizingGridItems" level="project" />
-    <orderEntry type="library" name="mariadb-java-client-1.5.9" level="project" />
+    <orderEntry type="library" name="commons-dbcp2-2.1.1" level="project" />
+    <orderEntry type="library" name="mysql-connector-java-5.1.41-bin" level="project" />
+    <orderEntry type="library" name="commons-pool2-2.4.2" level="project" />
+    <orderEntry type="library" name="fscontext-4.2" level="project" />
   </component>
 </module>
