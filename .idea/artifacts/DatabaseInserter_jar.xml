@@ -1,10 +1,31 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="DatabaseInserter:jar">
+  <artifact type="javafx" build-on-make="true" name="DatabaseInserter:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/DatabaseInserter_jar</output-path>
-    <root id="archive" name="DatabaseInserter.jar">
+    <properties id="javafx-properties">
+      <options>
+        <option name="appClass" value="com.kjellvos.school.kassaSystem.databaseInserter.Main" />
+        <option name="description" value="" />
+        <option name="height" value="600" />
+        <option name="htmlPlaceholderId" value="" />
+        <option name="title" value="" />
+        <option name="vendor" value="" />
+        <option name="version" value="" />
+        <option name="width" value="800" />
+      </options>
+    </properties>
+    <root id="root">
       <element id="module-output" name="DatabaseInserter" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/lib/mariadb-java-client-1.5.9.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/commons-logging-1.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/mysql-connector-java-5.1.41-bin.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/JavaFXGridWithAutoResizingGridItems.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/commons-dbcp2-2.1.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/commons-pool2-2.4.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/fscontext-4.2.jar" path-in-jar="/" />
+      <element id="archive" name="DatabaseInserter.jar">
+        <element id="directory" name="META-INF">
+          <element id="file-copy" path="$PROJECT_DIR$/DatabaseInserter/META-INF/MANIFEST.MF" />
+        </element>
+      </element>
     </root>
   </artifact>
 </component>

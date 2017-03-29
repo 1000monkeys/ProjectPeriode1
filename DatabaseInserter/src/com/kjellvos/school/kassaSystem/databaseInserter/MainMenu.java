@@ -14,7 +14,7 @@ public class MainMenu implements SceneImplementation {
 
     Scene scene;
 
-    Button addNewItem, addNewTemporaryPrice, addNewCustomer, addNewCategorie, categorieOverview;
+    Button itemOverview, addNewCustomer, categorieOverview;
 
     public MainMenu(Main main){
         this.main = main;
@@ -28,33 +28,21 @@ public class MainMenu implements SceneImplementation {
     public Scene createAndGetScene(){
         gridHandler = new GridHandler();
 
-        addNewItem = new Button("Nieuwe item toevoegen.");
-        addNewItem.setOnMouseClicked(event -> {
-            main.changeScene(main.getAddNewItem());
-        });
-
-        addNewTemporaryPrice = new Button("Item aanpassen of tijdelijke prijs aan item toevoegen.");
-        addNewTemporaryPrice.setOnMouseClicked(event -> {
+        itemOverview = new Button("Item aanpassen, toevoegen, verwijderen of tijdelijke prijs aan item toevoegen.");
+        itemOverview.setOnMouseClicked(event -> {
             main.changeScene(main.getItemsList());
         });
 
-        addNewCustomer = new Button("Nieuwe klantenkaard registereen.");
+        addNewCustomer = new Button("Klantenkaart registreren, aanpassen of verwijderen.");
 
-        addNewCategorie = new Button("Nieuwe item categorie toevoegen.");
-        addNewCategorie.setOnMouseClicked(event -> {
-                main.changeScene(main.getAddNewCategorie());
-        });
-
-        categorieOverview = new Button("Lijst van alle categorieen bekijken.");
+        categorieOverview = new Button("Categorie aanpassen, toevoegen verwijderen.");
         categorieOverview.setOnMouseClicked(event -> {
             main.changeScene(main.getCategorieList());
         });
 
-        gridHandler.add(0, 0, addNewItem, false);
-        gridHandler.add(0, 1, addNewTemporaryPrice, false);
-        gridHandler.add(0, 2, addNewCustomer, false);
-        gridHandler.add(0, 3, addNewCategorie, false);
-        gridHandler.add(0, 4, categorieOverview, false);
+        gridHandler.add(0, 0, itemOverview, false);
+        gridHandler.add(0, 1, addNewCustomer, false);
+        gridHandler.add(0, 2, categorieOverview, false);
 
         scene = gridHandler.getGridAsScene();
         return scene;

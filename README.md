@@ -33,6 +33,10 @@ Added DBCP for faster database connections.<br />
 Small bug fixes.<br />
 We now use a mysql database located on a server.<br />
 
+**V0.3.2**<br />
+Found a way to make sure a multiline update fails or not so implemented it.<br />
+We now check before inserting a categorie for if it exists.<br />
+
 ## **Plans**<br />
 Add to the register ability to have customer cards and customer card discounts.<br />
 And build the normal things needed for a register, For example 'scanning' an item, that being added to the list of items being bought etc.<br />
@@ -40,5 +44,7 @@ And build the normal things needed for a register, For example 'scanning' an ite
 
 ## **TODO**<br />
 Lots.<br />
-Find a way to make sure an insert fails or succeeds
+Make the delete item button do something.<br />
+Make the delete categorie button do something.<br />
+Change the regex functions for time to HH:MM:SS from HH:MM.<br />
 

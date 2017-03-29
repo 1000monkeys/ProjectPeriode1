@@ -8,12 +8,11 @@ import javafx.scene.image.Image;
  */
 public class Item {
     private int id;
-    private String name, description, categorie;
-    private float price;
+    private String name, description, categorie, price;
     private Button button;
     private Image image;
 
-    public Item(int id, String name, String description, float price, String categorie, Button button){
+    public Item(int id, String name, String description, String price, String categorie, Button button){
         this.id = id;
         this.name = name;
         this.description = description;
@@ -22,7 +21,7 @@ public class Item {
         this.button = button;
     }
 
-    public Item(int id, String name, String description, float price, String categorie, Image image){
+    public Item(int id, String name, String description, String price, String categorie, Image image){
         this.id = id;
         this.name = name;
         this.description = description;
@@ -43,7 +42,7 @@ public class Item {
         return description;
     }
 
-    public float getPrice() {
+    public String getPrice() {
         return price;
     }
 

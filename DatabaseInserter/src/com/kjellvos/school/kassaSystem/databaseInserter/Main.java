@@ -5,7 +5,6 @@ import com.kjellvos.school.kassaSystem.databaseInserter.functions.RegexAndFocusF
 import com.kjellvos.school.kassaSystem.databaseInserter.interfaces.SceneImplementation;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
@@ -13,7 +12,6 @@ import javafx.stage.Stage;
 
 import java.beans.PropertyVetoException;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.util.Stack;
 
@@ -38,7 +36,6 @@ public class Main extends Application{
 
 
     @Override
-    @SuppressWarnings("ErrorNotRethrown")
     public void start(Stage primaryStage){
         this.primaryStage = primaryStage;
         regexAndFocusFunctions = new RegexAndFocusFunctions();

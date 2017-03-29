@@ -15,8 +15,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import org.apac
-
 import java.util.ArrayList;
 
 /**

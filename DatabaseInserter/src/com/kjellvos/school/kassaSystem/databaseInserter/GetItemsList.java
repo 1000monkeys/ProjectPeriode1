@@ -22,7 +22,7 @@ public class GetItemsList implements SceneImplementation {
 
     private Scene scene;
 
-    private Button backToLastMenuButton;
+    private Button backToLastMenuButton, addNewItem, deleteItem;
     private TableView tableView;
     private TableColumn idTableColumn, nameTableColumn, descriptionTableColumn, priceTableColumn, moreInfoTableColumn;
 
@@ -32,7 +32,7 @@ public class GetItemsList implements SceneImplementation {
 
     @Override
     public void reload() {
-        //TODO
+        tableView.setItems(main.getDatabase().getItemsList());
     }
 
     public Scene createAndGetScene(){
@@ -64,8 +64,20 @@ public class GetItemsList implements SceneImplementation {
         tableView.setItems(main.getDatabase().getItemsList());
         tableView.getColumns().addAll(idTableColumn, nameTableColumn, descriptionTableColumn, priceTableColumn, moreInfoTableColumn);
 
-        gridHandler.add(0, 0, backToLastMenuButton, false);
-        gridHandler.add(0,1, tableView, 1, 5, false);
+        addNewItem = new Button("Nieuwe item toevoegen.");
+        addNewItem.setOnMouseClicked(event -> {
+            main.changeScene(main.getAddNewItem());
+        });
+
+        deleteItem = new Button("Item verwijderen.");
+        deleteItem.setOnMouseClicked(event -> {
+            //TODO
+        });
+
+        gridHandler.add(0, 0, backToLastMenuButton, 2, 1, false);
+        gridHandler.add(0,1, tableView, 2, 5, false);
+        gridHandler.add(0, 6, addNewItem, false);
+        gridHandler.add(1, 6, deleteItem, false);
 
         scene = gridHandler.getGridAsScene();
         return scene;

@@ -1,6 +1,5 @@
 package com.kjellvos.school.kassaSystem.databaseInserter.database;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -9,17 +8,17 @@ import java.time.LocalDateTime;
 public class Price {
     int id;
     LocalDateTime fromWhen, tillWhen;
-    float price;
+    String price;
     boolean defaultPrice;
 
-    public Price(int id, LocalDateTime fromWhen, LocalDateTime tillWhen, float price){
+    public Price(int id, LocalDateTime fromWhen, LocalDateTime tillWhen, String price){
         this.id = id;
         this.fromWhen = fromWhen;
         this.tillWhen = tillWhen;
         this.price = price;
     }
 
-    public Price(int id, LocalDateTime fromWhen, LocalDateTime tillWhen, float price, boolean defaultPrice){
+    public Price(int id, LocalDateTime fromWhen, LocalDateTime tillWhen, String price, boolean defaultPrice){
         this.id = id;
         this.fromWhen = fromWhen;
         this.tillWhen = tillWhen;
@@ -39,7 +38,7 @@ public class Price {
         return tillWhen;
     }
 
-    public float getPrice() {
+    public String getPrice() {
         return price;
     }
 

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.6
--- https://www.phpmyadmin.net/
+-- version 4.5.4.1deb2ubuntu2
+-- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 28, 2017 at 03:36 PM
--- Server version: 10.1.22-MariaDB
--- PHP Version: 7.1.3
+-- Generation Time: Mar 28, 2017 at 08:48 PM
+-- Server version: 5.7.17-0ubuntu0.16.04.1
+-- PHP Version: 7.0.15-0ubuntu0.16.04.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -55,7 +55,8 @@ CREATE TABLE `Categories` (
 --
 
 INSERT INTO `Categories` (`ID`, `Name`) VALUES
-(1, 'Testing');
+(1, 'Testing'),
+(2, 'Testing123');
 
 -- --------------------------------------------------------
 
@@ -256,7 +257,7 @@ ALTER TABLE `CategorieItems`
 -- AUTO_INCREMENT for table `Categories`
 --
 ALTER TABLE `Categories`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `CustomerCards`
 --
@@ -296,7 +297,7 @@ ALTER TABLE `Receipts`
 --
 ALTER TABLE `CategorieItems`
   ADD CONSTRAINT `CategorieItems_ibfk_1` FOREIGN KEY (`CategorieId`) REFERENCES `Categories` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `CategorieItems_ibfk_2` FOREIGN KEY (`ItemsID`) REFERENCES `Items` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `CategorieItems_ibfk_2` FOREIGN KEY (`ItemsId`) REFERENCES `Items` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `DefaultPrices`

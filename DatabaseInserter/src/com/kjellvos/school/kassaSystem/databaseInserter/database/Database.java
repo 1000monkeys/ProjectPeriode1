@@ -11,9 +11,6 @@ import javafx.scene.layout.Region;
 import org.apache.commons.dbcp2.BasicDataSource;
 
 import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
 import java.io.*;
 import java.sql.*;
@@ -22,6 +19,7 @@ import java.time.LocalDateTime;
 /**
  * Created by kjevo on 3/24/17.
  */
+@SuppressWarnings("Duplicates")
 public class Database {
     Main main;
     BasicDataSource basicDataSource;
@@ -33,18 +31,12 @@ public class Database {
 
         System.setProperty(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.fscontext.RefFSContextFactory");
         System.setProperty(Context.PROVIDER_URL, "file:///tmp");
-        InitialContext ic = null;
-        try {
-            ic = new InitialContext();
-        } catch (NamingException e) {
-            e.printStackTrace();
-        }
 
         basicDataSource = new BasicDataSource();
         basicDataSource.setDriverClassName("com.mysql.jdbc.Driver");
         basicDataSource.setUsername("KassaSystem");
         basicDataSource.setPassword("password123321");
-        basicDataSource.setUrl("jdbc:mysql://213.154.224.189/KassaSystem");
+        basicDataSource.setUrl("jdbc:mysql://213.154.224.189/KassaSystem?useSSL=false&reconnect=true&allowMultiQueries=true");
 
         connection = basicDataSource.getConnection();
     }
@@ -60,8 +52,14 @@ public class Database {
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, categorie);
             ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()){
-                categorieId = resultSet.getInt("ID");
+            if (resultSet.next()) {
+                resultSet.beforeFirst();
+                while (resultSet.next()) {
+                    categorieId = resultSet.getInt("ID");
+                }
+            }else{
+                showOopsAlert();
+                System.out.println("Error 14");
             }
 
             FileInputStream fileInputStream = new FileInputStream(image);
@@ -69,7 +67,7 @@ public class Database {
                     "   INSERT INTO Items SET Name=?, Description=?;\n" +
                     "   SET @ItemsId = LAST_INSERT_ID();\n" +
                     "   INSERT INTO DefaultPrices SET ItemsID=@ItemsId, Price=?;\n" +
-                    "   INSERT INTO ItemsImages set ItemsId=@ItemsId, Image=?;\n" +
+                    "   INSERT INTO ItemsImages SET ItemsId=@ItemsId, Image=?;\n" +
                     "   INSERT INTO CategorieItems SET ItemsId=@ItemsId, CategorieId=?;\n" +
                     "COMMIT;\n";
             preparedStatement = connection.prepareStatement(sql);
@@ -78,14 +76,27 @@ public class Database {
             preparedStatement.setFloat(3, price);
             preparedStatement.setBlob(4, fileInputStream);
             preparedStatement.setInt(5, categorieId);
-            preparedStatement.executeUpdate();
-            //TODO figure out way to make sure it's inserted.
-            //if () {
+            preparedStatement.addBatch();
+
+            int[] insertedId = new int[1];
+            insertedId[0] = -3;
+            try {
+                insertedId = preparedStatement.executeBatch();
+            }catch (BatchUpdateException e){
+                e.printStackTrace();
+                int i = 0;
+                while (i < insertedId.length){
+                    if (insertedId[i] == Statement.EXECUTE_FAILED) {
+                        System.out.println("Error 13!");
+                        showOopsAlert();
+                    }
+                    i++;
+                }
+            }finally {
+                connection.close();
+                preparedStatement.close();
                 showSuccesfullyUploaded();
-            //}else{
-            //    showOopsAlert();
-            //    System.out.println("Error 10");
-            //}
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (FileNotFoundException e) {
@@ -113,35 +124,37 @@ public class Database {
             preparedStatement.setTimestamp(2, fromTimestamp);
             preparedStatement.setTimestamp(3, tillTimeStamp);
             preparedStatement.setFloat(4, price);
-
-            boolean inserted = preparedStatement.execute();
+            preparedStatement.addBatch();
 
             //TODO figure out way to make for sure it's inserted
-            //if(inserted){
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Ingevoerd!");
-                alert.setHeaderText("Succesvol ingevoerd!");
-                alert.setContentText("De waarden zijn succesvol ingevoerd!");
-                alert.showAndWait();
-                main.getScene().reload();
-            //}else{
-            //   showOopsAlert();
-            //    System.out.println("Error 9");
-            //}
+            main.getScene().reload();
+            int[] insertedId = new int[1];
+            insertedId[0] = -3;
+            try {
+                insertedId = preparedStatement.executeBatch();
+            }catch (BatchUpdateException e){
+                e.printStackTrace();
+                int i = 0;
+                while (i < insertedId.length){
+                    if (insertedId[i] == Statement.EXECUTE_FAILED) {
+                        System.out.println("Error 12! Failed item's id: " + id);
+                        showOopsAlert();
+                    }
+                    i++;
+                }
+            }finally {
+                connection.close();
+                preparedStatement.close();
+                showSuccesfullyUploaded();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                preparedStatement.close();
-                connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
     }
 
-    public void itemUpdate(int id, String name, String description, float price, File image){
-        try{
+    @SuppressWarnings("JpaQueryApiInspection")
+    public void itemUpdate(int id, String name, String description, String price, File image) {
+        try {
             connection = basicDataSource.getConnection();
 
             if (image != null) {
@@ -151,52 +164,57 @@ public class Database {
                                 "   UPDATE DefaultPrices SET Price=? WHERE ItemsID=?;" +
                                 "   UPDATE ItemsImages SET Image=? WHERE ItemsID=?" +
                                 "COMMIT;";
-                preparedStatement = connection.prepareStatement(sql);
+                preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                 preparedStatement.setString(1, name);
                 preparedStatement.setString(2, description);
                 preparedStatement.setInt(3, id);
-                preparedStatement.setFloat(4, price);
+                preparedStatement.setString(4, price);
                 preparedStatement.setInt(5, id);
                 preparedStatement.setBlob(6, fileInputStream);
                 preparedStatement.setInt(7, id);
-            }else {
-                String sql =    "BEGIN;\n" +
-                                "   UPDATE Items SET Name=?, Description=? WHERE ID=?;" +
-                                "   UPDATE DefaultPrices SET Price=? WHERE ItemsID=?;" +
-                                "COMMIT;";
+                preparedStatement.addBatch();
+            } else {
+                String sql = "BEGIN;\n" +
+                        "   UPDATE Items SET Name=?, Description=? WHERE ID=?;" +
+                        "   UPDATE DefaultPrices SET Price=? WHERE ItemsID=?;" +
+                        "COMMIT;";
                 preparedStatement = connection.prepareStatement(sql);
                 preparedStatement.setString(1, name);
                 preparedStatement.setString(2, description);
                 preparedStatement.setInt(3, id);
-                preparedStatement.setFloat(4, price);
+                preparedStatement.setString(4, price);
                 preparedStatement.setInt(5, id);
+                preparedStatement.addBatch();
             }
 
-
-            boolean updated = preparedStatement.execute();
-            if (updated) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
+            int[] insertedId = new int[1];
+            insertedId[0] = -3;
+            try {
+                insertedId = preparedStatement.executeBatch();
+            }catch (BatchUpdateException e){
+                e.printStackTrace();
+                int i = 0;
+                while (i < insertedId.length){
+                    if (insertedId[i] == Statement.EXECUTE_FAILED) {
+                        System.out.println("Error 11! Failed item's id: " + id);
+                        showOopsAlert();
+                    }
+                    i++;
+                }
+            }finally {
+                connection.close();
+                preparedStatement.close();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Succesvol geupdate!");
                 alert.setHeaderText("De waarden zijn succesvol aangepast!");
                 alert.setContentText("Het item heeft nu de nieuwe waarden!");
                 alert.showAndWait();
-                main.getScene().reload();
-            }else{
-                showOopsAlert();
-                System.out.println("Error 8");
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                preparedStatement.close();
-                connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
     }
 
@@ -220,7 +238,7 @@ public class Database {
                     int id = resultSet.getInt("ID");
                     String name = resultSet.getString("Name");
                     String description = resultSet.getString("Description");
-                    float price = resultSet.getFloat("Price");
+                    String price = resultSet.getString("Price");
                     String categorie = resultSet.getString("CName");
                     Blob imageBlob = resultSet.getBlob("Image");
                     InputStream imageInputStream = imageBlob.getBinaryStream();
@@ -260,7 +278,7 @@ public class Database {
                     int id = resultSet.getInt("ID");
                     String name = resultSet.getString("Name");
                     String description = resultSet.getString("Description");
-                    float price = resultSet.getFloat("Price");
+                    String price = resultSet.getString("Price");
                     String categorie = resultSet.getString("CName");
 
 
@@ -297,7 +315,7 @@ public class Database {
             String sql = "SELECT Prices.ID, Prices.FromWhen, Prices.TillWhen, Prices.Price FROM Prices WHERE Prices.ItemsID=? ORDER BY Prices.FromWhen ASC, Prices.TillWhen ASC;";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, passedId);
-            ResultSet resultSet = preparedStatement.executeQuery();;
+            ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 int id = resultSet.getInt("ID");
                 Timestamp fromWhenTimestamp = resultSet.getTimestamp("FromWhen");
@@ -310,7 +328,7 @@ public class Database {
                 if (tillWhenTimestamp != null) {
                     tillWhen = tillWhenTimestamp.toLocalDateTime();
                 }
-                float price = resultSet.getFloat("Price");
+                String price = resultSet.getString("Price");
 
                 data.add(new Price(id, fromWhen, tillWhen, price));
             }
@@ -459,7 +477,6 @@ public class Database {
                         alert.setHeaderText("Succesvol aangepast!");
                         alert.setContentText("Omdat de prijs zijn begin datum en tijd voor nu zijn, kunnen we hem niet verwijderen i.v.m. de mogelijkheid dat iemand dit product al voor deze prijs gekocht heeft!");
                         alert.getDialogPane().getChildren().stream().filter(node -> node instanceof Label).forEach(node -> ((Label)node).setMinHeight(Region.USE_PREF_SIZE));
-
                         alert.showAndWait();
                         main.getScene().reload();
                     }else{
@@ -484,15 +501,28 @@ public class Database {
         try{
             connection = basicDataSource.getConnection();
 
-            String sql = "INSERT INTO Categories SET Name=?;";
+            String sql = "SELECT * FROM Categories WHERE Name=?";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, categorieName);
-            int amountOfRowsInserted = preparedStatement.executeUpdate();
-            if (amountOfRowsInserted == 1) {
-                showSuccesfullyUploaded();
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (!resultSet.next()){
+                sql = "INSERT INTO Categories SET Name=?;";
+                preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.setString(1, categorieName);
+                int amountOfRowsInserted = preparedStatement.executeUpdate();
+                if (amountOfRowsInserted == 1) {
+                    showSuccesfullyUploaded();
+                }else{
+                    showOopsAlert();
+                    System.out.println("Error 5");
+                }
             }else{
-                showOopsAlert();
-                System.out.println("Error 5");
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Bestaat al!");
+                alert.setHeaderText("Deze categorie bestaat al!");
+                alert.setContentText("De categorie was niet geupload omdat hij al bestaat!");
+                alert.getDialogPane().getChildren().stream().filter(node -> node instanceof Label).forEach(node -> ((Label)node).setMinHeight(Region.USE_PREF_SIZE));
+                alert.showAndWait();
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -545,13 +575,12 @@ public class Database {
         try{
             connection = basicDataSource.getConnection();
 
-            String sql = "SELECT * FROM Categories;";
-            preparedStatement = connection.prepareStatement(sql);
+            String sql = "SELECT Name FROM Categories;";
+            preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 resultSet.beforeFirst();
                 while (resultSet.next()){
-                    int id = resultSet.getInt("ID");
                     String name = resultSet.getString("Name");
 
                     data.add(name);
@@ -575,7 +604,7 @@ public class Database {
     }
 
     public void showOopsAlert(){
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Whoops!");
         alert.setHeaderText("Er ging iets royaal mis!");
         alert.setContentText("Vraag uw administrator om hulp!");
@@ -585,7 +614,7 @@ public class Database {
     }
 
     public void showNoDataAlert(){
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Whoops!");
         alert.setHeaderText("Er lijkt geen data te zijn!");
         alert.setContentText("Als er wel data hoort te zijn, vraag dan uw administrator om hulp!");

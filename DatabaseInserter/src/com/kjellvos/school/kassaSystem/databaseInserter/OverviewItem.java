@@ -16,7 +16,6 @@ import javafx.scene.text.Text;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
@@ -73,9 +72,7 @@ public class OverviewItem implements SceneImplementation {
 
         priceText = new Text("De standaard prijs:");
         priceTextField = new TextField();
-        BigDecimal priceString = new BigDecimal(item.getPrice());
-        priceString = priceString.setScale(2, BigDecimal.ROUND_HALF_UP);
-        priceTextField.setText("€" + priceString.toPlainString());
+        priceTextField.setText("€" + item.getPrice());
         priceTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             main.getRegexAndFocusFunctions().doPriceRegex(priceTextField, oldValue, newValue);
         });
@@ -136,8 +133,12 @@ public class OverviewItem implements SceneImplementation {
 
         deleteTemporaryPriceButton = new Button("Verwijderen.");
         deleteTemporaryPriceButton.setOnMouseClicked(event -> {
-            Price price = (Price) tableView.getSelectionModel().getSelectedItem();
-            main.getDatabase().deleteTemporaryPrice(id, price.getId());
+            if (tableView.getSelectionModel().getSelectedItem() != null) {
+                Price price = (Price) tableView.getSelectionModel().getSelectedItem();
+                main.getDatabase().deleteTemporaryPrice(id, price.getId());
+            }else{
+                //TODO
+            }
         });
 
         submitButton = new Button("Aanpassen!");
@@ -145,7 +146,7 @@ public class OverviewItem implements SceneImplementation {
             main.getRegexAndFocusFunctions().catchWrongInputOnFocusLeavePrice(priceTextField, false);
         });
         submitButton.setOnMouseClicked(event -> {
-            main.getDatabase().itemUpdate(id, enterNameTextField.getText(), enterDescriptionTextField.getText(), Float.parseFloat(priceTextField.getText().substring(1, priceTextField.getText().length())), file);
+            main.getDatabase().itemUpdate(id, enterNameTextField.getText(), enterDescriptionTextField.getText(), priceTextField.getText().substring(1, priceTextField.getText().length()), file);
         });
 
         gridHandler.add(0, 0, backToLastMenuButton, 4, 1, false);
