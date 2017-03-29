@@ -1,4 +1,4 @@
-package com.kjellvos.school.kassaSystem.databaseInserter.database;
+package com.kjellvos.school.kassaSystem.common.database;
 
 /**
  * Created by kjevo on 3/28/17.

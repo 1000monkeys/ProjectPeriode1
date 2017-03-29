@@ -1,6 +1,10 @@
 package com.kjellvos.school.kassaSystem.databaseInserter.database;
 
-import com.kjellvos.school.kassaSystem.databaseInserter.Main;
+import com.kjellvos.school.kassaSystem.common.Extensions.DatabaseExt;
+import com.kjellvos.school.kassaSystem.common.database.Categorie;
+import com.kjellvos.school.kassaSystem.common.database.Item;
+import com.kjellvos.school.kassaSystem.common.database.Price;
+import com.kjellvos.school.kassaSystem.databaseInserter.MainMenu;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
@@ -8,50 +12,36 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Region;
-import org.apache.commons.dbcp2.BasicDataSource;
 
-import javax.naming.Context;
-import java.beans.PropertyVetoException;
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.sql.*;
 import java.time.LocalDateTime;
 
 /**
  * Created by kjevo on 3/24/17.
  */
-@SuppressWarnings("Duplicates")
-public class Database {
-    Main main;
-    BasicDataSource basicDataSource;
-    Connection connection;
-    PreparedStatement preparedStatement;
+public class Database extends DatabaseExt {
+    MainMenu mainMenu;
 
-    public Database(Main main) throws SQLException, PropertyVetoException, SQLException, IOException {
-        this.main = main;
-
-        System.setProperty(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.fscontext.RefFSContextFactory");
-        System.setProperty(Context.PROVIDER_URL, "file:///tmp");
-
-        basicDataSource = new BasicDataSource();
-        basicDataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        basicDataSource.setUsername("KassaSystem");
-        basicDataSource.setPassword("password123321");
-        basicDataSource.setUrl("jdbc:mysql://213.154.224.189/KassaSystem?useSSL=false&reconnect=true&allowMultiQueries=true");
-
-        connection = basicDataSource.getConnection();
+    public Database(MainMenu mainMenu) throws SQLException{
+        super();
+        this.mainMenu = mainMenu;
     }
 
     @SuppressWarnings("JpaQueryApiInspection")
     public void newItemUpload(String name, String description, float price, String categorie, File image){
         try{
-            connection = basicDataSource.getConnection();
+            super.setConnection(super.getBasicDataSource().getConnection());
 
             int categorieId = 0 ;
             String sql = "SELECT ID FROM Categories WHERE Name=?;";
 
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, categorie);
-            ResultSet resultSet = preparedStatement.executeQuery();
+            super.setPreparedStatement(super.getConnection().prepareStatement(sql));
+            super.getPreparedStatement().setString(1, categorie);
+            ResultSet resultSet = super.getPreparedStatement().executeQuery();
             if (resultSet.next()) {
                 resultSet.beforeFirst();
                 while (resultSet.next()) {
@@ -70,18 +60,18 @@ public class Database {
                     "   INSERT INTO ItemsImages SET ItemsId=@ItemsId, Image=?;\n" +
                     "   INSERT INTO CategorieItems SET ItemsId=@ItemsId, CategorieId=?;\n" +
                     "COMMIT;\n";
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, name);
-            preparedStatement.setString(2, description);
-            preparedStatement.setFloat(3, price);
-            preparedStatement.setBlob(4, fileInputStream);
-            preparedStatement.setInt(5, categorieId);
-            preparedStatement.addBatch();
+            super.setPreparedStatement(super.getConnection().prepareStatement(sql));
+            super.getPreparedStatement().setString(1, name);
+            super.getPreparedStatement().setString(2, description);
+            super.getPreparedStatement().setFloat(3, price);
+            super.getPreparedStatement().setBlob(4, fileInputStream);
+            super.getPreparedStatement().setInt(5, categorieId);
+            super.getPreparedStatement().addBatch();
 
             int[] insertedId = new int[1];
             insertedId[0] = -3;
             try {
-                insertedId = preparedStatement.executeBatch();
+                insertedId = super.getPreparedStatement().executeBatch();
             }catch (BatchUpdateException e){
                 e.printStackTrace();
                 int i = 0;
@@ -93,45 +83,38 @@ public class Database {
                     i++;
                 }
             }finally {
-                connection.close();
-                preparedStatement.close();
+                super.getConnection().close();
+                super.getPreparedStatement().close();
                 showSuccesfullyUploaded();
             }
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }finally {
-            try {
-                preparedStatement.close();
-                connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
     }
 
     public void newTemporaryPriceUpload(int id, LocalDateTime from, LocalDateTime till, float price){
         try{
-            connection = basicDataSource.getConnection();
+            super.setConnection(super.getBasicDataSource().getConnection());
 
             Timestamp fromTimestamp = Timestamp.valueOf(from);
             Timestamp tillTimeStamp = Timestamp.valueOf(till);
 
             String sql = "INSERT INTO Prices SET ItemsID=?, FromWhen=?, TillWhen=?, Price=?;";
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, id);
-            preparedStatement.setTimestamp(2, fromTimestamp);
-            preparedStatement.setTimestamp(3, tillTimeStamp);
-            preparedStatement.setFloat(4, price);
-            preparedStatement.addBatch();
+            super.setPreparedStatement(super.getConnection().prepareStatement(sql));
+            super.getPreparedStatement().setInt(1, id);
+            super.getPreparedStatement().setTimestamp(2, fromTimestamp);
+            super.getPreparedStatement().setTimestamp(3, tillTimeStamp);
+            super.getPreparedStatement().setFloat(4, price);
+            super.getPreparedStatement().addBatch();
 
             //TODO figure out way to make for sure it's inserted
-            main.getScene().reload();
+            mainMenu.getCurrentScene().reload();
             int[] insertedId = new int[1];
             insertedId[0] = -3;
             try {
-                insertedId = preparedStatement.executeBatch();
+                insertedId = super.getPreparedStatement().executeBatch();
             }catch (BatchUpdateException e){
                 e.printStackTrace();
                 int i = 0;
@@ -143,8 +126,8 @@ public class Database {
                     i++;
                 }
             }finally {
-                connection.close();
-                preparedStatement.close();
+                super.getConnection().close();
+                super.getPreparedStatement().close();
                 showSuccesfullyUploaded();
             }
         } catch (SQLException e) {
@@ -155,42 +138,42 @@ public class Database {
     @SuppressWarnings("JpaQueryApiInspection")
     public void itemUpdate(int id, String name, String description, String price, File image) {
         try {
-            connection = basicDataSource.getConnection();
+            super.setConnection(super.getBasicDataSource().getConnection());
 
             if (image != null) {
                 FileInputStream fileInputStream = new FileInputStream(image);
                 String sql =    "BEGIN;\n" +
-                                "   UPDATE Items SET Name=?, Description=? WHERE ID=?;" +
-                                "   UPDATE DefaultPrices SET Price=? WHERE ItemsID=?;" +
-                                "   UPDATE ItemsImages SET Image=? WHERE ItemsID=?" +
-                                "COMMIT;";
-                preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-                preparedStatement.setString(1, name);
-                preparedStatement.setString(2, description);
-                preparedStatement.setInt(3, id);
-                preparedStatement.setString(4, price);
-                preparedStatement.setInt(5, id);
-                preparedStatement.setBlob(6, fileInputStream);
-                preparedStatement.setInt(7, id);
-                preparedStatement.addBatch();
+                        "   UPDATE Items SET Name=?, Description=? WHERE ID=?;" +
+                        "   UPDATE DefaultPrices SET Price=? WHERE ItemsID=?;" +
+                        "   UPDATE ItemsImages SET Image=? WHERE ItemsID=?" +
+                        "COMMIT;";
+                super.setPreparedStatement(super.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS));
+                super.getPreparedStatement().setString(1, name);
+                super.getPreparedStatement().setString(2, description);
+                super.getPreparedStatement().setInt(3, id);
+                super.getPreparedStatement().setString(4, price);
+                super.getPreparedStatement().setInt(5, id);
+                super.getPreparedStatement().setBlob(6, fileInputStream);
+                super.getPreparedStatement().setInt(7, id);
+                super.getPreparedStatement().addBatch();
             } else {
                 String sql = "BEGIN;\n" +
                         "   UPDATE Items SET Name=?, Description=? WHERE ID=?;" +
                         "   UPDATE DefaultPrices SET Price=? WHERE ItemsID=?;" +
                         "COMMIT;";
-                preparedStatement = connection.prepareStatement(sql);
-                preparedStatement.setString(1, name);
-                preparedStatement.setString(2, description);
-                preparedStatement.setInt(3, id);
-                preparedStatement.setString(4, price);
-                preparedStatement.setInt(5, id);
-                preparedStatement.addBatch();
+                super.setPreparedStatement(super.getConnection().prepareStatement(sql));
+                super.getPreparedStatement().setString(1, name);
+                super.getPreparedStatement().setString(2, description);
+                super.getPreparedStatement().setInt(3, id);
+                super.getPreparedStatement().setString(4, price);
+                super.getPreparedStatement().setInt(5, id);
+                super.getPreparedStatement().addBatch();
             }
 
             int[] insertedId = new int[1];
             insertedId[0] = -3;
             try {
-                insertedId = preparedStatement.executeBatch();
+                insertedId = super.getPreparedStatement().executeBatch();
             }catch (BatchUpdateException e){
                 e.printStackTrace();
                 int i = 0;
@@ -202,8 +185,8 @@ public class Database {
                     i++;
                 }
             }finally {
-                connection.close();
-                preparedStatement.close();
+                super.getConnection().close();
+                super.getPreparedStatement().close();
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Succesvol geupdate!");
                 alert.setHeaderText("De waarden zijn succesvol aangepast!");
@@ -220,18 +203,18 @@ public class Database {
 
     public Item getItemInfo(int passedId){
         try{
-            connection = basicDataSource.getConnection();
+            super.setConnection(super.getBasicDataSource().getConnection());
 
             String sql =    "SELECT Items.ID, Items.Name, Items.Description, DefaultPrices.Price, Categories.Name AS CName, ItemsImages.Image FROM Items \n" +
-                            "   LEFT JOIN DefaultPrices ON Items.ID = DefaultPrices.ItemsID\n" +
-                            "   LEFT JOIN ItemsImages ON Items.ID = ItemsImages.ItemsId\n" +
-                            "   LEFT JOIN CategorieItems ON CategorieItems.ItemsId=?\n" +
-                            "   LEFT JOIN Categories ON Categories.ID=CategorieItems.CategorieId\n" +
-                            "WHERE Items.ID=?;";
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, passedId);
-            preparedStatement.setInt(2, passedId);
-            ResultSet resultSet = preparedStatement.executeQuery();
+                    "   LEFT JOIN DefaultPrices ON Items.ID = DefaultPrices.ItemsID\n" +
+                    "   LEFT JOIN ItemsImages ON Items.ID = ItemsImages.ItemsId\n" +
+                    "   LEFT JOIN CategorieItems ON CategorieItems.ItemsId=?\n" +
+                    "   LEFT JOIN Categories ON Categories.ID=CategorieItems.CategorieId\n" +
+                    "WHERE Items.ID=?;";
+            super.setPreparedStatement(super.getConnection().prepareStatement(sql));
+            super.getPreparedStatement().setInt(1, passedId);
+            super.getPreparedStatement().setInt(2, passedId);
+            ResultSet resultSet = super.getPreparedStatement().executeQuery();
             if (resultSet.next()) {
                 resultSet.beforeFirst();
                 while (resultSet.next()){
@@ -254,8 +237,8 @@ public class Database {
             e.printStackTrace();
         }finally {
             try {
-                preparedStatement.close();
-                connection.close();
+                super.getPreparedStatement().close();
+                super.getConnection().close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -267,11 +250,11 @@ public class Database {
     public ObservableList getItemsList() {
         ObservableList<Item> data = FXCollections.observableArrayList();
         try{
-            connection = basicDataSource.getConnection();
+            super.setConnection(super.getBasicDataSource().getConnection());
 
             String sql = "SELECT Items.ID, Items.Name, Items.Description, DefaultPrices.Price, Categories.Name AS CName FROM Items LEFT JOIN DefaultPrices ON Items.ID = DefaultPrices.ItemsID LEFT JOIN CategorieItems ON CategorieItems.ItemsId = Items.ID LEFT JOIN Categories ON Categories.ID = CategorieItems.CategorieId;";
-            preparedStatement = connection.prepareStatement(sql);
-            ResultSet resultSet = preparedStatement.executeQuery();
+            super.setPreparedStatement(super.getConnection().prepareStatement(sql));
+            ResultSet resultSet = super.getPreparedStatement().executeQuery();
             if (resultSet.next()) {
                 resultSet.beforeFirst();
                 while (resultSet.next()) {
@@ -284,7 +267,7 @@ public class Database {
 
                     Button button = new Button("Meer info/editen");
                     button.setOnMouseClicked(event -> {
-                        main.changeScene(main.getOverviewItem(id));
+                        mainMenu.changeScene(mainMenu.getOverviewItem(id));
                     });
 
                     data.add(new Item(id, name, description, price, categorie, button));
@@ -297,8 +280,8 @@ public class Database {
             e.printStackTrace();
         }finally {
             try{
-                preparedStatement.close();
-                connection.close();
+                super.getPreparedStatement().close();
+                super.getConnection().close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -310,12 +293,12 @@ public class Database {
     public ObservableList getPricesOfItem(int passedId){
         ObservableList<Price> data = FXCollections.observableArrayList();
         try{
-            connection = basicDataSource.getConnection();
+            super.setConnection(super.getBasicDataSource().getConnection());
 
             String sql = "SELECT Prices.ID, Prices.FromWhen, Prices.TillWhen, Prices.Price FROM Prices WHERE Prices.ItemsID=? ORDER BY Prices.FromWhen ASC, Prices.TillWhen ASC;";
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, passedId);
-            ResultSet resultSet = preparedStatement.executeQuery();
+            super.setPreparedStatement(super.getConnection().prepareStatement(sql));
+            super.getPreparedStatement().setInt(1, passedId);
+            ResultSet resultSet = super.getPreparedStatement().executeQuery();
             while (resultSet.next()) {
                 int id = resultSet.getInt("ID");
                 Timestamp fromWhenTimestamp = resultSet.getTimestamp("FromWhen");
@@ -336,8 +319,8 @@ public class Database {
             e.printStackTrace();
         }finally {
             try{
-                preparedStatement.close();
-                connection.close();
+                super.getPreparedStatement().close();
+                super.getConnection().close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -355,12 +338,12 @@ public class Database {
      */
     public boolean checkNewTemporaryPriceUpload(int id, LocalDateTime fromDateTime, LocalDateTime tillDateTime) {
         try {
-            connection = basicDataSource.getConnection();
+            super.setConnection(super.getBasicDataSource().getConnection());
 
             String sql = "SELECT Prices.FromWhen, Prices.TillWhen FROM Prices WHERE ItemsID=? AND Prices.TillWhen > NOW();";
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
+            super.setPreparedStatement(super.getConnection().prepareStatement(sql));
+            super.getPreparedStatement().setInt(1, id);
+            ResultSet resultSet = super.getPreparedStatement().executeQuery();
             while (resultSet.next()) {
                 Timestamp fromWhenTimestamp = resultSet.getTimestamp("FromWhen");
                 LocalDateTime fromWhen = null;
@@ -382,8 +365,8 @@ public class Database {
             e.printStackTrace();
         } finally {
             try{
-                preparedStatement.close();
-                connection.close();
+                super.getPreparedStatement().close();
+                super.getConnection().close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -393,20 +376,20 @@ public class Database {
 
     public int updateTemporaryPrice(int itemsId, int pricesId, Timestamp tillwhen){
         try{
-            connection = basicDataSource.getConnection();
+            super.setConnection(super.getBasicDataSource().getConnection());
 
             String sql = "UPDATE Prices SET TillWhen=? WHERE ItemsID=? AND ID=?;";
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setTimestamp(1, tillwhen);
-            preparedStatement.setInt(2, itemsId);
-            preparedStatement.setInt(3, pricesId);
-            return preparedStatement.executeUpdate();
+            super.setPreparedStatement(super.getConnection().prepareStatement(sql));
+            super.getPreparedStatement().setTimestamp(1, tillwhen);
+            super.getPreparedStatement().setInt(2, itemsId);
+            super.getPreparedStatement().setInt(3, pricesId);
+            return super.getPreparedStatement().executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             try {
-                preparedStatement.close();
-                connection.close();
+                super.getPreparedStatement().close();
+                super.getConnection().close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -416,13 +399,13 @@ public class Database {
 
     public void deleteTemporaryPrice(int itemsId, int pricesId) {
         try{
-            connection = basicDataSource.getConnection();
+            super.setConnection(super.getBasicDataSource().getConnection());
 
             String sql = "SELECT Prices.FromWhen, Prices.TillWhen FROM Prices WHERE ItemsID=? AND Prices.ID=?";
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, itemsId);
-            preparedStatement.setInt(2, pricesId);
-            ResultSet resultSet = preparedStatement.executeQuery();
+            super.setPreparedStatement(super.getConnection().prepareStatement(sql));
+            super.getPreparedStatement().setInt(1, itemsId);
+            super.getPreparedStatement().setInt(2, pricesId);
+            ResultSet resultSet = super.getPreparedStatement().executeQuery();
 
             while (resultSet.next()) {
                 Timestamp fromWhen = resultSet.getTimestamp("FromWhen");
@@ -433,10 +416,10 @@ public class Database {
                 if (now.before(fromWhen)) {
                     //no problem go ahead and delete
                     sql = "DELETE FROM Prices WHERE ItemsID=? AND Prices.ID=?";
-                    preparedStatement = connection.prepareStatement(sql );
-                    preparedStatement.setInt(1, itemsId);
-                    preparedStatement.setInt(2, pricesId);
-                    int amountOfDeletions = preparedStatement.executeUpdate();
+                    super.setPreparedStatement(super.getConnection().prepareStatement(sql));
+                    super.getPreparedStatement().setInt(1, itemsId);
+                    super.getPreparedStatement().setInt(2, pricesId);
+                    int amountOfDeletions = super.getPreparedStatement().executeUpdate();
 
                     if (amountOfDeletions == 1) {
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -444,14 +427,14 @@ public class Database {
                         alert.setHeaderText("Succesvol verwijderd!");
                         alert.setContentText("De tijdelijke prijs is succesvol verwijderd!");
                         alert.showAndWait();
-                        main.getScene().reload();
+                        mainMenu.getCurrentScene().reload();
                     }else if (amountOfDeletions == 0){
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("ERROR");
                         alert.setHeaderText("Er ging iets fout!");
                         alert.setContentText("Het item kon niet uit de database verwijderd worden!");
                         alert.showAndWait();
-                        main.getScene().reload();
+                        mainMenu.getCurrentScene().reload();
                     }else{
                         showOopsAlert();
                         System.out.println("Error 7");
@@ -470,7 +453,7 @@ public class Database {
                         alert.getDialogPane().getChildren().stream().filter(node -> node instanceof Label).forEach(node -> ((Label)node).setMinHeight(Region.USE_PREF_SIZE));
 
                         alert.showAndWait();
-                        main.getScene().reload();
+                        mainMenu.getCurrentScene().reload();
                     }else if(amountOfUpdatedRows == 1){
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setTitle("Aangepast!");
@@ -478,7 +461,7 @@ public class Database {
                         alert.setContentText("Omdat de prijs zijn begin datum en tijd voor nu zijn, kunnen we hem niet verwijderen i.v.m. de mogelijkheid dat iemand dit product al voor deze prijs gekocht heeft!");
                         alert.getDialogPane().getChildren().stream().filter(node -> node instanceof Label).forEach(node -> ((Label)node).setMinHeight(Region.USE_PREF_SIZE));
                         alert.showAndWait();
-                        main.getScene().reload();
+                        mainMenu.getCurrentScene().reload();
                     }else{
                         showOopsAlert();
                         System.out.println("Error 6");
@@ -489,8 +472,8 @@ public class Database {
             e.printStackTrace();
         } finally {
             try {
-                preparedStatement.close();
-                connection.close();
+                super.getPreparedStatement().close();
+                super.getConnection().close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -499,17 +482,17 @@ public class Database {
 
     public void newCategorieUpload(String categorieName) {
         try{
-            connection = basicDataSource.getConnection();
+            super.setConnection(super.getBasicDataSource().getConnection());
 
             String sql = "SELECT * FROM Categories WHERE Name=?";
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, categorieName);
-            ResultSet resultSet = preparedStatement.executeQuery();
+            super.setPreparedStatement(super.getConnection().prepareStatement(sql));
+            super.getPreparedStatement().setString(1, categorieName);
+            ResultSet resultSet = super.getPreparedStatement().executeQuery();
             if (!resultSet.next()){
                 sql = "INSERT INTO Categories SET Name=?;";
-                preparedStatement = connection.prepareStatement(sql);
-                preparedStatement.setString(1, categorieName);
-                int amountOfRowsInserted = preparedStatement.executeUpdate();
+                super.setPreparedStatement(super.getConnection().prepareStatement(sql));
+                super.getPreparedStatement().setString(1, categorieName);
+                int amountOfRowsInserted = super.getPreparedStatement().executeUpdate();
                 if (amountOfRowsInserted == 1) {
                     showSuccesfullyUploaded();
                 }else{
@@ -528,8 +511,8 @@ public class Database {
             e.printStackTrace();
         } finally {
             try {
-                preparedStatement.close();
-                connection.close();
+                super.getPreparedStatement().close();
+                super.getConnection().close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -539,11 +522,11 @@ public class Database {
     public ObservableList getCategorieList(){
         ObservableList<Categorie> data = FXCollections.observableArrayList();
         try{
-            connection = basicDataSource.getConnection();
+            super.setConnection(super.getBasicDataSource().getConnection());
 
             String sql = "SELECT * FROM Categories;";
-            preparedStatement = connection.prepareStatement(sql);
-            ResultSet resultSet = preparedStatement.executeQuery();
+            super.setPreparedStatement(super.getConnection().prepareStatement(sql));
+            ResultSet resultSet = super.getPreparedStatement().executeQuery();
             if (resultSet.next()) {
                 resultSet.beforeFirst();
                 while (resultSet.next()){
@@ -560,8 +543,8 @@ public class Database {
             e.printStackTrace();
         } finally {
             try {
-                preparedStatement.close();
-                connection.close();
+                super.getPreparedStatement().close();
+                super.getConnection().close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -573,11 +556,12 @@ public class Database {
     public ObservableList getCategorieNamesList(){
         ObservableList<String> data = FXCollections.observableArrayList();
         try{
-            connection = basicDataSource.getConnection();
+            super.setConnection(super.getBasicDataSource().getConnection());
 
             String sql = "SELECT Name FROM Categories;";
-            preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ResultSet resultSet = preparedStatement.executeQuery();
+            super.setPreparedStatement(super.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS));
+            super.setPreparedStatement(super.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS));
+            ResultSet resultSet = super.getPreparedStatement().executeQuery();
             if (resultSet.next()) {
                 resultSet.beforeFirst();
                 while (resultSet.next()){
@@ -593,8 +577,8 @@ public class Database {
             e.printStackTrace();
         } finally {
             try {
-                preparedStatement.close();
-                connection.close();
+                super.getPreparedStatement().close();
+                super.getConnection().close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }

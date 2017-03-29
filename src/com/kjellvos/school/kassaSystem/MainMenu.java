@@ -1,18 +1,21 @@
 package com.kjellvos.school.kassaSystem;
 
 import com.kjellvos.os.gridHandler.GridHandler;
+import com.kjellvos.school.kassaSystem.common.Extensions.MainScene;
+import com.kjellvos.school.kassaSystem.common.interfaces.SceneImplementation;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 /**
  * Created by kjell on 10-3-2017.
  */
-public class MainMenu {
-    private Main main;
+public class MainMenu extends MainScene implements SceneImplementation {
+    private Scene scene;
 
     private Button productenButton, bonnenButton, kaartenButton, kassaLadeButton, corrigeerButton, betaalButton;
     private TitledPane categorieListView;
@@ -20,8 +23,13 @@ public class MainMenu {
 
     private GridHandler gridHandler;
 
-    public MainMenu(Main main) {
-        this.main = main;
+    public MainMenu(Stage stage) {
+        super(stage);
+        super.getPrimaryStage().setTitle("Kassa V0.1");
+        super.getPrimaryStage().setWidth(800D);
+        super.getPrimaryStage().setHeight(600D);
+        super.changeScene(this);
+        super.getPrimaryStage().show();
     }
 
     public Scene createAndGetScene() {
@@ -57,6 +65,17 @@ public class MainMenu {
         gridHandler.add(2, 3, corrigeerButton, false);
         gridHandler.add(2, 4, betaalButton, false);
 
-        return gridHandler.getGridAsScene();
+        scene = gridHandler.getGridAsScene();
+        return scene;
+    }
+
+    @Override
+    public Scene getScene() {
+        return scene;
+    }
+
+    @Override
+    public void reload() {
+        //Should do nothing
     }
 }

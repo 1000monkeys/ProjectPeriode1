@@ -37,6 +37,11 @@ We now use a mysql database located on a server.<br />
 Found a way to make sure a multiline update fails or not so implemented it.<br />
 We now check before inserting a categorie for if it exists.<br />
 
+
+**V0.3.3**<br />
+Retooled some things so some things extend some things now so that code is reused more.<br />
+Basically i retooled my scene changing implementation so that i can use it for both the Database Inserter and the Register(Kassa)<br />
+
 ## **Plans**<br />
 Add to the register ability to have customer cards and customer card discounts.<br />
 And build the normal things needed for a register, For example 'scanning' an item, that being added to the list of items being bought etc.<br />

@@ -1,9 +1,9 @@
 package com.kjellvos.school.kassaSystem.databaseInserter;
 
 import com.kjellvos.os.gridHandler.GridHandler;
-import com.kjellvos.school.kassaSystem.databaseInserter.database.Item;
-import com.kjellvos.school.kassaSystem.databaseInserter.database.Price;
-import com.kjellvos.school.kassaSystem.databaseInserter.interfaces.SceneImplementation;
+import com.kjellvos.school.kassaSystem.common.database.Item;
+import com.kjellvos.school.kassaSystem.common.database.Price;
+import com.kjellvos.school.kassaSystem.common.interfaces.SceneImplementation;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -26,7 +26,7 @@ import java.time.LocalDateTime;
  * TODO Automatisch invullen oude waarden
  */
 public class OverviewItem implements SceneImplementation {
-    Main main;
+    MainMenu mainMenu;
     GridHandler gridHandler;
     Item item;
 
@@ -47,19 +47,19 @@ public class OverviewItem implements SceneImplementation {
     int id;
     ObservableList categories;
 
-    public OverviewItem(Main main) {
-        this.main = main;
+    public OverviewItem(MainMenu mainMenu) {
+        this.mainMenu = mainMenu;
     }
 
     @Override
     public Scene createAndGetScene() {
-        item = main.getDatabase().getItemInfo(id);
+        item = mainMenu.getDatabase().getItemInfo(id);
 
         gridHandler = new GridHandler();
 
         backToLastMenuButton = new Button("Terug naar vorig menu.");
         backToLastMenuButton.setOnMouseClicked(event -> {
-            main.returnToPreviousScene();
+            mainMenu.returnToPreviousScene();
         });
 
         enterNameText = new Text("De naam:");
@@ -74,11 +74,11 @@ public class OverviewItem implements SceneImplementation {
         priceTextField = new TextField();
         priceTextField.setText("€" + item.getPrice());
         priceTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            main.getRegexAndFocusFunctions().doPriceRegex(priceTextField, oldValue, newValue);
+            mainMenu.getRegexAndFocusFunctions().doPriceRegex(priceTextField, oldValue, newValue);
         });
 
         categorieText = new Text("Selecteer een categorie:");
-        categories = main.getDatabase().getCategorieNamesList();
+        categories = mainMenu.getDatabase().getCategorieNamesList();
         categorieComboBox = new ComboBox(categories);
         categorieComboBox.getSelectionModel().select(item.getCategorie());
 
@@ -98,7 +98,7 @@ public class OverviewItem implements SceneImplementation {
         });
         pickImageButton = new Button("Afbeelding kiezen.");
         pickImageButton.setOnMouseClicked(event -> {
-            file = main.getAddNewItem().handlePickImageButtonClick();
+            file = mainMenu.getAddNewItem().handlePickImageButtonClick();
             try {
                 if (file != null) {
                     image = new Image(new FileInputStream(file));
@@ -123,19 +123,19 @@ public class OverviewItem implements SceneImplementation {
         priceTableColumn = new TableColumn("Prijs");
         priceTableColumn.setCellValueFactory(new PropertyValueFactory<Price, Float>("price"));
 
-        tableView.setItems(main.getDatabase().getPricesOfItem(id));
+        tableView.setItems(mainMenu.getDatabase().getPricesOfItem(id));
         tableView.getColumns().addAll(idTableColumn, fromWhenTableColumn, tillWhenTableColumn, priceTableColumn);
 
         addTemporaryPriceButton = new Button("Toevoegen.");
         addTemporaryPriceButton.setOnMouseClicked(event -> {
-            main.changeScene(main.getAddNewTemporaryPrice(id));
+            mainMenu.changeScene(mainMenu.getAddNewTemporaryPrice(id));
         });
 
         deleteTemporaryPriceButton = new Button("Verwijderen.");
         deleteTemporaryPriceButton.setOnMouseClicked(event -> {
             if (tableView.getSelectionModel().getSelectedItem() != null) {
                 Price price = (Price) tableView.getSelectionModel().getSelectedItem();
-                main.getDatabase().deleteTemporaryPrice(id, price.getId());
+                mainMenu.getDatabase().deleteTemporaryPrice(id, price.getId());
             }else{
                 //TODO
             }
@@ -143,10 +143,10 @@ public class OverviewItem implements SceneImplementation {
 
         submitButton = new Button("Aanpassen!");
         submitButton.setOnMouseEntered((MouseEvent event) -> {
-            main.getRegexAndFocusFunctions().catchWrongInputOnFocusLeavePrice(priceTextField, false);
+            mainMenu.getRegexAndFocusFunctions().catchWrongInputOnFocusLeavePrice(priceTextField, false);
         });
         submitButton.setOnMouseClicked(event -> {
-            main.getDatabase().itemUpdate(id, enterNameTextField.getText(), enterDescriptionTextField.getText(), priceTextField.getText().substring(1, priceTextField.getText().length()), file);
+            mainMenu.getDatabase().itemUpdate(id, enterNameTextField.getText(), enterDescriptionTextField.getText(), priceTextField.getText().substring(1, priceTextField.getText().length()), file);
         });
 
         gridHandler.add(0, 0, backToLastMenuButton, 4, 1, false);
@@ -179,7 +179,7 @@ public class OverviewItem implements SceneImplementation {
 
     @Override
     public void reload() {
-        tableView.setItems(main.getDatabase().getPricesOfItem(id));
+        tableView.setItems(mainMenu.getDatabase().getPricesOfItem(id));
         categorieComboBox = new ComboBox(categories);
         categorieComboBox.getSelectionModel().select(new String(item.getCategorie()));
     }

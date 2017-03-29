@@ -1,8 +1,8 @@
 package com.kjellvos.school.kassaSystem.databaseInserter;
 
 import com.kjellvos.os.gridHandler.GridHandler;
-import com.kjellvos.school.kassaSystem.databaseInserter.database.Item;
-import com.kjellvos.school.kassaSystem.databaseInserter.interfaces.SceneImplementation;
+import com.kjellvos.school.kassaSystem.common.database.Item;
+import com.kjellvos.school.kassaSystem.common.interfaces.SceneImplementation;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -15,8 +15,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 //TODO Add delete button and add an add new categorie button, maybe edit?
     //      >Delete should only happen if there are no items currently using the categorie.
-public class GetCategorieList implements SceneImplementation{
-    Main main;
+public class GetCategorieList implements SceneImplementation {
+    MainMenu mainMenu;
     GridHandler gridHandler;
 
     Scene scene;
@@ -25,8 +25,8 @@ public class GetCategorieList implements SceneImplementation{
     private TableView tableView;
     private TableColumn idTableColumn, nameTableColumn;
 
-    public GetCategorieList(Main main){
-        this.main = main;
+    public GetCategorieList(MainMenu mainMenu){
+        this.mainMenu = mainMenu;
     }
 
     @Override
@@ -35,7 +35,7 @@ public class GetCategorieList implements SceneImplementation{
 
         backToLastMenuButton = new Button("Terug naar vorig menu.");
         backToLastMenuButton.setOnMouseClicked(event -> {
-            main.returnToPreviousScene();
+            mainMenu.returnToPreviousScene();
         });
 
         tableView = new TableView();
@@ -47,12 +47,12 @@ public class GetCategorieList implements SceneImplementation{
         nameTableColumn = new TableColumn("Naam");
         nameTableColumn.setCellValueFactory(new PropertyValueFactory<Item, String>("name"));
 
-        tableView.setItems(main.getDatabase().getCategorieList());
+        tableView.setItems(mainMenu.getDatabase().getCategorieList());
         tableView.getColumns().addAll(idTableColumn, nameTableColumn);
 
         addNewCategorie = new Button("Nieuwe categorie toevoegen.");
         addNewCategorie.setOnMouseClicked(event -> {
-            main.changeScene(main.getAddNewCategorie());
+            mainMenu.changeScene(mainMenu.getAddNewCategorie());
         });
 
         deleteCategorie = new Button("Categorie verwijderen.");
@@ -71,7 +71,7 @@ public class GetCategorieList implements SceneImplementation{
 
     @Override
     public void reload() {
-        tableView.setItems(main.getDatabase().getCategorieList());
+        tableView.setItems(mainMenu.getDatabase().getCategorieList());
     }
 
     @Override

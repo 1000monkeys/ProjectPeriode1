@@ -1,23 +1,67 @@
 package com.kjellvos.school.kassaSystem.databaseInserter;
 
 import com.kjellvos.os.gridHandler.GridHandler;
-import com.kjellvos.school.kassaSystem.databaseInserter.interfaces.SceneImplementation;
+import com.kjellvos.school.kassaSystem.common.Extensions.MainScene;
+import com.kjellvos.school.kassaSystem.common.functions.RegexAndFocusFunctions;
+import com.kjellvos.school.kassaSystem.common.interfaces.SceneImplementation;
+import com.kjellvos.school.kassaSystem.databaseInserter.database.Database;
+import javafx.application.Platform;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.Region;
+import javafx.stage.Stage;
+
+import java.sql.SQLException;
 
 /**
  * Created by kjevo on 3/24/17.
  */
-public class MainMenu implements SceneImplementation {
-    Main main;
-    GridHandler gridHandler;
+public class MainMenu extends MainScene implements SceneImplementation {
+    private GridHandler gridHandler;
+    private Database database;
+    private RegexAndFocusFunctions regexAndFocusFunctions;
+    private GetItemsList getItemsList;
+    private GetCategorieList getCategorieList;
+    private AddNewItem addNewItem;
+    private AddNewCategorie addNewCategorie;
+    private AddNewTemporaryPrice addNewTemporaryPrice;
+    private OverviewItem overviewItem;
+
 
     Scene scene;
 
     Button itemOverview, addNewCustomer, categorieOverview;
 
-    public MainMenu(Main main){
-        this.main = main;
+    public MainMenu(Stage stage){
+        super(stage);
+        regexAndFocusFunctions = new RegexAndFocusFunctions();
+        try {
+            database = new Database(this);
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Whoops!");
+            alert.setHeaderText("Er lijkt geen database te zijn!");
+            alert.setContentText("Als er wel databasse hoort te zijn, vraag dan uw administrator om hulp!");
+            alert.getDialogPane().getChildren().stream().filter(node -> node instanceof Label).forEach(node -> ((Label)node).setMinHeight(Region.USE_PREF_SIZE));
+            alert.showAndWait();
+
+            Platform.exit();
+            e.printStackTrace();
+        }
+        getItemsList = new GetItemsList(this);
+        getCategorieList = new GetCategorieList(this);
+        addNewItem = new AddNewItem(this);
+        addNewCategorie = new AddNewCategorie(this);
+        addNewTemporaryPrice = new AddNewTemporaryPrice(this);
+        overviewItem = new OverviewItem(this);
+
+        super.getPrimaryStage().setTitle("DatabaseInserter V0.3.2");
+        super.getPrimaryStage().setWidth(800D);
+        super.getPrimaryStage().setHeight(600D);
+        super.changeScene(this);
+        super.getPrimaryStage().show();
     }
 
     @Override
@@ -30,14 +74,14 @@ public class MainMenu implements SceneImplementation {
 
         itemOverview = new Button("Item aanpassen, toevoegen, verwijderen of tijdelijke prijs aan item toevoegen.");
         itemOverview.setOnMouseClicked(event -> {
-            main.changeScene(main.getItemsList());
+            changeScene(getItemsList());
         });
 
         addNewCustomer = new Button("Klantenkaart registreren, aanpassen of verwijderen.");
 
         categorieOverview = new Button("Categorie aanpassen, toevoegen verwijderen.");
         categorieOverview.setOnMouseClicked(event -> {
-            main.changeScene(main.getCategorieList());
+            changeScene(getCategorieList());
         });
 
         gridHandler.add(0, 0, itemOverview, false);
@@ -51,5 +95,39 @@ public class MainMenu implements SceneImplementation {
     @Override
     public Scene getScene() {
         return scene;
+    }
+
+    public AddNewItem getAddNewItem() {
+        return addNewItem;
+    }
+
+    public AddNewTemporaryPrice getAddNewTemporaryPrice(int id) {
+        addNewTemporaryPrice.setId(id);
+        return addNewTemporaryPrice;
+    }
+
+    public Database getDatabase() {
+        return database;
+    }
+
+    public RegexAndFocusFunctions getRegexAndFocusFunctions() {
+        return regexAndFocusFunctions;
+    }
+
+    public GetItemsList getItemsList() {
+        return getItemsList;
+    }
+
+    public OverviewItem getOverviewItem(int id){
+        overviewItem.setId(id);
+        return overviewItem;
+    }
+
+    public AddNewCategorie getAddNewCategorie() {
+        return addNewCategorie;
+    }
+
+    public GetCategorieList getCategorieList() {
+        return getCategorieList;
     }
 }

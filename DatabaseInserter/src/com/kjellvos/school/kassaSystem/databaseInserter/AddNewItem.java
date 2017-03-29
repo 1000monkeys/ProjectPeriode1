@@ -1,7 +1,8 @@
 package com.kjellvos.school.kassaSystem.databaseInserter;
 
 import com.kjellvos.os.gridHandler.GridHandler;
-import com.kjellvos.school.kassaSystem.databaseInserter.interfaces.SceneImplementation;
+import com.kjellvos.school.kassaSystem.common.Extensions.MainScene;
+import com.kjellvos.school.kassaSystem.common.interfaces.SceneImplementation;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -16,7 +17,7 @@ import java.io.File;
  * Created by kjevo on 3/24/17.
  */
 public class AddNewItem implements SceneImplementation {
-    private Main main;
+    private MainMenu mainMenu;
     private GridHandler gridHandler;
 
     private Scene scene;
@@ -31,21 +32,21 @@ public class AddNewItem implements SceneImplementation {
 
     private ObservableList categories;
 
-    public AddNewItem(Main main){
-        this.main = main;
+    public AddNewItem(MainMenu mainMenu){
+        this.mainMenu = mainMenu;
     }
 
     @Override
     public void reload() {
-        main.returnToPreviousScene();
-        main.changeScene(main.getAddNewItem());
+        mainMenu.returnToPreviousScene();
+        mainMenu.changeScene(mainMenu.getAddNewItem());
     }
 
     public Scene createAndGetScene() {
         gridHandler = new GridHandler();
         backToLastMenuButton = new Button("Terug naar vorig menu.");
         backToLastMenuButton.setOnMouseClicked(event -> {
-            main.returnToPreviousScene();
+            mainMenu.returnToPreviousScene();
         });
 
         enterNameText = new Text("Voer de naam in:");
@@ -58,11 +59,11 @@ public class AddNewItem implements SceneImplementation {
         priceTextField = new TextField();
         priceTextField.setText("€0.01");
         priceTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            main.getRegexAndFocusFunctions().doPriceRegex(priceTextField, oldValue, newValue);
+            mainMenu.getRegexAndFocusFunctions().doPriceRegex(priceTextField, oldValue, newValue);
         });
 
         categorieText = new Text("Selecteer een categorie:");
-        categories = main.getDatabase().getCategorieNamesList();
+        categories = mainMenu.getDatabase().getCategorieNamesList();
         categorieComboBox = new ComboBox(categories);
 
         pickImageText = new Text("Kies een bijpassende afbeelding:");
@@ -73,7 +74,7 @@ public class AddNewItem implements SceneImplementation {
 
         submitButton = new Button("Invoeren!");
         submitButton.setOnMouseClicked(event -> {
-            main.getDatabase().newItemUpload(enterNameTextField.getText(), enterDescriptionTextField.getText(), Float.parseFloat(priceTextField.getText().substring(1, priceTextField.getText().length())), categorieComboBox.getSelectionModel().getSelectedItem().toString(), file);
+            mainMenu.getDatabase().newItemUpload(enterNameTextField.getText(), enterDescriptionTextField.getText(), Float.parseFloat(priceTextField.getText().substring(1, priceTextField.getText().length())), categorieComboBox.getSelectionModel().getSelectedItem().toString(), file);
         });
 
         gridHandler.add(0, 0, backToLastMenuButton, 2, 1, false);
@@ -112,6 +113,6 @@ public class AddNewItem implements SceneImplementation {
                 new FileChooser.ExtensionFilter("PNG", "*.png")
         );
 
-        return fileChooser.showOpenDialog(main.getPrimaryStage());
+        return fileChooser.showOpenDialog(mainMenu.getPrimaryStage());
     }
 }

@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Common/Common.iml" filepath="$PROJECT_DIR$/Common/Common.iml" />
       <module fileurl="file://$PROJECT_DIR$/DatabaseInserter/DatabaseInserter.iml" filepath="$PROJECT_DIR$/DatabaseInserter/DatabaseInserter.iml" />
       <module fileurl="file://$PROJECT_DIR$/ProjectPeriode1.iml" filepath="$PROJECT_DIR$/ProjectPeriode1.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Tests/Tests.iml" filepath="$PROJECT_DIR$/Tests/Tests.iml" />
     </modules>
   </component>
 </project>

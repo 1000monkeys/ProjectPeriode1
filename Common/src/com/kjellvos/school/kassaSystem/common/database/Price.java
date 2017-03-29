@@ -1,4 +1,4 @@
-package com.kjellvos.school.kassaSystem.databaseInserter.database;
+package com.kjellvos.school.kassaSystem.common.database;
 
 import java.time.LocalDateTime;
 

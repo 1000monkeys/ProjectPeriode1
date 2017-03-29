@@ -1,7 +1,7 @@
 package com.kjellvos.school.kassaSystem.databaseInserter;
 
 import com.kjellvos.os.gridHandler.GridHandler;
-import com.kjellvos.school.kassaSystem.databaseInserter.interfaces.SceneImplementation;
+import com.kjellvos.school.kassaSystem.common.interfaces.SceneImplementation;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -18,7 +18,7 @@ import java.time.format.DateTimeFormatter;
  * Created by kjevo on 3/24/17.
  */
 public class AddNewTemporaryPrice implements SceneImplementation {
-    Main main;
+    MainMenu mainMenu;
     GridHandler gridHandler;
 
     Scene scene;
@@ -30,8 +30,8 @@ public class AddNewTemporaryPrice implements SceneImplementation {
 
     int id;
 
-    public AddNewTemporaryPrice(Main main) {
-        this.main = main;
+    public AddNewTemporaryPrice(MainMenu mainMenu) {
+        this.mainMenu = mainMenu;
     }
 
     @Override
@@ -40,7 +40,7 @@ public class AddNewTemporaryPrice implements SceneImplementation {
 
         backToLastMenuButton = new Button("Terug naar vorig menu.");
         backToLastMenuButton.setOnMouseClicked(event -> {
-            main.returnToPreviousScene();
+            mainMenu.returnToPreviousScene();
         });
 
         LocalDate now = LocalDate.now();
@@ -52,10 +52,10 @@ public class AddNewTemporaryPrice implements SceneImplementation {
         validFromTimeTextField = new TextField();
         validFromTimeTextField.setText("00:00:01");
         validFromTimeTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            main.getRegexAndFocusFunctions().doTimeRegex(validFromTimeTextField, oldValue, newValue);
+            mainMenu.getRegexAndFocusFunctions().doTimeRegex(validFromTimeTextField, oldValue, newValue);
         });
         validFromTimeTextField.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            main.getRegexAndFocusFunctions().catchWrongInputOnFocusLeaveTime(validFromTimeTextField, newValue);
+            mainMenu.getRegexAndFocusFunctions().catchWrongInputOnFocusLeaveTime(validFromTimeTextField, newValue);
         });
 
         validTillDateText = new Text("Geldig tot deze datum:");
@@ -65,24 +65,24 @@ public class AddNewTemporaryPrice implements SceneImplementation {
         validTillTimeTextField = new TextField();
         validTillTimeTextField.setText("23:59:59");
         validTillTimeTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            main.getRegexAndFocusFunctions().doTimeRegex(validTillTimeTextField, oldValue, newValue);
+            mainMenu.getRegexAndFocusFunctions().doTimeRegex(validTillTimeTextField, oldValue, newValue);
         });
         validTillTimeTextField.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            main.getRegexAndFocusFunctions().catchWrongInputOnFocusLeaveTime(validTillTimeTextField, newValue);
+            mainMenu.getRegexAndFocusFunctions().catchWrongInputOnFocusLeaveTime(validTillTimeTextField, newValue);
         });
 
         priceText = new Text("Prijs:");
         priceTextField = new TextField();
         priceTextField.setText("€0.01");
         priceTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            main.getRegexAndFocusFunctions().doPriceRegex(priceTextField, oldValue, newValue);
+            mainMenu.getRegexAndFocusFunctions().doPriceRegex(priceTextField, oldValue, newValue);
         });
 
         submitButton = new Button("Toevoegen!");
         submitButton.setOnMouseEntered((MouseEvent event) -> {
-            main.getRegexAndFocusFunctions().catchWrongInputOnFocusLeaveTime(validTillTimeTextField, false);
-            main.getRegexAndFocusFunctions().catchWrongInputOnFocusLeaveTime(validFromTimeTextField, false);
-            main.getRegexAndFocusFunctions().catchWrongInputOnFocusLeavePrice(priceTextField, false);
+            mainMenu.getRegexAndFocusFunctions().catchWrongInputOnFocusLeaveTime(validTillTimeTextField, false);
+            mainMenu.getRegexAndFocusFunctions().catchWrongInputOnFocusLeaveTime(validFromTimeTextField, false);
+            mainMenu.getRegexAndFocusFunctions().catchWrongInputOnFocusLeavePrice(priceTextField, false);
         });
         submitButton.setOnMouseClicked((MouseEvent event) -> {
             doSubmit(id);
@@ -122,11 +122,11 @@ public class AddNewTemporaryPrice implements SceneImplementation {
 
         String price = priceTextField.getText();
         price = price.substring(1, price.length());
-        if(main.getDatabase().checkNewTemporaryPriceUpload(id, fromDateTime, tillDateTime)) {
+        if(mainMenu.getDatabase().checkNewTemporaryPriceUpload(id, fromDateTime, tillDateTime)) {
             if (fromDateTime == tillDateTime || fromDateTime.isBefore(tillDateTime)) {
                 if (fromDateTime.isAfter(LocalDateTime.now())) {
-                    main.getDatabase().newTemporaryPriceUpload(id, fromDateTime, tillDateTime, Float.parseFloat(price));
-                    main.returnToPreviousScene();
+                    mainMenu.getDatabase().newTemporaryPriceUpload(id, fromDateTime, tillDateTime, Float.parseFloat(price));
+                    mainMenu.returnToPreviousScene();
                 }else{
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Oops!");

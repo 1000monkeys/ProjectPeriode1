@@ -1,4 +1,4 @@
-package com.kjellvos.school.kassaSystem.databaseInserter.functions;
+package com.kjellvos.school.kassaSystem.common.functions;
 
 import javafx.scene.control.TextField;
 

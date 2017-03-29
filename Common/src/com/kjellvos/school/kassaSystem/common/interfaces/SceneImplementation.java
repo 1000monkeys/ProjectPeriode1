@@ -1,4 +1,4 @@
-package com.kjellvos.school.kassaSystem.databaseInserter.interfaces;
+package com.kjellvos.school.kassaSystem.common.interfaces;
 
 import javafx.scene.Scene;
 
