@@ -3,16 +3,15 @@ package com.kjellvos.school.kassaSystem.databaseInserter;
 import com.kjellvos.os.gridHandler.GridHandler;
 import com.kjellvos.school.kassaSystem.common.interfaces.SceneImplementation;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * Created by kjevo on 3/24/17.
@@ -112,17 +111,28 @@ public class AddNewTemporaryPrice implements SceneImplementation {
     }
 
     private void doSubmit(int id) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
         String from = validFromDatePicker.getValue().toString() + " " + validFromTimeTextField.getText();
         String till = validTillDatePicker.getValue().toString() + " " + validTillTimeTextField.getText();
 
-        LocalDateTime fromDateTime = LocalDateTime.parse(from, formatter);
-        LocalDateTime tillDateTime = LocalDateTime.parse(till, formatter);
+        LocalDateTime fromDateTime = null;
+        LocalDateTime tillDateTime = null;
+        try{
+            fromDateTime = LocalDateTime.parse(from, formatter);
+            tillDateTime = LocalDateTime.parse(till, formatter);
+        }catch (DateTimeParseException e){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Datum / tijd error!");
+            alert.setHeaderText("Er is iets mis met uw invoer!");
+            alert.setContentText(e.getParsedString());
+            alert.getDialogPane().getChildren().stream().filter(node -> node instanceof Label).forEach(node -> ((Label)node).setMinHeight(Region.USE_PREF_SIZE));
+            alert.showAndWait();
+        }
 
         String price = priceTextField.getText();
         price = price.substring(1, price.length());
-        if(mainMenu.getDatabase().checkNewTemporaryPriceUpload(id, fromDateTime, tillDateTime)) {
+        if(fromDateTime != null && tillDateTime != null && mainMenu.getDatabase().checkNewTemporaryPriceUpload(id, fromDateTime, tillDateTime)) {
             if (fromDateTime == tillDateTime || fromDateTime.isBefore(tillDateTime)) {
                 if (fromDateTime.isAfter(LocalDateTime.now())) {
                     mainMenu.getDatabase().newTemporaryPriceUpload(id, fromDateTime, tillDateTime, Float.parseFloat(price));
@@ -132,6 +142,7 @@ public class AddNewTemporaryPrice implements SceneImplementation {
                     alert.setTitle("Oops!");
                     alert.setHeaderText("Er gaat iets fout!");
                     alert.setContentText("Je kan niet een andere prijs in het verleden toevoegen!");
+                    alert.getDialogPane().getChildren().stream().filter(node -> node instanceof Label).forEach(node -> ((Label)node).setMinHeight(Region.USE_PREF_SIZE));
                     alert.showAndWait();
                 }
             } else {
@@ -139,6 +150,7 @@ public class AddNewTemporaryPrice implements SceneImplementation {
                 alert.setTitle("Start datum na begin datum!");
                 alert.setHeaderText("De start datum is na het begin datum.");
                 alert.setContentText("Dit kan natuurlijk helemaal niet!");
+                alert.getDialogPane().getChildren().stream().filter(node -> node instanceof Label).forEach(node -> ((Label)node).setMinHeight(Region.USE_PREF_SIZE));
                 alert.showAndWait();
             }
         }else{
@@ -146,6 +158,7 @@ public class AddNewTemporaryPrice implements SceneImplementation {
             alert.setTitle("Oops!");
             alert.setHeaderText("Er gaat iets fout!");
             alert.setContentText("Je kan niet 2 prijzen tegelijk hebben!");
+            alert.getDialogPane().getChildren().stream().filter(node -> node instanceof Label).forEach(node -> ((Label)node).setMinHeight(Region.USE_PREF_SIZE));
             alert.showAndWait();
         }
     }

@@ -2,12 +2,14 @@ package com.kjellvos.school.kassaSystem.databaseInserter;
 
 import com.kjellvos.os.gridHandler.GridHandler;
 import com.kjellvos.school.kassaSystem.common.database.Item;
+import com.kjellvos.school.kassaSystem.common.database.Price;
 import com.kjellvos.school.kassaSystem.common.interfaces.SceneImplementation;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Region;
+
+import java.util.Optional;
 
 /**
  * Created by kjevo on 3/25/17.
@@ -24,7 +26,7 @@ public class GetItemsList implements SceneImplementation {
 
     private Button backToLastMenuButton, addNewItem, deleteItem;
     private TableView tableView;
-    private TableColumn idTableColumn, nameTableColumn, descriptionTableColumn, priceTableColumn, moreInfoTableColumn;
+    private TableColumn idTableColumn, categorieTableColumn, nameTableColumn, descriptionTableColumn, priceTableColumn, moreInfoTableColumn;
 
     public GetItemsList(MainMenu mainMenu) {
         this.mainMenu = mainMenu;
@@ -49,6 +51,9 @@ public class GetItemsList implements SceneImplementation {
         idTableColumn = new TableColumn("ID");
         idTableColumn.setCellValueFactory(new PropertyValueFactory<Item, Integer>("id"));
 
+        categorieTableColumn = new TableColumn("Categorie");
+        categorieTableColumn.setCellValueFactory(new PropertyValueFactory<Price, String>("categorie"));
+
         nameTableColumn = new TableColumn("Naam");
         nameTableColumn.setCellValueFactory(new PropertyValueFactory<Item, String>("name"));
 
@@ -62,7 +67,7 @@ public class GetItemsList implements SceneImplementation {
         moreInfoTableColumn.setCellValueFactory(new PropertyValueFactory<Item, Button>("button"));
 
         tableView.setItems(mainMenu.getDatabase().getItemsList());
-        tableView.getColumns().addAll(idTableColumn, nameTableColumn, descriptionTableColumn, priceTableColumn, moreInfoTableColumn);
+        tableView.getColumns().addAll(idTableColumn, categorieTableColumn, nameTableColumn, descriptionTableColumn, priceTableColumn, moreInfoTableColumn);
 
         addNewItem = new Button("Nieuwe item toevoegen.");
         addNewItem.setOnMouseClicked(event -> {
@@ -71,7 +76,22 @@ public class GetItemsList implements SceneImplementation {
 
         deleteItem = new Button("Item verwijderen.");
         deleteItem.setOnMouseClicked(event -> {
-            //TODO
+            if (tableView.getSelectionModel().getSelectedItem() != null) {
+                Item item = (Item) tableView.getSelectionModel().getSelectedItem();
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Zeker weten?");
+                alert.setHeaderText("Weet je het zeker?");
+                alert.getDialogPane().getChildren().stream().filter(node -> node instanceof Label).forEach(node -> ((Label)node).setMinHeight(Region.USE_PREF_SIZE));
+                alert.setContentText("Weet je zeker dat je deze item, zijn prijs en tijdelijke prijsen wil verwijderen?");
+
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK){
+                    mainMenu.getDatabase().deleteItem(item.getId());
+                }
+                reload();
+            }else{
+                mainMenu.getRegexAndFocusFunctions().showNothingSelectedAlert();
+            }
         });
 
         gridHandler.add(0, 0, backToLastMenuButton, 2, 1, false);

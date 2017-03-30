@@ -11,12 +11,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 /**
  * Created by kjevo on 3/26/17.
@@ -135,9 +137,19 @@ public class OverviewItem implements SceneImplementation {
         deleteTemporaryPriceButton.setOnMouseClicked(event -> {
             if (tableView.getSelectionModel().getSelectedItem() != null) {
                 Price price = (Price) tableView.getSelectionModel().getSelectedItem();
-                mainMenu.getDatabase().deleteTemporaryPrice(id, price.getId());
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Zeker weten?");
+                alert.setHeaderText("Weet je het zeker?");
+                alert.setContentText("Weet je zeker dat je deze tijdelijke prijs wil verwijderen?");
+                alert.getDialogPane().getChildren().stream().filter(node -> node instanceof Label).forEach(node -> ((Label)node).setMinHeight(Region.USE_PREF_SIZE));
+
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK){
+                    mainMenu.getDatabase().deleteTemporaryPrice(id, price.getId());
+                }
+                reload();
             }else{
-                //TODO
+                mainMenu.getRegexAndFocusFunctions().showNothingSelectedAlert();
             }
         });
 
@@ -146,7 +158,7 @@ public class OverviewItem implements SceneImplementation {
             mainMenu.getRegexAndFocusFunctions().catchWrongInputOnFocusLeavePrice(priceTextField, false);
         });
         submitButton.setOnMouseClicked(event -> {
-            mainMenu.getDatabase().itemUpdate(id, enterNameTextField.getText(), enterDescriptionTextField.getText(), priceTextField.getText().substring(1, priceTextField.getText().length()), file);
+            mainMenu.getDatabase().itemUpdate(id, enterNameTextField.getText(), enterDescriptionTextField.getText(), priceTextField.getText().substring(1, priceTextField.getText().length()), Ca, file);
         });
 
         gridHandler.add(0, 0, backToLastMenuButton, 4, 1, false);

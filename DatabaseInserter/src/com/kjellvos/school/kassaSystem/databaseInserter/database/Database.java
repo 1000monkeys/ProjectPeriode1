@@ -143,10 +143,10 @@ public class Database extends DatabaseExt {
             if (image != null) {
                 FileInputStream fileInputStream = new FileInputStream(image);
                 String sql =    "BEGIN;\n" +
-                        "   UPDATE Items SET Name=?, Description=? WHERE ID=?;" +
-                        "   UPDATE DefaultPrices SET Price=? WHERE ItemsID=?;" +
-                        "   UPDATE ItemsImages SET Image=? WHERE ItemsID=?" +
-                        "COMMIT;";
+                                "   UPDATE Items SET Name=?, Description=? WHERE ID=?;" +
+                                "   UPDATE DefaultPrices SET Price=? WHERE ItemsID=?;" +
+                                "   UPDATE ItemsImages SET Image=? WHERE ItemsID=?" +
+                                "COMMIT;";
                 super.setPreparedStatement(super.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS));
                 super.getPreparedStatement().setString(1, name);
                 super.getPreparedStatement().setString(2, description);
@@ -157,10 +157,10 @@ public class Database extends DatabaseExt {
                 super.getPreparedStatement().setInt(7, id);
                 super.getPreparedStatement().addBatch();
             } else {
-                String sql = "BEGIN;\n" +
-                        "   UPDATE Items SET Name=?, Description=? WHERE ID=?;" +
-                        "   UPDATE DefaultPrices SET Price=? WHERE ItemsID=?;" +
-                        "COMMIT;";
+                String sql =    "BEGIN;\n" +
+                                "   UPDATE Items SET Name=?, Description=? WHERE ID=?;" +
+                                "   UPDATE DefaultPrices SET Price=? WHERE ItemsID=?;" +
+                                "COMMIT;";
                 super.setPreparedStatement(super.getConnection().prepareStatement(sql));
                 super.getPreparedStatement().setString(1, name);
                 super.getPreparedStatement().setString(2, description);
@@ -427,14 +427,12 @@ public class Database extends DatabaseExt {
                         alert.setHeaderText("Succesvol verwijderd!");
                         alert.setContentText("De tijdelijke prijs is succesvol verwijderd!");
                         alert.showAndWait();
-                        mainMenu.getCurrentScene().reload();
                     }else if (amountOfDeletions == 0){
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("ERROR");
                         alert.setHeaderText("Er ging iets fout!");
                         alert.setContentText("Het item kon niet uit de database verwijderd worden!");
                         alert.showAndWait();
-                        mainMenu.getCurrentScene().reload();
                     }else{
                         showOopsAlert();
                         System.out.println("Error 7");
@@ -449,11 +447,10 @@ public class Database extends DatabaseExt {
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setTitle("Niet aangepast!");
                         alert.setHeaderText("Onsuccesvol aangepast!");
-                        alert.setContentText("Omdat de prijs zijn begin datum en tijd voor nu zijn, kunnen we hem niet verwijderen i.v.m. de mogelijkheid dat iemand dit product al voor deze prijs gekocht heeft! Maar dit is mislukt! Er ging iets mis tussen de java applicate en de database!");
+                        alert.setContentText("Omdat de prijs zijn begin datum en tijd voor nu zijn, kunnen we hem niet verwijderen i.v.m. de mogelijkheid dat iemand dit product al voor deze prijs gekocht heeft! Maar dit is mislukt! Er ging iets mis tussen de java applicatie en de database!");
                         alert.getDialogPane().getChildren().stream().filter(node -> node instanceof Label).forEach(node -> ((Label)node).setMinHeight(Region.USE_PREF_SIZE));
 
                         alert.showAndWait();
-                        mainMenu.getCurrentScene().reload();
                     }else if(amountOfUpdatedRows == 1){
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setTitle("Aangepast!");
@@ -461,7 +458,6 @@ public class Database extends DatabaseExt {
                         alert.setContentText("Omdat de prijs zijn begin datum en tijd voor nu zijn, kunnen we hem niet verwijderen i.v.m. de mogelijkheid dat iemand dit product al voor deze prijs gekocht heeft!");
                         alert.getDialogPane().getChildren().stream().filter(node -> node instanceof Label).forEach(node -> ((Label)node).setMinHeight(Region.USE_PREF_SIZE));
                         alert.showAndWait();
-                        mainMenu.getCurrentScene().reload();
                     }else{
                         showOopsAlert();
                         System.out.println("Error 6");
@@ -559,8 +555,7 @@ public class Database extends DatabaseExt {
             super.setConnection(super.getBasicDataSource().getConnection());
 
             String sql = "SELECT Name FROM Categories;";
-            super.setPreparedStatement(super.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS));
-            super.setPreparedStatement(super.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS));
+            super.setPreparedStatement(super.getConnection().prepareStatement(sql));
             ResultSet resultSet = super.getPreparedStatement().executeQuery();
             if (resultSet.next()) {
                 resultSet.beforeFirst();
@@ -585,6 +580,100 @@ public class Database extends DatabaseExt {
         }
 
         return data;
+    }
+
+    public void deleteItem(int itemsId) {
+        try{
+            super.setConnection(super.getBasicDataSource().getConnection());
+
+            String sql = "DELETE FROM Items WHERE ID=?";
+            super.setPreparedStatement(super.getConnection().prepareStatement(sql));
+            super.getPreparedStatement().setInt(1, itemsId);
+            int amountOfDeletions = super.getPreparedStatement().executeUpdate();
+
+            if (amountOfDeletions == 1) {
+                showSuccesfullyDeleted();
+            }else{
+                System.out.println("Error 15");
+                showOopsAlert();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                super.getPreparedStatement().close();
+                super.getConnection().close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void deleteCategorie(int categorieId){
+        try{
+            super.setConnection(super.getBasicDataSource().getConnection());
+
+            String noCategory = "Geen categorie.";
+
+            String sql = "SELECT ID FROM Categories WHERE Name=?;";
+            super.setPreparedStatement(super.getConnection().prepareStatement(sql));
+            super.getPreparedStatement().setString(1, noCategory);
+            ResultSet resultSet = super.getPreparedStatement().executeQuery();
+            int key = 0;
+            if (!resultSet.next()) {
+                sql = "INSERT INTO Categories SET Name=?;";
+                super.setPreparedStatement(super.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS));
+                super.getPreparedStatement().setString(1, noCategory);
+                key = super.getPreparedStatement().executeUpdate();
+            }else{
+                resultSet.beforeFirst();
+                while (resultSet.next()){
+                    key = resultSet.getInt("ID");
+                }
+            }
+
+            System.out.println(key);
+
+            if (key != 0) {
+                if (key != categorieId) {
+                    sql = "UPDATE CategorieItems SET CategorieId=? WHERE CategorieId=?;";
+                    super.setPreparedStatement(super.getConnection().prepareStatement(sql));
+                    super.getPreparedStatement().setInt(1, key);
+                    super.getPreparedStatement().setInt(2, categorieId);
+                    super.getPreparedStatement().executeUpdate();
+
+                    sql = "DELETE FROM Categories WHERE ID=?;";
+                    super.setPreparedStatement(super.getConnection().prepareStatement(sql));
+                    super.getPreparedStatement().setInt(1, categorieId);
+                    int amountOfDeletions = super.getPreparedStatement().executeUpdate();
+                    if (amountOfDeletions == 1) {
+                        showSuccesfullyDeleted();
+                    } else {
+                        System.out.println("Error 16");
+                        showOopsAlert();
+                    }
+                }else{
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Dat mag niet!");
+                    alert.setHeaderText("U mag deze categorie niet verwijderen.");
+                    alert.setContentText("U mag deze categorie niet verwijderen, Dit ivm als een item een categorie had en u verwijderd die categorie hij deze hoort te krijgen.");
+                    alert.getDialogPane().getChildren().stream().filter(node -> node instanceof Label).forEach(node -> ((Label)node).setMinHeight(Region.USE_PREF_SIZE));
+
+                    alert.showAndWait();
+                }
+            }else{
+                showOopsAlert();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                super.getPreparedStatement().close();
+                super.getConnection().close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void showOopsAlert(){
@@ -612,6 +701,14 @@ public class Database extends DatabaseExt {
         alert.setTitle("Geupload!");
         alert.setHeaderText("Succesvol geupload!");
         alert.setContentText("Het item is succesbvol geupload!");
+        alert.showAndWait();
+    }
+
+    private void showSuccesfullyDeleted() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Verwijderd!");
+        alert.setHeaderText("Succesvol verwijderd!");
+        alert.setContentText("Het item is succesvol verwijderd!");
         alert.showAndWait();
     }
 }

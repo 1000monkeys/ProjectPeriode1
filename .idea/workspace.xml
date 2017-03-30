@@ -7,74 +7,30 @@
     </artifacts-to-build>
   </component>
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/Tests/src/com/kjellvos/school/kassaSytem/tests/ListViewShower/tests.java" line="48" mnemonic="5" />
-    <bookmark url="file://$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/AddNewTemporaryPrice.java" line="52" />
+    <bookmark url="file://$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/AddNewTemporaryPrice.java" line="51" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="First Commit">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/Common/com/kjellvos/school/kassaSystem/common/Extensions/DatabaseExt.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/Common/com/kjellvos/school/kassaSystem/common/Extensions/MainScene.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/Common/com/kjellvos/school/kassaSystem/common/interfaces/SceneChanger.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/Common/com/kjellvos/school/kassaSystem/common/interfaces/SceneImplementation.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/ProjectPeriode1/com/kjellvos/school/kassaSystem/database/Database.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Common/Common.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Common/src/com/kjellvos/school/kassaSystem/common/Extensions/DatabaseExt.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Common/src/com/kjellvos/school/kassaSystem/common/Extensions/MainScene.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Common/src/com/kjellvos/school/kassaSystem/common/interfaces/SceneChanger.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/MainMenu.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/kjellvos/school/kassaSystem/database/Database.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/artifacts/DatabaseInserter_jar/com/kjellvos/school/kassaSystem/databaseInserter/database/Item.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/artifacts/DatabaseInserter_jar/com/kjellvos/school/kassaSystem/databaseInserter/interfaces/SceneImplementation.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/DatabaseInserter/com/kjellvos/school/kassaSystem/databaseInserter/database/Categorie.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/DatabaseInserter/com/kjellvos/school/kassaSystem/databaseInserter/database/Price.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/DatabaseInserter/com/kjellvos/school/kassaSystem/databaseInserter/functions/RegexAndFocusFunctions.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/DatabaseInserter/com/kjellvos/school/kassaSystem/databaseInserter/interfaces/SceneImplementation.class" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/database/Categorie.java" afterPath="$PROJECT_DIR$/Common/src/com/kjellvos/school/kassaSystem/common/database/Categorie.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/database/Item.java" afterPath="$PROJECT_DIR$/Common/src/com/kjellvos/school/kassaSystem/common/database/Item.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/database/Price.java" afterPath="$PROJECT_DIR$/Common/src/com/kjellvos/school/kassaSystem/common/database/Price.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/functions/RegexAndFocusFunctions.java" afterPath="$PROJECT_DIR$/Common/src/com/kjellvos/school/kassaSystem/common/functions/RegexAndFocusFunctions.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/interfaces/SceneImplementation.java" afterPath="$PROJECT_DIR$/Common/src/com/kjellvos/school/kassaSystem/common/interfaces/SceneImplementation.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/out/artifacts/DatabaseInserter_jar/com/kjellvos/school/kassaSystem/databaseInserter/database/Categorie.class" afterPath="$PROJECT_DIR$/out/production/Common/com/kjellvos/school/kassaSystem/common/database/Categorie.class" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/out/artifacts/DatabaseInserter_jar/com/kjellvos/school/kassaSystem/databaseInserter/database/Price.class" afterPath="$PROJECT_DIR$/out/production/Common/com/kjellvos/school/kassaSystem/common/database/Price.class" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/out/artifacts/DatabaseInserter_jar/com/kjellvos/school/kassaSystem/databaseInserter/functions/RegexAndFocusFunctions.class" afterPath="$PROJECT_DIR$/out/production/Common/com/kjellvos/school/kassaSystem/common/functions/RegexAndFocusFunctions.class" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/out/production/DatabaseInserter/com/kjellvos/school/kassaSystem/databaseInserter/database/Item.class" afterPath="$PROJECT_DIR$/out/production/Common/com/kjellvos/school/kassaSystem/common/database/Item.class" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Tests/Tests.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Tests/src/com/kjellvos/school/kassaSytem/tests/ListViewShower/Item.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Tests/src/com/kjellvos/school/kassaSytem/tests/ListViewShower/tests.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/DatabaseInserter_jar/DatabaseInserter.jar" afterPath="$PROJECT_DIR$/out/artifacts/DatabaseInserter_jar/DatabaseInserter.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/DatabaseInserter_jar/com/kjellvos/school/kassaSystem/databaseInserter/AddNewCategorie.class" afterPath="$PROJECT_DIR$/out/artifacts/DatabaseInserter_jar/com/kjellvos/school/kassaSystem/databaseInserter/AddNewCategorie.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/DatabaseInserter_jar/com/kjellvos/school/kassaSystem/databaseInserter/AddNewItem.class" afterPath="$PROJECT_DIR$/out/artifacts/DatabaseInserter_jar/com/kjellvos/school/kassaSystem/databaseInserter/AddNewItem.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/DatabaseInserter_jar/com/kjellvos/school/kassaSystem/databaseInserter/AddNewTemporaryPrice.class" afterPath="$PROJECT_DIR$/out/artifacts/DatabaseInserter_jar/com/kjellvos/school/kassaSystem/databaseInserter/AddNewTemporaryPrice.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/DatabaseInserter_jar/com/kjellvos/school/kassaSystem/databaseInserter/GetCategorieList.class" afterPath="$PROJECT_DIR$/out/artifacts/DatabaseInserter_jar/com/kjellvos/school/kassaSystem/databaseInserter/GetCategorieList.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/DatabaseInserter_jar/com/kjellvos/school/kassaSystem/databaseInserter/GetItemsList.class" afterPath="$PROJECT_DIR$/out/artifacts/DatabaseInserter_jar/com/kjellvos/school/kassaSystem/databaseInserter/GetItemsList.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/DatabaseInserter_jar/com/kjellvos/school/kassaSystem/databaseInserter/Main.class" afterPath="$PROJECT_DIR$/out/artifacts/DatabaseInserter_jar/com/kjellvos/school/kassaSystem/databaseInserter/Main.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/DatabaseInserter_jar/com/kjellvos/school/kassaSystem/databaseInserter/MainMenu.class" afterPath="$PROJECT_DIR$/out/artifacts/DatabaseInserter_jar/com/kjellvos/school/kassaSystem/databaseInserter/MainMenu.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/DatabaseInserter_jar/com/kjellvos/school/kassaSystem/databaseInserter/OverviewItem.class" afterPath="$PROJECT_DIR$/out/artifacts/DatabaseInserter_jar/com/kjellvos/school/kassaSystem/databaseInserter/OverviewItem.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/DatabaseInserter_jar/com/kjellvos/school/kassaSystem/databaseInserter/database/Database.class" afterPath="$PROJECT_DIR$/out/artifacts/DatabaseInserter_jar/com/kjellvos/school/kassaSystem/databaseInserter/database/Database.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/DatabaseInserter/com/kjellvos/school/kassaSystem/databaseInserter/AddNewCategorie.class" afterPath="$PROJECT_DIR$/out/production/DatabaseInserter/com/kjellvos/school/kassaSystem/databaseInserter/AddNewCategorie.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/DatabaseInserter/com/kjellvos/school/kassaSystem/databaseInserter/AddNewItem.class" afterPath="$PROJECT_DIR$/out/production/DatabaseInserter/com/kjellvos/school/kassaSystem/databaseInserter/AddNewItem.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Common/com/kjellvos/school/kassaSystem/common/functions/RegexAndFocusFunctions.class" afterPath="$PROJECT_DIR$/out/production/Common/com/kjellvos/school/kassaSystem/common/functions/RegexAndFocusFunctions.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/DatabaseInserter/com/kjellvos/school/kassaSystem/databaseInserter/AddNewTemporaryPrice.class" afterPath="$PROJECT_DIR$/out/production/DatabaseInserter/com/kjellvos/school/kassaSystem/databaseInserter/AddNewTemporaryPrice.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/DatabaseInserter/com/kjellvos/school/kassaSystem/databaseInserter/GetCategorieList.class" afterPath="$PROJECT_DIR$/out/production/DatabaseInserter/com/kjellvos/school/kassaSystem/databaseInserter/GetCategorieList.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/DatabaseInserter/com/kjellvos/school/kassaSystem/databaseInserter/GetItemsList.class" afterPath="$PROJECT_DIR$/out/production/DatabaseInserter/com/kjellvos/school/kassaSystem/databaseInserter/GetItemsList.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/DatabaseInserter/com/kjellvos/school/kassaSystem/databaseInserter/Main.class" afterPath="$PROJECT_DIR$/out/production/DatabaseInserter/com/kjellvos/school/kassaSystem/databaseInserter/Main.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/DatabaseInserter/com/kjellvos/school/kassaSystem/databaseInserter/MainMenu.class" afterPath="$PROJECT_DIR$/out/production/DatabaseInserter/com/kjellvos/school/kassaSystem/databaseInserter/MainMenu.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/DatabaseInserter/com/kjellvos/school/kassaSystem/databaseInserter/OverviewItem.class" afterPath="$PROJECT_DIR$/out/production/DatabaseInserter/com/kjellvos/school/kassaSystem/databaseInserter/OverviewItem.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/DatabaseInserter/com/kjellvos/school/kassaSystem/databaseInserter/database/Database.class" afterPath="$PROJECT_DIR$/out/production/DatabaseInserter/com/kjellvos/school/kassaSystem/databaseInserter/database/Database.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ProjectPeriode1/com/kjellvos/school/kassaSystem/Main.class" afterPath="$PROJECT_DIR$/out/production/ProjectPeriode1/com/kjellvos/school/kassaSystem/Main.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ProjectPeriode1/com/kjellvos/school/kassaSystem/MainMenu.class" afterPath="$PROJECT_DIR$/out/production/ProjectPeriode1/com/kjellvos/school/kassaSystem/MainMenu.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DatabaseInserter/DatabaseInserter.iml" afterPath="$PROJECT_DIR$/DatabaseInserter/DatabaseInserter.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/AddNewCategorie.java" afterPath="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/AddNewCategorie.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/AddNewItem.java" afterPath="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/AddNewItem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Common/src/com/kjellvos/school/kassaSystem/common/functions/RegexAndFocusFunctions.java" afterPath="$PROJECT_DIR$/Common/src/com/kjellvos/school/kassaSystem/common/functions/RegexAndFocusFunctions.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/AddNewTemporaryPrice.java" afterPath="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/AddNewTemporaryPrice.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/GetCategorieList.java" afterPath="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/GetCategorieList.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/GetItemsList.java" afterPath="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/GetItemsList.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/Main.java" afterPath="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/Main.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/OverviewItem.java" afterPath="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/OverviewItem.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/database/Database.java" afterPath="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/database/Database.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProjectPeriode1.iml" afterPath="$PROJECT_DIR$/ProjectPeriode1.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/DatabaseInserter_jar/DatabaseInserter.jnlp" afterPath="$PROJECT_DIR$/out/artifacts/DatabaseInserter_jar/DatabaseInserter.jnlp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/kjellvos/school/kassaSystem/Main.java" afterPath="$PROJECT_DIR$/src/com/kjellvos/school/kassaSystem/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/kjellvos/school/kassaSystem/MainMenu.java" afterPath="$PROJECT_DIR$/src/com/kjellvos/school/kassaSystem/MainMenu.java" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -87,7 +43,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/ProjectPeriode1$Main_DBI.coverage" NAME="Main DBI Coverage Results" MODIFIED="1490798657575" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/ProjectPeriode1$Main_DBI.coverage" NAME="Main DBI Coverage Results" MODIFIED="1490900394557" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.kjellvos.school.kassaSystem.databaseInserter.functions.*</FILTER>
     </SUITE>
   </component>
@@ -147,21 +103,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="SceneImplementation.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Common/src/com/kjellvos/school/kassaSystem/common/interfaces/SceneImplementation.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="13" column="1" lean-forward="false" selection-start-line="13" selection-start-column="1" selection-end-line="13" selection-end-column="1" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="OverviewItem.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/OverviewItem.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="318">
-              <caret line="63" column="0" lean-forward="true" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+            <state relative-caret-position="329">
+              <caret line="160" column="193" lean-forward="false" selection-start-line="160" selection-start-column="193" selection-end-line="160" selection-end-column="193" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -169,53 +115,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DatabaseExt.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Common/src/com/kjellvos/school/kassaSystem/common/Extensions/DatabaseExt.java">
+      <file leaf-file-name="Database.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/kjellvos/school/kassaSystem/database/Database.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="199">
-              <caret line="18" column="43" lean-forward="true" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="43" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1510#1511#0" expanded="true" />
-                <element signature="e#1554#1555#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GetItemsList.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/GetItemsList.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="68" column="59" lean-forward="true" selection-start-line="68" selection-start-column="59" selection-end-line="68" selection-end-column="59" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/kjellvos/school/kassaSystem/Main.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MainMenu.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/kjellvos/school/kassaSystem/MainMenu.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="30" column="14" lean-forward="true" selection-start-line="30" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
-              <folding>
-                <element signature="e#2565#2566#0" expanded="true" />
-                <element signature="e#2593#2594#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="136">
+              <caret line="14" column="13" lean-forward="false" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -234,10 +139,24 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="GetItemsList.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/GetItemsList.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="292">
+              <caret line="68" column="56" lean-forward="true" selection-start-line="68" selection-start-column="56" selection-end-line="68" selection-end-column="56" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1199#1200#0" expanded="true" />
+                <element signature="e#1272#1273#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="MainMenu.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/MainMenu.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="573">
+            <state relative-caret-position="408">
               <caret line="63" column="0" lean-forward="false" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -246,25 +165,95 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SceneChanger.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Common/src/com/kjellvos/school/kassaSystem/common/interfaces/SceneChanger.java">
+      <file leaf-file-name="GetCategorieList.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/GetCategorieList.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="14" column="34" lean-forward="false" selection-start-line="14" selection-start-column="34" selection-end-line="14" selection-end-column="34" />
+            <state relative-caret-position="227">
+              <caret line="70" column="0" lean-forward="false" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#3520#3521#0" expanded="true" />
+                <element signature="e#3597#3598#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Database.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/database/Database.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="649">
+              <caret line="636" column="24" lean-forward="false" selection-start-line="636" selection-start-column="24" selection-end-line="636" selection-end-column="24" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <marker date="1490902183636" expanded="true" signature="1353:1391" ph="SELECT ID FR... Categories" />
+                <marker date="1490902183636" expanded="true" signature="2068:2111" ph="INSERT INTO Items... " />
+                <marker date="1490902183636" expanded="true" signature="2142:2173" ph="SET @ItemsId... " />
+                <marker date="1490902183636" expanded="true" signature="2204:2259" ph="INSERT INTO DefaultPrices... " />
+                <marker date="1490902183636" expanded="true" signature="2290:2343" ph="INSERT INTO ItemsImages... " />
+                <marker date="1490902183636" expanded="true" signature="2374:2436" ph="INSERT INTO CategorieItems... " />
+                <marker date="1490902183636" expanded="true" signature="4184:4249" ph="INSERT INTO Prices... " />
+                <marker date="1490902183636" expanded="true" signature="6041:6090" ph="UPDATE Items... " />
+                <marker date="1490902183636" expanded="true" signature="6131:6179" ph="UPDATE Defau... " />
+                <marker date="1490902183636" expanded="true" signature="6220:6266" ph="UPDATE Items... " />
+                <marker date="1490902183636" expanded="true" signature="6220:6309" ph="UPDATE Items... " />
+                <marker date="1490902183636" expanded="true" signature="7051:7100" ph="UPDATE Items... " />
+                <marker date="1490902183636" expanded="true" signature="7141:7189" ph="UPDATE Defau... " />
+                <marker date="1490902183636" expanded="true" signature="7193:7233" ph="UPDATE Categ... " />
+                <marker date="1490902183636" expanded="true" signature="9081:9598" ph="SELECT Items... Items" />
+                <marker date="1490902183636" expanded="true" signature="11331:11624" ph="SELECT Items... Items" />
+                <marker date="1490902183636" expanded="true" signature="13270:13419" ph="SELECT Price... Prices" />
+                <marker date="1490902183636" expanded="true" signature="15111:15206" ph="SELECT Price... Prices" />
+                <marker date="1490902183636" expanded="true" signature="16743:16796" ph="UPDATE Price... " />
+                <marker date="1490902183636" expanded="true" signature="17656:17739" ph="SELECT Price... Prices" />
+                <marker date="1490902183636" expanded="true" signature="18388:18438" ph="DELETE FROM " />
+                <marker date="1490902183636" expanded="true" signature="22168:22205" ph="SELECT * FRO... Categories" />
+                <marker date="1490902183636" expanded="true" signature="22501:22534" ph="INSERT INTO Categories... " />
+                <marker date="1490902183636" expanded="true" signature="24084:24108" ph="SELECT * FRO... Categories" />
+                <marker date="1490902183636" expanded="true" signature="25279:25306" ph="SELECT Name Categories" />
+                <marker date="1490902183636" expanded="true" signature="26321:26349" ph="DELETE FROM " />
+                <marker date="1490902183636" expanded="true" signature="27312:27350" ph="SELECT * FRO... Categories" />
+                <marker date="1490902183636" expanded="true" signature="27670:27703" ph="INSERT INTO Categories... " />
+                <marker date="1490902183636" expanded="true" signature="28288:28326" ph="UPDATE Categ... " />
+                <marker date="1490902183636" expanded="true" signature="28288:28327" ph="UPDATE Categ... " />
+                <marker date="1490902183636" expanded="true" signature="28288:28347" ph="UPDATE Categ... " />
+                <marker date="1490902183636" expanded="true" signature="28676:28709" ph="DELETE FROM " />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="357">
+                <caret line="21" column="16" lean-forward="true" selection-start-line="21" selection-start-column="16" selection-end-line="21" selection-end-column="16" />
+                <folding />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Item.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Common/src/com/kjellvos/school/kassaSystem/common/database/Item.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-37">
+              <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MainScene.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Common/src/com/kjellvos/school/kassaSystem/common/Extensions/MainScene.java">
+      <file leaf-file-name="Categorie.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Common/src/com/kjellvos/school/kassaSystem/common/database/Categorie.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="335">
-              <caret line="27" column="8" lean-forward="true" selection-start-line="27" selection-start-column="8" selection-end-line="27" selection-end-column="8" />
+            <state relative-caret-position="289">
+              <caret line="19" column="8" lean-forward="false" selection-start-line="19" selection-start-column="8" selection-end-line="19" selection-end-column="20" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1046#1047#0" expanded="true" />
-                <element signature="e#1074#1075#0" expanded="true" />
+                <element signature="e#346#347#0" expanded="true" />
+                <element signature="e#373#374#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -281,17 +270,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>TextF</find>
-      <find>Add</find>
-      <find>laten zien</find>
-      <find>system.out</find>
-      <find>System.out</find>
-      <find>INSERT</find>
-      <find>price</find>
-      <find>Bigdeci</find>
-      <find>Big</find>
-      <find>itemUpdate</find>
-      <find>insert</find>
       <find>ShowoopsAlert</find>
       <find>showNodataAlert</find>
       <find>Nodata</find>
@@ -311,9 +289,21 @@
       <find>8</find>
       <find>15</find>
       <find>categorie</find>
+      <find>4</find>
+      <find>DELETED</find>
+      <find>DELETE</find>
+      <find>delete</find>
+      <find>oops</find>
+      <find>a</find>
+      <find>Alert</find>
+      <find>error</find>
+      <find>updateTempo</find>
+      <find>alert</find>
+      <find>update</find>
     </findStrings>
     <replaceStrings>
       <replace>gridHandler.</replace>
+      <replace>3</replace>
     </replaceStrings>
   </component>
   <component name="FindManager">
@@ -363,7 +353,6 @@
         <option value="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/database/Categorie.java" />
         <option value="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/database/DataSource.java" />
         <option value="$PROJECT_DIR$/lib/commons-dbcp2-2.1.1.jar!/org/apache/commons/dbcp2/BasicDataSource.class" />
-        <option value="$PROJECT_DIR$/Tests/src/com/kjellvos/school/kassaSytem/tests/ListViewShower/tests.java" />
         <option value="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/database/Item.java" />
         <option value="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/database/Price.java" />
         <option value="$PROJECT_DIR$/Common/src/com/kjellvos/school/kassaSystem/common/database/Database.java" />
@@ -380,14 +369,16 @@
         <option value="$PROJECT_DIR$/Common/src/com/kjellvos/school/kassaSystem/common/Extensions/DatabaseExt.java" />
         <option value="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/AddNewCategorie.java" />
         <option value="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/AddNewItem.java" />
-        <option value="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/GetCategorieList.java" />
-        <option value="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/AddNewTemporaryPrice.java" />
-        <option value="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/GetItemsList.java" />
-        <option value="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/OverviewItem.java" />
-        <option value="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/database/Database.java" />
         <option value="$PROJECT_DIR$/Common/src/com/kjellvos/school/kassaSystem/common/Extensions/MainScene.java" />
         <option value="$PROJECT_DIR$/src/com/kjellvos/school/kassaSystem/MainMenu.java" />
         <option value="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/MainMenu.java" />
+        <option value="$PROJECT_DIR$/Tests/src/com/kjellvos/school/kassaSytem/tests/ListViewShower/tests.java" />
+        <option value="$PROJECT_DIR$/Common/src/com/kjellvos/school/kassaSystem/common/functions/RegexAndFocusFunctions.java" />
+        <option value="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/AddNewTemporaryPrice.java" />
+        <option value="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/GetCategorieList.java" />
+        <option value="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/GetItemsList.java" />
+        <option value="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/OverviewItem.java" />
+        <option value="$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/database/Database.java" />
       </list>
     </option>
   </component>
@@ -399,8 +390,9 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
+    <option name="y" value="-5" />
     <option name="width" value="1920" />
-    <option name="height" value="1044" />
+    <option name="height" value="1049" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -446,8 +438,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -457,62 +447,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="ProjectPeriode1" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ProjectPeriode1" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ProjectPeriode1" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Tests" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ProjectPeriode1" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ProjectPeriode1" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Tests" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="kjellvos" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="school" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="kassaSytem" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tests" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ListViewShower" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -770,6 +704,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -794,6 +730,7 @@
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="project.validation" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="com.intellij.database.dataSource.DataSourceTemplate" value="MySQL" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -1354,7 +1291,8 @@
       <workItem from="1490776219861" duration="2683000" />
       <workItem from="1490797610558" duration="1480000" />
       <workItem from="1490799411970" duration="4167000" />
-      <workItem from="1490805847625" duration="6956000" />
+      <workItem from="1490805847625" duration="8142000" />
+      <workItem from="1490895257642" duration="6989000" />
     </task>
     <task id="LOCAL-00001" summary="First Commit&#10;">
       <created>1489922116224</created>
@@ -1367,7 +1305,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="111340000" />
+    <option name="totallyTimeSpent" value="119515000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1379,27 +1317,27 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1920" height="1044" extended-state="7" />
+    <frame x="0" y="-5" width="1920" height="1049" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31779662" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31612223" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33016878" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19385593" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19599578" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32916668" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2625" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18489583" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3315678" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1415,9 +1353,9 @@
       <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32944915" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32916668" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3315678" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1481,7 +1419,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/GridHandler/src/com/kjellvos/school/gridHandler/GridItem.java" />
     <entry file="file://$PROJECT_DIR$/GridHandler/src/com/kjellvos/school/gridHandler/GridSorter.java" />
     <entry file="file://$PROJECT_DIR$/GridHandler/src/com/kjellvos/school/gridHandler/GridHandler.java" />
     <entry file="file://$PROJECT_DIR$/GridHandler/src/com/kjellvos/os/gridHandler/GridItem.java" />
@@ -1543,16 +1480,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="306">
-            <caret line="21" column="16" lean-forward="true" selection-start-line="21" selection-start-column="16" selection-end-line="21" selection-end-column="16" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/database/DataSource.java" />
     <entry file="jar://$PROJECT_DIR$/lib/commons-dbcp2-2.1.1.jar!/org/apache/commons/dbcp2/BasicDataSource.class">
       <provider selected="true" editor-type-id="text-editor">
@@ -1568,37 +1495,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Tests/src/com/kjellvos/school/kassaSytem/tests/ListViewShower/tests.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Common/src/com/kjellvos/school/kassaSystem/common/database/Categorie.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="19" column="8" lean-forward="false" selection-start-line="19" selection-start-column="8" selection-end-line="19" selection-end-column="20" />
-          <folding>
-            <element signature="e#346#347#0" expanded="false" />
-            <element signature="e#373#374#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Common/src/com/kjellvos/school/kassaSystem/common/database/Item.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="7" lean-forward="false" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#980#981#0" expanded="false" />
-            <element signature="e#1007#1008#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Common/src/com/kjellvos/school/kassaSystem/common/database/Price.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -1607,192 +1503,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Tests/src/com/kjellvos/school/kassaSytem/tests/ListViewShower/Item.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="25" column="8" lean-forward="false" selection-start-line="25" selection-start-column="8" selection-end-line="25" selection-end-column="27" />
-          <folding>
-            <element signature="e#502#503#0" expanded="false" />
-            <element signature="e#536#537#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/kjellvos/school/kassaSystem/database/Database.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="369">
           <caret line="22" column="38" lean-forward="false" selection-start-line="22" selection-start-column="38" selection-end-line="22" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Common/src/com/kjellvos/school/kassaSystem/common/database/Database.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3818">
-          <caret line="285" column="54" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="632" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Common/src/com/kjellvos/school/kassaSystem/common/Extensions.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="23" lean-forward="false" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Common/src/com/kjellvos/school/kassaSystem/common/functions/RegexAndFocusFunctions.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/kjellvos/school/kassaSystem/MainScene.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/kjellvos/school/kassaSystem/MainScene.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/kjellvos/school/kassaSystem/database/Database.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="13" lean-forward="false" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/AddNewCategorie.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="32" column="24" lean-forward="false" selection-start-line="32" selection-start-column="24" selection-end-line="32" selection-end-column="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#711#712#0" expanded="true" />
-            <element signature="e#751#752#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/AddNewItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="115" column="50" lean-forward="false" selection-start-line="115" selection-start-column="50" selection-end-line="115" selection-end-column="50" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1148#1149#0" expanded="true" />
-            <element signature="e#1188#1189#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/GetCategorieList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="73" column="35" lean-forward="false" selection-start-line="73" selection-start-column="35" selection-end-line="73" selection-end-column="35" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/AddNewTemporaryPrice.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="128" column="28" lean-forward="false" selection-start-line="128" selection-start-column="28" selection-end-line="128" selection-end-column="28" />
-          <caret line="127" column="28" lean-forward="false" selection-start-line="127" selection-start-column="28" selection-end-line="127" selection-end-column="28" />
-          <caret line="124" column="19" lean-forward="false" selection-start-line="124" selection-start-column="19" selection-end-line="124" selection-end-column="19" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/database/Database.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="134">
-          <caret line="25" column="13" lean-forward="false" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1490814311618" expanded="true" signature="1353:1391" ph="SELECT ID FR... Categories" />
-            <marker date="1490814311618" expanded="true" signature="2068:2111" ph="INSERT INTO Items... " />
-            <marker date="1490814311618" expanded="true" signature="2142:2173" ph="SET @ItemsId... " />
-            <marker date="1490814311618" expanded="true" signature="2204:2259" ph="INSERT INTO DefaultPrices... " />
-            <marker date="1490814311618" expanded="true" signature="2290:2343" ph="INSERT INTO ItemsImages... " />
-            <marker date="1490814311618" expanded="true" signature="2374:2436" ph="INSERT INTO CategorieItems... " />
-            <marker date="1490814311618" expanded="true" signature="4184:4249" ph="INSERT INTO Prices... " />
-            <marker date="1490814311618" expanded="true" signature="6033:6082" ph="UPDATE Items... " />
-            <marker date="1490814311618" expanded="true" signature="6115:6163" ph="UPDATE Defau... " />
-            <marker date="1490814311618" expanded="true" signature="6196:6277" ph="UPDATE Items... " />
-            <marker date="1490814311618" expanded="true" signature="7008:7057" ph="UPDATE Items... " />
-            <marker date="1490814311618" expanded="true" signature="7090:7138" ph="UPDATE Defau... " />
-            <marker date="1490814311618" expanded="true" signature="9022:9539" ph="SELECT Items... Items" />
-            <marker date="1490814311618" expanded="true" signature="11272:11565" ph="SELECT Items... Items" />
-            <marker date="1490814311618" expanded="true" signature="13211:13360" ph="SELECT Price... Prices" />
-            <marker date="1490814311618" expanded="true" signature="15052:15147" ph="SELECT Price... Prices" />
-            <marker date="1490814311618" expanded="true" signature="16684:16737" ph="UPDATE Price... " />
-            <marker date="1490814311618" expanded="true" signature="17597:17680" ph="SELECT Price... Prices" />
-            <marker date="1490814311618" expanded="true" signature="18329:18379" ph="DELETE FROM " />
-            <marker date="1490814311618" expanded="true" signature="22352:22389" ph="SELECT * FRO... Categories" />
-            <marker date="1490814311618" expanded="true" signature="22685:22718" ph="INSERT INTO Categories... " />
-            <marker date="1490814311618" expanded="true" signature="24268:24292" ph="SELECT * FRO... Categories" />
-            <marker date="1490814311618" expanded="true" signature="25463:25490" ph="SELECT Name Categories" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/GetItemsList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="68" column="59" lean-forward="true" selection-start-line="68" selection-start-column="59" selection-end-line="68" selection-end-column="59" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/Common/src/com/kjellvos/school/kassaSystem/common/database/Database.java" />
+    <entry file="file://$PROJECT_DIR$/Common/src/com/kjellvos/school/kassaSystem/common/Extensions.java" />
+    <entry file="file://$PROJECT_DIR$/src/com/kjellvos/school/kassaSystem/MainScene.java" />
+    <entry file="file://$PROJECT_DIR$/src/com/kjellvos/school/kassaSystem/MainScene.java" />
     <entry file="file://$PROJECT_DIR$/src/com/kjellvos/school/kassaSystem/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
           <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="46" lean-forward="false" selection-start-line="22" selection-start-column="46" selection-end-line="22" selection-end-column="46" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#690#691#0" expanded="true" />
-            <element signature="e#743#744#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/OverviewItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="318">
-          <caret line="63" column="0" lean-forward="true" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1800,20 +1530,9 @@
     <entry file="file://$PROJECT_DIR$/src/com/kjellvos/school/kassaSystem/MainMenu.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
-          <caret line="30" column="14" lean-forward="true" selection-start-line="30" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+          <caret line="30" column="14" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
           <folding>
-            <element signature="e#2565#2566#0" expanded="true" />
-            <element signature="e#2593#2594#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/MainMenu.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="573">
-          <caret line="63" column="0" lean-forward="false" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1834,26 +1553,210 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Common/src/com/kjellvos/school/kassaSystem/common/Extensions/DatabaseExt.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="18" column="43" lean-forward="true" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="43" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1510#1511#0" expanded="true" />
-            <element signature="e#1554#1555#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/Tests/src/com/kjellvos/school/kassaSytem/tests/ListViewShower/Item.java" />
+    <entry file="file://$PROJECT_DIR$/Tests/src/com/kjellvos/school/kassaSytem/tests/ListViewShower/tests.java" />
     <entry file="file://$PROJECT_DIR$/Common/src/com/kjellvos/school/kassaSystem/common/Extensions/MainScene.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="335">
-          <caret line="27" column="8" lean-forward="true" selection-start-line="27" selection-start-column="8" selection-end-line="27" selection-end-column="8" />
+        <state relative-caret-position="357">
+          <caret line="27" column="8" lean-forward="false" selection-start-line="27" selection-start-column="8" selection-end-line="27" selection-end-column="8" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1046#1047#0" expanded="true" />
             <element signature="e#1074#1075#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/KassaSystem.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-100">
+          <caret line="159" column="0" lean-forward="false" selection-start-line="159" selection-start-column="0" selection-end-line="159" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Common/src/com/kjellvos/school/kassaSystem/common/functions/RegexAndFocusFunctions.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="624">
+          <caret line="88" column="28" lean-forward="false" selection-start-line="88" selection-start-column="28" selection-end-line="88" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Common/src/com/kjellvos/school/kassaSystem/common/Extensions/DatabaseExt.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="199">
+          <caret line="18" column="43" lean-forward="false" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="43" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/AddNewCategorie.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="348">
+          <caret line="32" column="24" lean-forward="false" selection-start-line="32" selection-start-column="24" selection-end-line="32" selection-end-column="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/AddNewItem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1694">
+          <caret line="115" column="50" lean-forward="false" selection-start-line="115" selection-start-column="50" selection-end-line="115" selection-end-column="50" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/AddNewTemporaryPrice.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="128" column="17" lean-forward="false" selection-start-line="128" selection-start-column="0" selection-end-line="129" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/MainMenu.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="63" column="0" lean-forward="false" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Common/src/com/kjellvos/school/kassaSystem/common/database/Categorie.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="19" column="8" lean-forward="false" selection-start-line="19" selection-start-column="8" selection-end-line="19" selection-end-column="20" />
+          <folding>
+            <element signature="e#346#347#0" expanded="true" />
+            <element signature="e#373#374#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/GetCategorieList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="227">
+          <caret line="70" column="0" lean-forward="false" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3520#3521#0" expanded="true" />
+            <element signature="e#3597#3598#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Common/src/com/kjellvos/school/kassaSystem/common/database/Item.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-37">
+          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/kjellvos/school/kassaSystem/database/Database.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="14" column="13" lean-forward="false" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="46" lean-forward="false" selection-start-line="22" selection-start-column="46" selection-end-line="22" selection-end-column="46" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#690#691#0" expanded="true" />
+            <element signature="e#743#744#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/OverviewItem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="329">
+          <caret line="160" column="193" lean-forward="false" selection-start-line="160" selection-start-column="193" selection-end-line="160" selection-end-column="193" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/database/Database.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="649">
+          <caret line="636" column="24" lean-forward="false" selection-start-line="636" selection-start-column="24" selection-end-line="636" selection-end-column="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <marker date="1490902183636" expanded="true" signature="1353:1391" ph="SELECT ID FR... Categories" />
+            <marker date="1490902183636" expanded="true" signature="2068:2111" ph="INSERT INTO Items... " />
+            <marker date="1490902183636" expanded="true" signature="2142:2173" ph="SET @ItemsId... " />
+            <marker date="1490902183636" expanded="true" signature="2204:2259" ph="INSERT INTO DefaultPrices... " />
+            <marker date="1490902183636" expanded="true" signature="2290:2343" ph="INSERT INTO ItemsImages... " />
+            <marker date="1490902183636" expanded="true" signature="2374:2436" ph="INSERT INTO CategorieItems... " />
+            <marker date="1490902183636" expanded="true" signature="4184:4249" ph="INSERT INTO Prices... " />
+            <marker date="1490902183636" expanded="true" signature="6041:6090" ph="UPDATE Items... " />
+            <marker date="1490902183636" expanded="true" signature="6131:6179" ph="UPDATE Defau... " />
+            <marker date="1490902183636" expanded="true" signature="6220:6266" ph="UPDATE Items... " />
+            <marker date="1490902183636" expanded="true" signature="6220:6309" ph="UPDATE Items... " />
+            <marker date="1490902183636" expanded="true" signature="7051:7100" ph="UPDATE Items... " />
+            <marker date="1490902183636" expanded="true" signature="7141:7189" ph="UPDATE Defau... " />
+            <marker date="1490902183636" expanded="true" signature="7193:7233" ph="UPDATE Categ... " />
+            <marker date="1490902183636" expanded="true" signature="9081:9598" ph="SELECT Items... Items" />
+            <marker date="1490902183636" expanded="true" signature="11331:11624" ph="SELECT Items... Items" />
+            <marker date="1490902183636" expanded="true" signature="13270:13419" ph="SELECT Price... Prices" />
+            <marker date="1490902183636" expanded="true" signature="15111:15206" ph="SELECT Price... Prices" />
+            <marker date="1490902183636" expanded="true" signature="16743:16796" ph="UPDATE Price... " />
+            <marker date="1490902183636" expanded="true" signature="17656:17739" ph="SELECT Price... Prices" />
+            <marker date="1490902183636" expanded="true" signature="18388:18438" ph="DELETE FROM " />
+            <marker date="1490902183636" expanded="true" signature="22168:22205" ph="SELECT * FRO... Categories" />
+            <marker date="1490902183636" expanded="true" signature="22501:22534" ph="INSERT INTO Categories... " />
+            <marker date="1490902183636" expanded="true" signature="24084:24108" ph="SELECT * FRO... Categories" />
+            <marker date="1490902183636" expanded="true" signature="25279:25306" ph="SELECT Name Categories" />
+            <marker date="1490902183636" expanded="true" signature="26321:26349" ph="DELETE FROM " />
+            <marker date="1490902183636" expanded="true" signature="27312:27350" ph="SELECT * FRO... Categories" />
+            <marker date="1490902183636" expanded="true" signature="27670:27703" ph="INSERT INTO Categories... " />
+            <marker date="1490902183636" expanded="true" signature="28288:28326" ph="UPDATE Categ... " />
+            <marker date="1490902183636" expanded="true" signature="28288:28327" ph="UPDATE Categ... " />
+            <marker date="1490902183636" expanded="true" signature="28288:28347" ph="UPDATE Categ... " />
+            <marker date="1490902183636" expanded="true" signature="28676:28709" ph="DELETE FROM " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="357">
+            <caret line="21" column="16" lean-forward="true" selection-start-line="21" selection-start-column="16" selection-end-line="21" selection-end-column="16" />
+            <folding />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DatabaseInserter/src/com/kjellvos/school/kassaSystem/databaseInserter/GetItemsList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="292">
+          <caret line="68" column="56" lean-forward="true" selection-start-line="68" selection-start-column="56" selection-end-line="68" selection-end-column="56" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1199#1200#0" expanded="true" />
+            <element signature="e#1272#1273#0" expanded="true" />
           </folding>
         </state>
       </provider>

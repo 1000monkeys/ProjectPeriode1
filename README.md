@@ -11,36 +11,41 @@ Project group consisted of [1000monkeys](https://github.com/1000monkeys), [Daniq
 Initial commit<br />
 
 **V0.1**<br />
-Added uploading temporary prices to database in the database inserter.<br />
-Added ability to reload data for scene on resetting the scene as the current scene for database inserter.<br />
-Added checks for inserting temporary price so you don't have 2 temporary prices at the same time.<br />
+Added uploading temporary prices to database.(DBI)<br />
+Added ability to reload data for scene on resetting the scene as the current scene.(DBI)<br />
+Added checks for inserting temporary price so you don't have 2 temporary prices at the same time.(DBI)<br />
 
 **V0.2**<br />
-Added deleting a temporary prices with the needed checks so that if the price is active you just set the end date to now.<br />
-Added alert message to inserting a new item.<br />
+Added deleting a temporary prices with the needed checks so that if the price is active you just set the end date to now.(DBI)<br />
+Added alert message to inserting a new item.(DBI)<br />
 
 **V0.2.1**<br />
-Changed database so that there is a DefaultPrice table instead of having a boolean on the Prices table.<br />
-Fixed float rounding errors.<br />
-Included database in release.<br />
+Changed database so that there is a DefaultPrice table instead of having a boolean on the Prices table.(BOTH)<br />
+Fixed float rounding errors.(DBI)<br />
+Included database in release.(BOTH)<br />
 
 
 **V0.3**<br />
-Added categorie's to the database and retooled the database inserter to work with them.
+Added categorie's to the database and retooled the existing code to work with it.(BOTH)<br />
 
 **V0.3.1**<br />
-Added DBCP for faster database connections.<br />
-Small bug fixes.<br />
-We now use a mysql database located on a server.<br />
+Added DBCP for faster database connections.(BOTH)<br />
+Small bug fixes.(DBI)<br />
+We now use a mysql database located on a server.(BOTH)<br />
 
 **V0.3.2**<br />
-Found a way to make sure a multiline update fails or not so implemented it.<br />
-We now check before inserting a categorie for if it exists.<br />
-
+Found a way to make sure a multiline update fails or not so implemented it.(DBI)<br />
+We now check before inserting a categorie for if it exists.(DBI)<br />
 
 **V0.3.3**<br />
-Retooled some things so some things extend some things now so that code is reused more.<br />
-Basically i retooled my scene changing implementation so that i can use it for both the Database Inserter and the Register(Kassa)<br />
+Retooled some things so some things extend some things now so that code is reused more.(BOTH)<br />
+Basically i retooled my scene changing implementation so that i can use it for both the Database Inserter and the register.(BOTH)<br />
+
+**V0.3.4**<br />
+Changed the time regex functions to HH:MM:SS.(DBI)<br />
+Made the delete item button do something.(DBI)<br />
+Made the delete categorie button do something.(DBI)<br />
+Implemented "Are you sure?" question on deleting a temporary price and included it in the new delete methods.(DBI)<br />
 
 ## **Plans**<br />
 Add to the register ability to have customer cards and customer card discounts.<br />
@@ -49,7 +54,5 @@ And build the normal things needed for a register, For example 'scanning' an ite
 
 ## **TODO**<br />
 Lots.<br />
-Make the delete item button do something.<br />
-Make the delete categorie button do something.<br />
-Change the regex functions for time to HH:MM:SS from HH:MM.<br />
+Change update item to include the categorie.<br />
 

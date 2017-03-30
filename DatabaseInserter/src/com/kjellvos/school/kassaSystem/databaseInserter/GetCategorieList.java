@@ -1,20 +1,21 @@
 package com.kjellvos.school.kassaSystem.databaseInserter;
 
 import com.kjellvos.os.gridHandler.GridHandler;
+import com.kjellvos.school.kassaSystem.common.database.Categorie;
 import com.kjellvos.school.kassaSystem.common.database.Item;
+import com.kjellvos.school.kassaSystem.common.database.Price;
 import com.kjellvos.school.kassaSystem.common.interfaces.SceneImplementation;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Region;
+
+import java.util.Optional;
 
 /**
  * Created by kjevo on 3/28/17.
  */
 
-//TODO Add delete button and add an add new categorie button, maybe edit?
-    //      >Delete should only happen if there are no items currently using the categorie.
 public class GetCategorieList implements SceneImplementation {
     MainMenu mainMenu;
     GridHandler gridHandler;
@@ -57,7 +58,22 @@ public class GetCategorieList implements SceneImplementation {
 
         deleteCategorie = new Button("Categorie verwijderen.");
         deleteCategorie.setOnMouseClicked(event -> {
-            //TODO
+            if (tableView.getSelectionModel().getSelectedItem() != null) {
+                Categorie categorie = (Categorie) tableView.getSelectionModel().getSelectedItem();
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Zeker weten?");
+                alert.setHeaderText("Weet je het zeker?");
+                alert.setContentText("Weet je zeker dat je deze categorie wil verwijderen? En de items die dit als categorie hebben naar geen categorie wil zetten?");
+                alert.getDialogPane().getChildren().stream().filter(node -> node instanceof Label).forEach(node -> ((Label)node).setMinHeight(Region.USE_PREF_SIZE));
+
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK){
+                    mainMenu.getDatabase().deleteCategorie(categorie.getId());
+                }
+                reload();
+            }else{
+                mainMenu.getRegexAndFocusFunctions().showNothingSelectedAlert();
+            }
         });
 
         gridHandler.add(0, 0, backToLastMenuButton, 2, 1, false);
