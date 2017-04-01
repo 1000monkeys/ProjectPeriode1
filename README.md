@@ -57,9 +57,7 @@ And build the normal things needed for a register, For example 'scanning' an ite
 
 ## **TODO**<br />
 Lots.<br />
-Update the Item and Price Classes for better functionality with PropertyValueFactory.<br />
-Add removing customer card.
+Add removing customer card.<br />
 Complete implementing editing a categorie/customer card.
 Bugfix getScene()<br />
-Finish Database function updateCategorie.
 
