@@ -1,6 +1,7 @@
 package com.kjellvos.school.kassaSystem.databaseInserter;
 
 import com.kjellvos.os.gridHandler.GridHandler;
+import com.kjellvos.school.kassaSystem.common.database.Categorie;
 import com.kjellvos.school.kassaSystem.common.database.Item;
 import com.kjellvos.school.kassaSystem.common.database.Price;
 import com.kjellvos.school.kassaSystem.common.interfaces.SceneImplementation;
@@ -28,26 +29,26 @@ import java.util.Optional;
  * TODO Automatisch invullen oude waarden
  */
 public class OverviewItem implements SceneImplementation {
-    MainMenu mainMenu;
-    GridHandler gridHandler;
-    Item item;
+    private MainMenu mainMenu;
+    private GridHandler gridHandler;
+    private Item item;
 
-    Scene scene;
+    private Scene scene;
 
-    Button backToLastMenuButton, pickImageButton, showImageButton, addTemporaryPriceButton, deleteTemporaryPriceButton, submitButton;
-    Text pickImageText, enterNameText, enterDescriptionText, priceText, categorieText;
-    TextField enterNameTextField, enterDescriptionTextField, priceTextField;
+    private Button backToLastMenuButton, pickImageButton, showImageButton, addTemporaryPriceButton, deleteTemporaryPriceButton, submitButton;
+    private Text pickImageText, enterNameText, enterDescriptionText, priceText, categorieText;
+    private TextField enterNameTextField, enterDescriptionTextField, priceTextField;
 
-    ComboBox categorieComboBox;
+    private ComboBox categorieComboBox;
 
-    TableView tableView;
-    TableColumn idTableColumn, fromWhenTableColumn, tillWhenTableColumn, priceTableColumn;
+    private TableView tableView;
+    private TableColumn idTableColumn, fromWhenTableColumn, tillWhenTableColumn, priceTableColumn;
 
-    File file;
-    Image image;
+    private File file;
+    private Image image;
 
-    int id;
-    ObservableList categories;
+    private int id;
+    private ObservableList categories;
 
     public OverviewItem(MainMenu mainMenu) {
         this.mainMenu = mainMenu;
@@ -158,7 +159,7 @@ public class OverviewItem implements SceneImplementation {
             mainMenu.getRegexAndFocusFunctions().catchWrongInputOnFocusLeavePrice(priceTextField, false);
         });
         submitButton.setOnMouseClicked(event -> {
-            mainMenu.getDatabase().itemUpdate(id, enterNameTextField.getText(), enterDescriptionTextField.getText(), priceTextField.getText().substring(1, priceTextField.getText().length()), Ca, file);
+            mainMenu.getDatabase().updateItem(id, enterNameTextField.getText(), enterDescriptionTextField.getText(), priceTextField.getText().substring(1, priceTextField.getText().length()), ((String)categorieComboBox.getSelectionModel().getSelectedItem()), file);
         });
 
         gridHandler.add(0, 0, backToLastMenuButton, 4, 1, false);

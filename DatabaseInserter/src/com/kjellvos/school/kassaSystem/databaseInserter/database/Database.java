@@ -2,6 +2,7 @@ package com.kjellvos.school.kassaSystem.databaseInserter.database;
 
 import com.kjellvos.school.kassaSystem.common.Extensions.DatabaseExt;
 import com.kjellvos.school.kassaSystem.common.database.Categorie;
+import com.kjellvos.school.kassaSystem.common.database.CustomerCard;
 import com.kjellvos.school.kassaSystem.common.database.Item;
 import com.kjellvos.school.kassaSystem.common.database.Price;
 import com.kjellvos.school.kassaSystem.databaseInserter.MainMenu;
@@ -25,6 +26,8 @@ import java.time.LocalDateTime;
  */
 public class Database extends DatabaseExt {
     MainMenu mainMenu;
+
+    public static final String noCategory = "Geen categorie.";
 
     public Database(MainMenu mainMenu) throws SQLException{
         super();
@@ -136,64 +139,72 @@ public class Database extends DatabaseExt {
     }
 
     @SuppressWarnings("JpaQueryApiInspection")
-    public void itemUpdate(int id, String name, String description, String price, File image) {
+    public void updateItem(int id, String name, String description, String price, String categorie, File image) {
         try {
             super.setConnection(super.getBasicDataSource().getConnection());
+            String sql = "SELECT ID FROM Categories WHERE Name=?;";
+            super.setPreparedStatement(super.getConnection().prepareStatement(sql));
+            super.getPreparedStatement().setString(1, categorie);
+            ResultSet resultSet = super.getPreparedStatement().executeQuery();
+            if(resultSet.next()){
+                int categorieId = resultSet.getInt("ID");
+                sql =   "BEGIN;\n" +
+                        "   UPDATE Items SET Name=?, Description=? WHERE ID=?;" +
+                        "   UPDATE DefaultPrices SET Price=? WHERE ItemsID=?;";
 
-            if (image != null) {
-                FileInputStream fileInputStream = new FileInputStream(image);
-                String sql =    "BEGIN;\n" +
-                                "   UPDATE Items SET Name=?, Description=? WHERE ID=?;" +
-                                "   UPDATE DefaultPrices SET Price=? WHERE ItemsID=?;" +
-                                "   UPDATE ItemsImages SET Image=? WHERE ItemsID=?" +
-                                "COMMIT;";
-                super.setPreparedStatement(super.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS));
-                super.getPreparedStatement().setString(1, name);
-                super.getPreparedStatement().setString(2, description);
-                super.getPreparedStatement().setInt(3, id);
-                super.getPreparedStatement().setString(4, price);
-                super.getPreparedStatement().setInt(5, id);
-                super.getPreparedStatement().setBlob(6, fileInputStream);
-                super.getPreparedStatement().setInt(7, id);
-                super.getPreparedStatement().addBatch();
-            } else {
-                String sql =    "BEGIN;\n" +
-                                "   UPDATE Items SET Name=?, Description=? WHERE ID=?;" +
-                                "   UPDATE DefaultPrices SET Price=? WHERE ItemsID=?;" +
-                                "COMMIT;";
+                FileInputStream fileInputStream = null;
+                if (image != null) {
+                    fileInputStream = new FileInputStream(image);
+                    sql +=      "   UPDATE ItemsImages SET Image=? WHERE ItemsID=?";
+                }
+                sql +=      "   UPDATE CategorieItems SET CategorieId=? WHERE ItemsId=?;";
+                sql +=      "COMMIT;";
+
                 super.setPreparedStatement(super.getConnection().prepareStatement(sql));
                 super.getPreparedStatement().setString(1, name);
                 super.getPreparedStatement().setString(2, description);
                 super.getPreparedStatement().setInt(3, id);
                 super.getPreparedStatement().setString(4, price);
                 super.getPreparedStatement().setInt(5, id);
-                super.getPreparedStatement().addBatch();
-            }
-
-            int[] insertedId = new int[1];
-            insertedId[0] = -3;
-            try {
-                insertedId = super.getPreparedStatement().executeBatch();
-            }catch (BatchUpdateException e){
-                e.printStackTrace();
-                int i = 0;
-                while (i < insertedId.length){
-                    if (insertedId[i] == Statement.EXECUTE_FAILED) {
-                        System.out.println("Error 11! Failed item's id: " + id);
-                        showOopsAlert();
-                    }
-                    i++;
+                if (image != null && fileInputStream != null) {
+                    super.getPreparedStatement().setBlob(6, fileInputStream);
+                    super.getPreparedStatement().setInt(7, id);
                 }
-            }finally {
-                super.getConnection().close();
-                super.getPreparedStatement().close();
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Succesvol geupdate!");
-                alert.setHeaderText("De waarden zijn succesvol aangepast!");
-                alert.setContentText("Het item heeft nu de nieuwe waarden!");
-                alert.showAndWait();
-            }
+                if (image == null) {
+                    super.getPreparedStatement().setInt(6, categorieId);
+                    super.getPreparedStatement().setInt(7, id);
+                }else if (image != null) {
+                    super.getPreparedStatement().setInt(8, categorieId);
+                    super.getPreparedStatement().setInt(9, id);
+                }
+                super.getPreparedStatement().addBatch();
 
+                int[] insertedId = new int[1];
+                insertedId[0] = -3;
+                try {
+                    insertedId = super.getPreparedStatement().executeBatch();
+                }catch (BatchUpdateException e){
+                    e.printStackTrace();
+                    int i = 0;
+                    while (i < insertedId.length){
+                        if (insertedId[i] == Statement.EXECUTE_FAILED) {
+                            System.out.println("Error 11! Failed item's id: " + id);
+                            showOopsAlert();
+                        }
+                        i++;
+                    }
+                }finally {
+                    super.getConnection().close();
+                    super.getPreparedStatement().close();
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Succesvol geupdate!");
+                    alert.setHeaderText("De waarden zijn succesvol aangepast!");
+                    alert.setContentText("Het item heeft nu de nieuwe waarden!");
+                    alert.showAndWait();
+                }
+            }else{
+                showOopsAlert();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (FileNotFoundException e) {
@@ -613,8 +624,6 @@ public class Database extends DatabaseExt {
         try{
             super.setConnection(super.getBasicDataSource().getConnection());
 
-            String noCategory = "Geen categorie.";
-
             String sql = "SELECT ID FROM Categories WHERE Name=?;";
             super.setPreparedStatement(super.getConnection().prepareStatement(sql));
             super.getPreparedStatement().setString(1, noCategory);
@@ -674,6 +683,123 @@ public class Database extends DatabaseExt {
                 e.printStackTrace();
             }
         }
+    }
+
+    public ObservableList getCustomersList() {
+        ObservableList<CustomerCard> data = FXCollections.observableArrayList();
+        try{
+            super.setConnection(super.getBasicDataSource().getConnection());
+
+            String sql = "SELECT ID, FirstName, LastName, StreetName FROM CustomerCards;";
+            super.setPreparedStatement(super.getConnection().prepareStatement(sql));
+            ResultSet resultSet = super.getPreparedStatement().executeQuery();
+            if (resultSet.next()) {
+                resultSet.beforeFirst();
+                while (resultSet.next()){
+                    int id = resultSet.getInt("ID");
+                    String firstName = resultSet.getString("FirstName");
+                    String lastName = resultSet.getString("LastName");
+                    String streetName = resultSet.getString("StreetName");
+
+                    Button button = new Button("Meer info/editen");
+                    button.setOnMouseClicked(event -> {
+                        mainMenu.changeScene(mainMenu.getOverviewCustomer(id));
+                    });
+
+                    data.add(new CustomerCard(id, firstName, lastName, streetName, button));
+                }
+            }else{
+                showNoDataAlert();
+                System.out.println("Error 17");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                super.getPreparedStatement().close();
+                super.getConnection().close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return data;
+    }
+
+    public void newCustomerCardUpload(String firstName, String lastName, String streetName, String houseNumber, String telephoneNumber) {
+        try{
+            super.setConnection(super.getBasicDataSource().getConnection());
+
+            String sql = "INSERT INTO CustomerCards SET FirstName=?, LastName=?, StreetName=?, HouseNumber=?, TelephoneNumber=?;";
+            super.setPreparedStatement(super.getConnection().prepareStatement(sql));
+            super.getPreparedStatement().setString(1, firstName);
+            super.getPreparedStatement().setString(2, lastName);
+            super.getPreparedStatement().setString(3, streetName);
+            super.getPreparedStatement().setInt(4, Integer.parseInt(houseNumber));
+            super.getPreparedStatement().setInt(5, Integer.parseInt(telephoneNumber));
+
+            int amountOfRowsInserted = super.getPreparedStatement().executeUpdate();
+            if (amountOfRowsInserted == 1) {
+                showSuccesfullyUploaded();
+            }else{
+                showOopsAlert();
+                System.out.println("Error 18");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                super.getPreparedStatement().close();
+                super.getConnection().close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public CustomerCard getCustomerCardInfo(int passedId) {
+        try{
+            super.setConnection(super.getBasicDataSource().getConnection());
+
+            String sql =    "SELECT * FROM CustomerCards WHERE ID=?;";
+            super.setPreparedStatement(super.getConnection().prepareStatement(sql));
+            super.getPreparedStatement().setInt(1, passedId);
+            ResultSet resultSet = super.getPreparedStatement().executeQuery();
+            if (resultSet.next()) {
+                resultSet.beforeFirst();
+                while (resultSet.next()){
+                    int id = resultSet.getInt("ID");
+                    String firstName = resultSet.getString("FirstName");
+                    String lastName = resultSet.getString("LastName");
+                    String streetName = resultSet.getString("StreetName");
+                    int houseNumber = resultSet.getInt("HouseNumber");
+                    int telephoneNumber = resultSet.getInt("TelephoneNumber");
+
+                    return new CustomerCard(id, firstName, lastName, streetName, houseNumber, telephoneNumber);
+                }
+            }else{
+                showNoDataAlert();
+                System.out.println("Error 18");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                super.getPreparedStatement().close();
+                super.getConnection().close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return null;
+    }
+
+    public void updateCustomerCard(String text, String text1, String text2, String text3, String text4) {
+    }
+
+    public void updateCategorie(int id, String name) {
+        System.out.println(id + " + " + name);
     }
 
     public void showOopsAlert(){

@@ -47,6 +47,9 @@ Made the delete item button do something.(DBI)<br />
 Made the delete categorie button do something.(DBI)<br />
 Implemented "Are you sure?" question on deleting a temporary price and included it in the new delete methods.(DBI)<br />
 
+**V0.3.5**<br />
+Changed update item to include the categorie.(DBI)<br />
+
 ## **Plans**<br />
 Add to the register ability to have customer cards and customer card discounts.<br />
 And build the normal things needed for a register, For example 'scanning' an item, that being added to the list of items being bought etc.<br />
@@ -54,5 +57,9 @@ And build the normal things needed for a register, For example 'scanning' an ite
 
 ## **TODO**<br />
 Lots.<br />
-Change update item to include the categorie.<br />
+Update the Item and Price Classes for better functionality with PropertyValueFactory.<br />
+Add removing customer card.
+Complete implementing editing a categorie/customer card.
+Bugfix getScene()<br />
+Finish Database function updateCategorie.
 

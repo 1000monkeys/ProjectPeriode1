@@ -24,10 +24,13 @@ public class MainMenu extends MainScene implements SceneImplementation {
     private RegexAndFocusFunctions regexAndFocusFunctions;
     private GetItemsList getItemsList;
     private GetCategorieList getCategorieList;
+    private GetCustomerList getCustomerList;
     private AddNewItem addNewItem;
     private AddNewCategorie addNewCategorie;
+    private AddNewCustomerCard addNewCustomerCard;
     private AddNewTemporaryPrice addNewTemporaryPrice;
     private OverviewItem overviewItem;
+    private OverviewCustomer overviewCustomer;
 
 
     Scene scene;
@@ -52,10 +55,13 @@ public class MainMenu extends MainScene implements SceneImplementation {
         }
         getItemsList = new GetItemsList(this);
         getCategorieList = new GetCategorieList(this);
+        getCustomerList = new GetCustomerList(this);
         addNewItem = new AddNewItem(this);
         addNewCategorie = new AddNewCategorie(this);
+        addNewCustomerCard = new AddNewCustomerCard(this);
         addNewTemporaryPrice = new AddNewTemporaryPrice(this);
         overviewItem = new OverviewItem(this);
+        overviewCustomer = new OverviewCustomer(this);
 
         super.getPrimaryStage().setTitle("DatabaseInserter V0.3.2");
         super.getPrimaryStage().setWidth(800D);
@@ -78,6 +84,9 @@ public class MainMenu extends MainScene implements SceneImplementation {
         });
 
         addNewCustomer = new Button("Klantenkaart registreren, aanpassen of verwijderen.");
+        addNewCustomer.setOnMouseClicked(event -> {
+            changeScene(getCustomerList());
+        });
 
         categorieOverview = new Button("Categorie aanpassen, toevoegen verwijderen.");
         categorieOverview.setOnMouseClicked(event -> {
@@ -129,5 +138,18 @@ public class MainMenu extends MainScene implements SceneImplementation {
 
     public GetCategorieList getCategorieList() {
         return getCategorieList;
+    }
+
+    public SceneImplementation getCustomerList() {
+        return getCustomerList;
+    }
+
+    public AddNewCustomerCard getAddNewCustomerCard() {
+        return addNewCustomerCard;
+    }
+
+    public SceneImplementation getOverviewCustomer(int id) {
+        overviewCustomer.setId(id);
+        return overviewCustomer;
     }
 }

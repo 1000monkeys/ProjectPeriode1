@@ -5,11 +5,14 @@ import com.kjellvos.school.kassaSystem.common.database.Categorie;
 import com.kjellvos.school.kassaSystem.common.database.Item;
 import com.kjellvos.school.kassaSystem.common.database.Price;
 import com.kjellvos.school.kassaSystem.common.interfaces.SceneImplementation;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.Region;
 
+import javax.security.auth.callback.Callback;
 import java.util.Optional;
 
 /**
@@ -17,10 +20,10 @@ import java.util.Optional;
  */
 
 public class GetCategorieList implements SceneImplementation {
-    MainMenu mainMenu;
-    GridHandler gridHandler;
+    private MainMenu mainMenu;
+    private GridHandler gridHandler;
 
-    Scene scene;
+    private Scene scene;
 
     private Button backToLastMenuButton, addNewCategorie, deleteCategorie;
     private TableView tableView;

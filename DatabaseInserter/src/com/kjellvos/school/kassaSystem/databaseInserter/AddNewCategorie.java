@@ -12,14 +12,14 @@ import javafx.scene.text.Text;
  * Created by kjevo on 3/28/17.
  */
 public class AddNewCategorie implements SceneImplementation {
-    MainMenu mainMenu;
-    GridHandler gridHandler;
+    private MainMenu mainMenu;
+    private GridHandler gridHandler;
 
-    Scene scene;
+    private Scene scene;
 
-    Button backToLastMenuButton, submitButton;
-    Text categorieText;
-    TextField categorieTextField;
+    private Button backToLastMenuButton, submitButton;
+    private Text categorieText;
+    private TextField categorieTextField;
 
     public AddNewCategorie(MainMenu mainMenu){
         this.mainMenu = mainMenu;

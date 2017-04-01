@@ -17,17 +17,17 @@ import java.time.format.DateTimeParseException;
  * Created by kjevo on 3/24/17.
  */
 public class AddNewTemporaryPrice implements SceneImplementation {
-    MainMenu mainMenu;
-    GridHandler gridHandler;
+    private MainMenu mainMenu;
+    private GridHandler gridHandler;
 
-    Scene scene;
+    private Scene scene;
 
-    Button backToLastMenuButton, submitButton;
-    Text validFromDateText, validFromTimeText, validTillDateText, validTillTimeText, priceText;
-    DatePicker validFromDatePicker, validTillDatePicker;
-    TextField validFromTimeTextField, validTillTimeTextField, priceTextField;
+    private Button backToLastMenuButton, submitButton;
+    private Text validFromDateText, validFromTimeText, validTillDateText, validTillTimeText, priceText;
+    private DatePicker validFromDatePicker, validTillDatePicker;
+    private TextField validFromTimeTextField, validTillTimeTextField, priceTextField;
 
-    int id;
+    private int id;
 
     public AddNewTemporaryPrice(MainMenu mainMenu) {
         this.mainMenu = mainMenu;
