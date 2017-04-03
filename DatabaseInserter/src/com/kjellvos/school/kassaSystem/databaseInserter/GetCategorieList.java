@@ -2,6 +2,7 @@ package com.kjellvos.school.kassaSystem.databaseInserter;
 
 import com.kjellvos.os.gridHandler.GridHandler;
 import com.kjellvos.school.kassaSystem.common.database.Categorie;
+import com.kjellvos.school.kassaSystem.common.database.CustomerCard;
 import com.kjellvos.school.kassaSystem.common.database.Item;
 import com.kjellvos.school.kassaSystem.common.database.Price;
 import com.kjellvos.school.kassaSystem.common.interfaces.SceneImplementation;
@@ -27,7 +28,7 @@ public class GetCategorieList implements SceneImplementation {
 
     private Button backToLastMenuButton, addNewCategorie, deleteCategorie;
     private TableView tableView;
-    private TableColumn idTableColumn, nameTableColumn;
+    private TableColumn idTableColumn, nameTableColumn, moreInfoTableColumn;
 
     public GetCategorieList(MainMenu mainMenu){
         this.mainMenu = mainMenu;
@@ -46,13 +47,16 @@ public class GetCategorieList implements SceneImplementation {
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         idTableColumn = new TableColumn("ID");
-        idTableColumn.setCellValueFactory(new PropertyValueFactory<Item, Integer>("id"));
+        idTableColumn.setCellValueFactory(new PropertyValueFactory<Categorie, Integer>("id"));
 
         nameTableColumn = new TableColumn("Naam");
-        nameTableColumn.setCellValueFactory(new PropertyValueFactory<Item, String>("name"));
+        nameTableColumn.setCellValueFactory(new PropertyValueFactory<Categorie, String>("name"));
+
+        moreInfoTableColumn = new TableColumn("Meer info/editen");
+        moreInfoTableColumn.setCellValueFactory(new PropertyValueFactory<Categorie, Button>("button"));
 
         tableView.setItems(mainMenu.getDatabase().getCategorieList());
-        tableView.getColumns().addAll(idTableColumn, nameTableColumn);
+        tableView.getColumns().addAll(idTableColumn, nameTableColumn, moreInfoTableColumn);
 
         addNewCategorie = new Button("Nieuwe categorie toevoegen.");
         addNewCategorie.setOnMouseClicked(event -> {

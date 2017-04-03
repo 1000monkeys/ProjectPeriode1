@@ -31,6 +31,7 @@ public class MainMenu extends MainScene implements SceneImplementation {
     private AddNewTemporaryPrice addNewTemporaryPrice;
     private OverviewItem overviewItem;
     private OverviewCustomer overviewCustomer;
+    private OverviewCategorie overviewCategorie;
 
 
     Scene scene;
@@ -62,8 +63,9 @@ public class MainMenu extends MainScene implements SceneImplementation {
         addNewTemporaryPrice = new AddNewTemporaryPrice(this);
         overviewItem = new OverviewItem(this);
         overviewCustomer = new OverviewCustomer(this);
+        overviewCategorie = new OverviewCategorie(this);
 
-        super.getPrimaryStage().setTitle("DatabaseInserter V0.3.2");
+        super.getPrimaryStage().setTitle("DatabaseInserter V0.4");
         super.getPrimaryStage().setWidth(800D);
         super.getPrimaryStage().setHeight(600D);
         super.changeScene(this);
@@ -151,5 +153,10 @@ public class MainMenu extends MainScene implements SceneImplementation {
     public SceneImplementation getOverviewCustomer(int id) {
         overviewCustomer.setId(id);
         return overviewCustomer;
+    }
+
+    public SceneImplementation getOverviewCategorie(int id) {
+        overviewCategorie.setId(id);
+        return overviewCategorie;
     }
 }

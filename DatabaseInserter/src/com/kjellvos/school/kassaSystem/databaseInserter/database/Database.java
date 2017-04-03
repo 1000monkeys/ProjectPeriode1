@@ -196,11 +196,7 @@ public class Database extends DatabaseExt {
                 }finally {
                     super.getConnection().close();
                     super.getPreparedStatement().close();
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Succesvol geupdate!");
-                    alert.setHeaderText("De waarden zijn succesvol aangepast!");
-                    alert.setContentText("Het item heeft nu de nieuwe waarden!");
-                    alert.showAndWait();
+                    showSuccesfullyUpdated();
                 }
             }else{
                 showOopsAlert();
@@ -258,6 +254,7 @@ public class Database extends DatabaseExt {
         return null;
     }
 
+    @SuppressWarnings("Duplicates")
     public ObservableList getItemsList() {
         ObservableList<Item> data = FXCollections.observableArrayList();
         try{
@@ -282,6 +279,50 @@ public class Database extends DatabaseExt {
                     });
 
                     data.add(new Item(id, name, description, price, categorie, button));
+                }
+            }else{
+                showNoDataAlert();
+                System.out.println("Error 2");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            try{
+                super.getPreparedStatement().close();
+                super.getConnection().close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return data;
+    }
+
+
+    @SuppressWarnings("Duplicates")
+    public ObservableList getItemsList(int categorieId) {
+        ObservableList<Item> data = FXCollections.observableArrayList();
+        try{
+            super.setConnection(super.getBasicDataSource().getConnection());
+
+            String sql = "SELECT Items.ID, Items.Name, Items.Description, DefaultPrices.Price, Categories.Name AS CName FROM Items LEFT JOIN DefaultPrices ON Items.ID = DefaultPrices.ItemsID LEFT JOIN CategorieItems ON CategorieItems.ItemsId = Items.ID LEFT JOIN Categories ON Categories.ID = CategorieItems.CategorieId WHERE Categories.ID=?;";
+            super.setPreparedStatement(super.getConnection().prepareStatement(sql));
+            super.getPreparedStatement().setInt(1, categorieId);
+            ResultSet resultSet = super.getPreparedStatement().executeQuery();
+            if (resultSet.next()) {
+                resultSet.beforeFirst();
+                while (resultSet.next()) {
+                    int id = resultSet.getInt("ID");
+                    String name = resultSet.getString("Name");
+                    String description = resultSet.getString("Description");
+                    String price = resultSet.getString("Price");
+
+                    Button button = new Button("Meer info/editen");
+                    button.setOnMouseClicked(event -> {
+                        mainMenu.changeScene(mainMenu.getOverviewItem(id));
+                    });
+
+                    data.add(new Item(id, name, description, price, button));
                 }
             }else{
                 showNoDataAlert();
@@ -540,7 +581,12 @@ public class Database extends DatabaseExt {
                     int id = resultSet.getInt("ID");
                     String name = resultSet.getString("Name");
 
-                    data.add(new Categorie(id, name));
+                    Button button = new Button("Meer info/editen");
+                    button.setOnMouseClicked(event -> {
+                        mainMenu.changeScene(mainMenu.getOverviewCategorie(id));
+                    });
+
+                    data.add(new Categorie(id, name, button));
                 }
             }else{
                 showNoDataAlert();
@@ -736,7 +782,7 @@ public class Database extends DatabaseExt {
             super.getPreparedStatement().setString(2, lastName);
             super.getPreparedStatement().setString(3, streetName);
             super.getPreparedStatement().setInt(4, Integer.parseInt(houseNumber));
-            super.getPreparedStatement().setInt(5, Integer.parseInt(telephoneNumber));
+            super.getPreparedStatement().setString(5, telephoneNumber);
 
             int amountOfRowsInserted = super.getPreparedStatement().executeUpdate();
             if (amountOfRowsInserted == 1) {
@@ -773,7 +819,7 @@ public class Database extends DatabaseExt {
                     String lastName = resultSet.getString("LastName");
                     String streetName = resultSet.getString("StreetName");
                     int houseNumber = resultSet.getInt("HouseNumber");
-                    int telephoneNumber = resultSet.getInt("TelephoneNumber");
+                    String telephoneNumber = resultSet.getString("TelephoneNumber");
 
                     return new CustomerCard(id, firstName, lastName, streetName, houseNumber, telephoneNumber);
                 }
@@ -795,11 +841,133 @@ public class Database extends DatabaseExt {
         return null;
     }
 
-    public void updateCustomerCard(String text, String text1, String text2, String text3, String text4) {
+    public void updateCustomerCard(String firstName, String lastName, String streetName, int houseNumber, String telephoneNumber, int id) {
+        try{
+            super.setConnection(super.getBasicDataSource().getConnection());
+
+            String sql = "UPDATE CustomerCards SET FirstName=?, LastName=?, StreetName=?, HouseNumber=?, TelephoneNumber=? WHERE ID=?;";
+            super.setPreparedStatement(super.getConnection().prepareStatement(sql));
+            super.getPreparedStatement().setString(1, firstName);
+            super.getPreparedStatement().setString(2, lastName);
+            super.getPreparedStatement().setString(3, streetName);
+            super.getPreparedStatement().setInt(4, houseNumber);
+            super.getPreparedStatement().setString(5, telephoneNumber);
+            super.getPreparedStatement().setInt(6, id);
+
+            int amountOfRowsInserted = super.getPreparedStatement().executeUpdate();
+            if (amountOfRowsInserted == 1) {
+                showSuccesfullyUpdated();
+            }else{
+                showOopsAlert();
+                System.out.println("Error 20");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                super.getPreparedStatement().close();
+                super.getConnection().close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void updateCategorie(int id, String name) {
-        System.out.println(id + " + " + name);
+        try{
+            super.setConnection(super.getBasicDataSource().getConnection());
+
+            String sql = "UPDATE Categories SET Name=? WHERE ID=?;";
+            super.setPreparedStatement(super.getConnection().prepareStatement(sql));
+            super.getPreparedStatement().setString(1, name);
+            super.getPreparedStatement().setInt(2, id);
+
+            int amountOfRowsInserted = super.getPreparedStatement().executeUpdate();
+            if (amountOfRowsInserted == 1) {
+                showSuccesfullyUpdated();
+            }else{
+                showOopsAlert();
+                System.out.println("Error 21");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                super.getPreparedStatement().close();
+                super.getConnection().close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public Categorie getCategorieInfo(int passedId){
+        try{
+            super.setConnection(super.getBasicDataSource().getConnection());
+
+            String sql =    "SELECT * FROM Categories WHERE ID=?;";
+            super.setPreparedStatement(super.getConnection().prepareStatement(sql));
+            super.getPreparedStatement().setInt(1, passedId);
+            ResultSet resultSet = super.getPreparedStatement().executeQuery();
+            if (resultSet.next()) {
+                resultSet.beforeFirst();
+                while (resultSet.next()){
+                    int id = resultSet.getInt("ID");
+                    String name = resultSet.getString("Name");
+
+                    return new Categorie(id, name);
+                }
+            }else{
+                showNoDataAlert();
+                System.out.println("Error 18");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                super.getPreparedStatement().close();
+                super.getConnection().close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return null;
+    }
+
+    public void deleteCustomerCard(int id) {
+        try{
+            super.setConnection(super.getBasicDataSource().getConnection());
+
+            String sql = "DELETE FROM CustomerCards WHERE ID=?";
+            super.setPreparedStatement(super.getConnection().prepareStatement(sql));
+            super.getPreparedStatement().setInt(1, id);
+            int amountOfDeletions = super.getPreparedStatement().executeUpdate();
+
+            if (amountOfDeletions == 1) {
+                showSuccesfullyDeleted();
+            }else{
+                System.out.println("Error 22");
+                showOopsAlert();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                super.getPreparedStatement().close();
+                super.getConnection().close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void showSuccesfullyUpdated() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Succesvol geupdate!");
+        alert.setHeaderText("De waarden zijn succesvol aangepast!");
+        alert.setContentText("Hij heeft nu de nieuwe waarden!");
+        alert.showAndWait();
     }
 
     public void showOopsAlert(){

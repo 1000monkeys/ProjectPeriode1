@@ -10,8 +10,8 @@ import javafx.scene.control.Button;
  * Created by kjevo on 3/31/17.
  */
 public class CustomerCard {
-    private IntegerProperty id, houseNumber, telephoneNumber;
-    private StringProperty firstName, lastName, streetName;
+    private IntegerProperty id, houseNumber;
+    private StringProperty firstName, lastName, streetName, telephoneNumber;
     private Button button;
 
     public CustomerCard(int id, String firstName, String lastName, String streetName, Button button){
@@ -22,13 +22,13 @@ public class CustomerCard {
         this.button = button;
     }
 
-    public CustomerCard(int id, String firstName, String lastName, String streetName, int houseNumber, int telephoneNumber) {
+    public CustomerCard(int id, String firstName, String lastName, String streetName, int houseNumber, String telephoneNumber) {
         this.id = new SimpleIntegerProperty(id);
         this.firstName = new SimpleStringProperty(firstName);
         this.lastName = new SimpleStringProperty(lastName);
         this.streetName = new SimpleStringProperty(streetName);
         this.houseNumber = new SimpleIntegerProperty(houseNumber);
-        this.telephoneNumber = new SimpleIntegerProperty(telephoneNumber);
+        this.telephoneNumber = new SimpleStringProperty(telephoneNumber);
     }
 
     public int getId() {
@@ -55,15 +55,15 @@ public class CustomerCard {
         return houseNumber;
     }
 
-    public int getTelephoneNumber() {
+    public String getTelephoneNumber() {
         return telephoneNumber.get();
     }
 
-    public void setTelephoneNumber(int telephoneNumber) {
+    public void setTelephoneNumber(String telephoneNumber) {
         this.telephoneNumber.set(telephoneNumber);
     }
 
-    public IntegerProperty telephoneNumberProperty() {
+    public StringProperty telephoneNumberProperty() {
         return telephoneNumber;
     }
 

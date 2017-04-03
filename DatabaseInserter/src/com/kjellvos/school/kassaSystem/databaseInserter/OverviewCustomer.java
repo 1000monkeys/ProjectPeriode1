@@ -58,11 +58,11 @@ public class OverviewCustomer implements SceneImplementation {
 
         telephoneNumberText = new Text("Telefoon nummer:");
         telephoneNumberTextField = new TextField();
-        telephoneNumberTextField.setText(String.valueOf(customerCard.getTelephoneNumber()));
+        telephoneNumberTextField.setText(customerCard.getTelephoneNumber());
 
         submitButton = new Button("Invoeren!");
         submitButton.setOnMouseClicked(event -> {
-            mainMenu.getDatabase().updateCustomerCard(firstNameTextField.getText(), lastNameTextField.getText(), streetNameTextField.getText(), houseNumberTextField.getText(), telephoneNumberTextField.getText());
+            mainMenu.getDatabase().updateCustomerCard(firstNameTextField.getText(), lastNameTextField.getText(), streetNameTextField.getText(), Integer.parseInt(houseNumberTextField.getText()), telephoneNumberTextField.getText(), id);
         });
 
         gridHandler.add(0, 0, backToLastMenuButton, 2, 1, false);

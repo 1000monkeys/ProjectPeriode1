@@ -16,6 +16,14 @@ public class Item {
     private Button button;
     private Image image;
 
+    public Item(int id, String name, String description, String price, Button button){
+        this.id = new SimpleIntegerProperty(id);
+        this.name = new SimpleStringProperty(name);
+        this.description = new SimpleStringProperty(description);
+        this.price = new SimpleStringProperty(price);
+        this.button = button;
+    }
+
     public Item(int id, String name, String description, String price, String categorie, Button button){
         this.id = new SimpleIntegerProperty(id);
         this.name = new SimpleStringProperty(name);
