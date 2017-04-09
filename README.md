@@ -51,6 +51,8 @@ Implemented "Are you sure?" question on deleting a temporary price and included 
 Changed update item to include the categorie.(DBI)<br />
 Completed implementing editing a categorie/customer card.(DBI)<br />
 Added removing customer card.(DBI)<br />
+
+**V0.4.1**<br />
 Started progressing on the register part of the register.(REG)<br />
 Changed UI of register.(REG)<br />
 Added the categorie overview.(REG)<br />
