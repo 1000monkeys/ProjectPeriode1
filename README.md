@@ -49,9 +49,12 @@ Implemented "Are you sure?" question on deleting a temporary price and included 
 
 **V0.4**<br />
 Changed update item to include the categorie.(DBI)<br />
-Completed implementing editing a categorie/customer card.<br />
-Added removing customer card.<br />
-
+Completed implementing editing a categorie/customer card.(DBI)<br />
+Added removing customer card.(DBI)<br />
+Started progressing on the register part of the register.(REG)<br />
+Changed UI of register.(REG)<br />
+Added the categorie overview.(REG)<br />
+Added part of creating a receipt.(REG)<br />
 
 ## **Plans**<br />
 Add to the register ability to have customer cards and customer card discounts.<br />
