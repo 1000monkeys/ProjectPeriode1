@@ -9,16 +9,17 @@ import java.math.RoundingMode;
  * Created by kjell on 9-4-2017.
  */
 public class ReceiptItem {
-    IntegerProperty id, amount;
-    StringProperty name;
-    DoubleProperty price, totalPrice;
+    private IntegerProperty id, amount;
+    private StringProperty name, totalPrice;
+    private DoubleProperty price;
 
     public ReceiptItem(int id, int amount, String name, double price){
         this.id = new SimpleIntegerProperty(id);
         this.amount = new SimpleIntegerProperty(amount);
         this.name = new SimpleStringProperty(name);
         this.price = new SimpleDoubleProperty(price);
-        totalPrice = new SimpleDoubleProperty(price * amount);
+        BigDecimal bigDecimal = new BigDecimal(price * amount);
+        totalPrice = new SimpleStringProperty(bigDecimal.toPlainString());
     }
 
     public int getId() {
@@ -69,24 +70,27 @@ public class ReceiptItem {
         return price;
     }
 
-    public Double getTotalPrice(){
-        BigDecimal bigDecimal = new BigDecimal(totalPrice.get());
+    public String getTotalPrice(){
+        BigDecimal bigDecimal = new BigDecimal(Double.parseDouble(totalPrice.get()));
         bigDecimal = bigDecimal.setScale(2, RoundingMode.HALF_UP);
-        return bigDecimal.doubleValue();
+        return bigDecimal.toPlainString();
     }
 
     public void setTotalPrice(double total){
-        totalPrice.setValue(total);
+        BigDecimal bigDecimal = new BigDecimal(total);
+        bigDecimal = bigDecimal.setScale(2, RoundingMode.HALF_UP);
+        totalPrice.set(bigDecimal.toPlainString());
     }
 
-    public DoubleProperty totalPriceProperty(){
-        BigDecimal bigDecimal = new BigDecimal(totalPrice.get());
+    public StringProperty totalPriceProperty(){
+        BigDecimal bigDecimal = new BigDecimal(Double.parseDouble(totalPrice.get()));
         bigDecimal = bigDecimal.setScale(2, RoundingMode.HALF_UP);
-        totalPrice.setValue(bigDecimal.doubleValue());
+        totalPrice.set(bigDecimal.toPlainString());
         return totalPrice;
     }
 
     public void recaltulateTotal(){
-        totalPrice.setValue(price.get()*amount.get());
+        BigDecimal bigDecimal = new BigDecimal(price.get() * amount.get());
+        totalPrice.set(bigDecimal.toPlainString());
     }
 }
