@@ -3,16 +3,19 @@ package com.kjellvos.school.kassaSystem;
 import com.kjellvos.os.gridHandler.GridHandler;
 import com.kjellvos.school.kassaSystem.common.Extensions.MainScene;
 import com.kjellvos.school.kassaSystem.common.database.Categorie;
+import com.kjellvos.school.kassaSystem.common.database.CustomerCard;
 import com.kjellvos.school.kassaSystem.common.database.Item;
 import com.kjellvos.school.kassaSystem.common.database.ReceiptItem;
 import com.kjellvos.school.kassaSystem.common.interfaces.SceneImplementation;
 import com.kjellvos.school.kassaSystem.database.Database;
-import com.sun.org.apache.regexp.internal.RE;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
@@ -21,22 +24,20 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import javafx.util.Callback;
-import javafx.util.StringConverter;
+import javafx.util.Pair;
 import javafx.util.converter.IntegerStringConverter;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.SQLException;
-import java.util.Map;
-import java.util.ServiceConfigurationError;
+import java.util.Optional;
 
 /**
  * Created by kjell on 10-3-2017.
@@ -48,13 +49,17 @@ public class MainMenu extends MainScene implements SceneImplementation {
 
     private Button bonnenButton, kaartenButton, corrigeerButton, betaalButton;
     private Accordion categoriesAccordion;
-    private TableView bonTableView;
+    private TableView bonTableView, customerCardTableView;
+    private TableColumn idTableColumn, firstNameColumn, lastNameColumn, streetNameColumn, moreInfoTableColumn;
     private TableColumn nameTableColumn, singlePriceTableColumn, amountTableColumn, totalPriceTableColumn;
-    private Text totaalText;
+    private Text totalText;
 
     private GridHandler gridHandler;
 
     private ObservableList<ReceiptItem> receiptItems;
+    private Dialog<Pair<String, String>> dialog;
+
+    private CustomerCard customerCard = null;
 
     public MainMenu(Stage stage) {
         super(stage);
@@ -84,9 +89,22 @@ public class MainMenu extends MainScene implements SceneImplementation {
         gridHandler = new GridHandler();
 
         bonnenButton = new Button("Bonnen");
+        bonnenButton.setOnMouseClicked(event -> {
+            showBonnen();
+        });
         kaartenButton = new Button("Kaarten");
+        kaartenButton.setOnMouseClicked(event -> {
+            selectCard();
+        });
         corrigeerButton = new Button("Corrigeer");
         betaalButton = new Button("Betaal");
+        betaalButton.setOnMouseClicked(event -> {
+            if (receiptItems.size() > 0) {
+                makeReceipt();
+            }else{
+                showNoItems();
+            }
+        });
 
         receiptItems = FXCollections.observableArrayList();
         ObservableList categories = database.getCategories();
@@ -199,7 +217,7 @@ public class MainMenu extends MainScene implements SceneImplementation {
         totalPriceTableColumn.setCellValueFactory(new PropertyValueFactory<ReceiptItem, String>("totalPrice"));
         totalPriceTableColumn.setEditable(false);
 
-        totaalText = new Text("\t\t0.00€");
+        totalText = new Text("\t\t0.00€");
 
         bonTableView.getColumns().addAll(nameTableColumn, singlePriceTableColumn, amountTableColumn, totalPriceTableColumn);
         bonTableView.setItems(receiptItems);
@@ -211,21 +229,217 @@ public class MainMenu extends MainScene implements SceneImplementation {
         gridHandler.add(8, 9, bonnenButton, 1, 1, false);
         gridHandler.add(9, 9, kaartenButton, 1, 1, false);
         gridHandler.add(6, 8, new Text("Totaal: "), 1, 1, false);
-        gridHandler.add(7, 8, totaalText, 3, 1, false);
+        gridHandler.add(7, 8, totalText, 3, 1, false);
         gridHandler.add(6, 0, bonTableView, 4, 8, false);
 
         scene = gridHandler.getGridAsScene();
         return scene;
     }
 
-    public void recalculateTotal(){
+    private void showBonnen() {
+        dialog = new Dialog<>();
+        dialog.setTitle("Klantenkaart selecteren");
+        dialog.setHeaderText("Welke klant?");
+
+        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
+
+        GridPane gridPane = new GridPane();
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
+        //gridPane.setGridLinesVisible(true);
+        gridPane.setPadding(new Insets(10, 10, 10, 10));
+
+        gridPane.add(new Label("Naam:"), 0, 0);
+        TextField filterField = new TextField("Zoeken op datum");
+        gridPane.add(filterField, 1, 0);
+
+        customerCardTableView = new TableView();
+        customerCardTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+        idTableColumn = new TableColumn("ID");
+        idTableColumn.setCellValueFactory(new PropertyValueFactory<CustomerCard, Integer>("id"));
+
+        firstNameColumn = new TableColumn("Voornaam");
+        firstNameColumn.setCellValueFactory(new PropertyValueFactory<CustomerCard, String>("firstName"));
+
+        lastNameColumn = new TableColumn("Achternaam");
+        lastNameColumn.setCellValueFactory(new PropertyValueFactory<CustomerCard, String>("lastName"));
+
+        streetNameColumn = new TableColumn("Straat naam");
+        streetNameColumn.setCellValueFactory(new PropertyValueFactory<CustomerCard, String>("streetName"));
+
+        moreInfoTableColumn = new TableColumn("Selecteren");
+        moreInfoTableColumn.setCellValueFactory(new PropertyValueFactory<CustomerCard, Button>("button"));
+
+        customerCardTableView.setItems(database.getCustomersList());
+        customerCardTableView.getColumns().addAll(idTableColumn, firstNameColumn, lastNameColumn, streetNameColumn, moreInfoTableColumn);
+
+        FilteredList<CustomerCard> filteredData = new FilteredList<>(database.getCustomersList(), p -> true);
+        filterField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(customerCard -> {
+                // If filter text is empty, display all persons.
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                // Compare first name and last name of every person with filter text.
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (customerCard.getFirstName().toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches first name.
+                } else if (customerCard.getLastName().toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches last name.
+                }
+                return false; // Does not match.
+            });
+        });
+
+        SortedList<CustomerCard> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(customerCardTableView.comparatorProperty());
+
+        customerCardTableView.setItems(sortedData);
+
+        gridPane.add(customerCardTableView, 0, 1, 2, 5);
+        dialog.setResultConverter(dialogButton -> {
+            return null;
+        });
+
+        dialog.getDialogPane().setContent(gridPane);
+
+        Optional<Pair<String, String>> result = dialog.showAndWait();
+    }
+
+    private void selectCard() {
+        dialog = new Dialog<>();
+        dialog.setTitle("Klantenkaart selecteren");
+        dialog.setHeaderText("Welke klant?");
+
+        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
+
+        GridPane gridPane = new GridPane();
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
+        //gridPane.setGridLinesVisible(true);
+        gridPane.setPadding(new Insets(10, 10, 10, 10));
+
+        gridPane.add(new Label("Naam:"), 0, 0);
+        TextField filterField = new TextField("Zoeken");
+        gridPane.add(filterField, 1, 0);
+
+        customerCardTableView = new TableView();
+        customerCardTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+        idTableColumn = new TableColumn("ID");
+        idTableColumn.setCellValueFactory(new PropertyValueFactory<CustomerCard, Integer>("id"));
+
+        firstNameColumn = new TableColumn("Voornaam");
+        firstNameColumn.setCellValueFactory(new PropertyValueFactory<CustomerCard, String>("firstName"));
+
+        lastNameColumn = new TableColumn("Achternaam");
+        lastNameColumn.setCellValueFactory(new PropertyValueFactory<CustomerCard, String>("lastName"));
+
+        streetNameColumn = new TableColumn("Straat naam");
+        streetNameColumn.setCellValueFactory(new PropertyValueFactory<CustomerCard, String>("streetName"));
+
+        moreInfoTableColumn = new TableColumn("Selecteren");
+        moreInfoTableColumn.setCellValueFactory(new PropertyValueFactory<CustomerCard, Button>("button"));
+
+        customerCardTableView.setItems(database.getCustomersList());
+        customerCardTableView.getColumns().addAll(idTableColumn, firstNameColumn, lastNameColumn, streetNameColumn, moreInfoTableColumn);
+
+        FilteredList<CustomerCard> filteredData = new FilteredList<>(database.getCustomersList(), p -> true);
+        filterField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(customerCard -> {
+                // If filter text is empty, display all persons.
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                // Compare first name and last name of every person with filter text.
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (customerCard.getFirstName().toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches first name.
+                } else if (customerCard.getLastName().toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches last name.
+                }
+                return false; // Does not match.
+            });
+        });
+
+        SortedList<CustomerCard> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(customerCardTableView.comparatorProperty());
+
+        customerCardTableView.setItems(sortedData);
+
+        gridPane.add(customerCardTableView, 0, 1, 2, 5);
+        dialog.setResultConverter(dialogButton -> {
+            return null;
+        });
+
+        dialog.getDialogPane().setContent(gridPane);
+
+        Optional<Pair<String, String>> result = dialog.showAndWait();
+    }
+
+    private void makeReceipt() {
+        Dialog<Pair<String, String>> dialog = new Dialog<>();
+        dialog.setTitle("Receipt");
+        dialog.setHeaderText("Your receipt.");
+
+        ButtonType OkButtonType = new ButtonType("Betaal", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(OkButtonType, ButtonType.CANCEL);
+
+        GridPane gridPane = new GridPane();
+        gridPane.setHgap(25);
+        gridPane.setVgap(25);
+        //gridPane.setGridLinesVisible(true);
+        gridPane.setPadding(new Insets(10, 10, 10, 10));
+
+        gridPane.add(new Label("Items"), 0, 0, 4, 1);
+        int i = 0;
+        gridPane.add(new Label("Naam:"), 0, 1);
+        gridPane.add(new Label("Prijs:"), 1, 1);
+        gridPane.add(new Label("Aantal:"), 2, 1);
+        gridPane.add(new Label("Totaal:"), 3, 1);
+        while (i < receiptItems.size()){
+            gridPane.add(new Label(receiptItems.get(i).getName()), 0, i+2);
+            gridPane.add(new Label(Double.toString(receiptItems.get(i).getPrice())), 1, i+2);
+            gridPane.add(new Label(Integer.toString(receiptItems.get(i).getAmount())), 2, i+2);
+            gridPane.add(new Label(receiptItems.get(i).getTotalPrice()), 3, i+2);
+            i++;
+        }
+
+        gridPane.add(new Label("Totaal:"), 0, i+2, 2, 1);
+        gridPane.add(new Label(recalculateTotal()),2, i+2, 2, 1);
+
+        dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == OkButtonType) {
+                if (customerCard != null) {
+                    database.uploadReceipt(receiptItems, customerCard.getId());
+                }else{
+                    database.uploadReceipt(receiptItems, 0);
+                }
+                receiptItems.clear();
+                customerCard = null;
+            }
+            return null;
+        });
+
+        dialog.getDialogPane().setContent(gridPane);
+
+        Optional<Pair<String, String>> result = dialog.showAndWait();
+    }
+
+    public String recalculateTotal(){
         double total = 0D;
         for (int i = 0; i < receiptItems.size(); i++) {
             total += Double.parseDouble(receiptItems.get(i).getTotalPrice());
         }
         BigDecimal bigDecimal = new BigDecimal(total);
         bigDecimal = bigDecimal.setScale(2, RoundingMode.HALF_UP);
-        totaalText.setText("\t\t" + bigDecimal.toPlainString() + "€");
+        totalText.setText("\t\t" + bigDecimal.toPlainString() + "€");
+        return bigDecimal.toPlainString();
     }
 
     public void addToReceipt(int passedId) {
@@ -250,6 +464,11 @@ public class MainMenu extends MainScene implements SceneImplementation {
         recalculateTotal();
     }
 
+    public void setCustomerCard(CustomerCard customerCard){
+        this.customerCard = customerCard;
+        dialog.close();
+    }
+
     @Override
     public Scene getScene() {
         return scene;
@@ -257,6 +476,14 @@ public class MainMenu extends MainScene implements SceneImplementation {
 
     @Override
     public void reload() {
-        //Should do n othing
+        //Should do nothing
+    }
+
+    private void showNoItems() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("0 items!");
+        alert.setHeaderText("U kunt niet afrekenen u heeft 0 items!");
+        alert.setContentText("U moet echt meer dan 0 items kopen om af te rekenen!");
+        alert.showAndWait();
     }
 }

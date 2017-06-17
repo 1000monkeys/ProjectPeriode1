@@ -58,6 +58,11 @@ Changed UI of register.(REG)<br />
 Added the categorie overview.(REG)<br />
 Added part of creating a receipt.(REG)<br />
 
+**V0.5**<br />
+Added selecting customer card.(REG)<br />
+Added paying and receipts.(REG)<br />
+Done?
+
 ## **Plans**<br />
 Add to the register ability to have customer cards and customer card discounts.<br />
 And build the normal things needed for a register, For example 'scanning' an item, that being added to the list of items being bought etc.<br />

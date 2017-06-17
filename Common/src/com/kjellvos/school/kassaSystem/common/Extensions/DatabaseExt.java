@@ -24,7 +24,7 @@ public class DatabaseExt {
         basicDataSource.setDriverClassName("com.mysql.jdbc.Driver");
         basicDataSource.setUsername("KassaSystem");
         basicDataSource.setPassword("password123321");
-        basicDataSource.setUrl("jdbc:mysql://213.154.224.189/KassaSystem?useSSL=false&reconnect=true&allowMultiQueries=true");
+        basicDataSource.setUrl("jdbc:mysql://localhost/KassaSystem?useSSL=false&reconnect=true&allowMultiQueries=true");
 
         connection = basicDataSource.getConnection();
     }
