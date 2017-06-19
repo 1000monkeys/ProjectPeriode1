@@ -2,10 +2,7 @@ package com.kjellvos.school.kassaSystem;
 
 import com.kjellvos.os.gridHandler.GridHandler;
 import com.kjellvos.school.kassaSystem.common.Extensions.MainScene;
-import com.kjellvos.school.kassaSystem.common.database.Categorie;
-import com.kjellvos.school.kassaSystem.common.database.CustomerCard;
-import com.kjellvos.school.kassaSystem.common.database.Item;
-import com.kjellvos.school.kassaSystem.common.database.ReceiptItem;
+import com.kjellvos.school.kassaSystem.common.database.*;
 import com.kjellvos.school.kassaSystem.common.interfaces.SceneImplementation;
 import com.kjellvos.school.kassaSystem.database.Database;
 import javafx.application.Platform;
@@ -37,6 +34,8 @@ import javafx.util.converter.IntegerStringConverter;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 /**
@@ -47,11 +46,12 @@ public class MainMenu extends MainScene implements SceneImplementation {
 
     private Scene scene;
 
-    private Button bonnenButton, kaartenButton, corrigeerButton, betaalButton;
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd hh:mm");
+
+    private Button kaartenButton, betaalButton;
     private Accordion categoriesAccordion;
-    private TableView bonTableView, customerCardTableView;
-    private TableColumn idTableColumn, firstNameColumn, lastNameColumn, streetNameColumn, moreInfoTableColumn;
-    private TableColumn nameTableColumn, singlePriceTableColumn, amountTableColumn, totalPriceTableColumn;
+    private TableView bonTableView, customerCardTableView, bonnenTableView;
+    private TableColumn idTableColumn, firstNameColumn, lastNameColumn, streetNameColumn, moreInfoTableColumn, nameTableColumn, singlePriceTableColumn, amountTableColumn, totalPriceTableColumn, timeTableColumn;
     private Text totalText;
 
     private GridHandler gridHandler;
@@ -88,15 +88,10 @@ public class MainMenu extends MainScene implements SceneImplementation {
     public Scene createAndGetScene() {
         gridHandler = new GridHandler();
 
-        bonnenButton = new Button("Bonnen");
-        bonnenButton.setOnMouseClicked(event -> {
-            showBonnen();
-        });
         kaartenButton = new Button("Kaarten");
         kaartenButton.setOnMouseClicked(event -> {
             selectCard();
         });
-        corrigeerButton = new Button("Corrigeer");
         betaalButton = new Button("Betaal");
         betaalButton.setOnMouseClicked(event -> {
             if (receiptItems.size() > 0) {
@@ -224,10 +219,8 @@ public class MainMenu extends MainScene implements SceneImplementation {
 
         gridHandler.add(0, 0, categoriesAccordion, 6, 10, false);
 
-        gridHandler.add(6, 9, corrigeerButton, 1, 1, false);
-        gridHandler.add(7, 9, betaalButton, 1, 1, false);
-        gridHandler.add(8, 9, bonnenButton, 1, 1, false);
-        gridHandler.add(9, 9, kaartenButton, 1, 1, false);
+        gridHandler.add(6, 9, betaalButton, 2, 1, false);
+        gridHandler.add(8, 9, kaartenButton, 2, 1, false);
         gridHandler.add(6, 8, new Text("Totaal: "), 1, 1, false);
         gridHandler.add(7, 8, totalText, 3, 1, false);
         gridHandler.add(6, 0, bonTableView, 4, 8, false);
@@ -249,57 +242,27 @@ public class MainMenu extends MainScene implements SceneImplementation {
         //gridPane.setGridLinesVisible(true);
         gridPane.setPadding(new Insets(10, 10, 10, 10));
 
-        gridPane.add(new Label("Naam:"), 0, 0);
-        TextField filterField = new TextField("Zoeken op datum");
-        gridPane.add(filterField, 1, 0);
-
-        customerCardTableView = new TableView();
-        customerCardTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        bonnenTableView = new TableView();
+        bonnenTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         idTableColumn = new TableColumn("ID");
-        idTableColumn.setCellValueFactory(new PropertyValueFactory<CustomerCard, Integer>("id"));
+        idTableColumn.setCellValueFactory(new PropertyValueFactory<Receipt, Integer>("id"));
 
         firstNameColumn = new TableColumn("Voornaam");
-        firstNameColumn.setCellValueFactory(new PropertyValueFactory<CustomerCard, String>("firstName"));
+        firstNameColumn.setCellValueFactory(new PropertyValueFactory<Receipt, String>("firstName"));
 
         lastNameColumn = new TableColumn("Achternaam");
-        lastNameColumn.setCellValueFactory(new PropertyValueFactory<CustomerCard, String>("lastName"));
+        lastNameColumn.setCellValueFactory(new PropertyValueFactory<Receipt, String>("lastName"));
 
-        streetNameColumn = new TableColumn("Straat naam");
-        streetNameColumn.setCellValueFactory(new PropertyValueFactory<CustomerCard, String>("streetName"));
+        timeTableColumn = new TableColumn("Time");
+        timeTableColumn.setCellValueFactory(new PropertyValueFactory<Receipt, String>("whenReceipt"));
 
-        moreInfoTableColumn = new TableColumn("Selecteren");
-        moreInfoTableColumn.setCellValueFactory(new PropertyValueFactory<CustomerCard, Button>("button"));
+        bonnenTableView.setItems(database.getCustomersList());
+        bonnenTableView.getColumns().addAll(idTableColumn, firstNameColumn, lastNameColumn, timeTableColumn);
 
-        customerCardTableView.setItems(database.getCustomersList());
-        customerCardTableView.getColumns().addAll(idTableColumn, firstNameColumn, lastNameColumn, streetNameColumn, moreInfoTableColumn);
+        bonnenTableView.setItems(database.getReceipts());
 
-        FilteredList<CustomerCard> filteredData = new FilteredList<>(database.getCustomersList(), p -> true);
-        filterField.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(customerCard -> {
-                // If filter text is empty, display all persons.
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
-
-                // Compare first name and last name of every person with filter text.
-                String lowerCaseFilter = newValue.toLowerCase();
-
-                if (customerCard.getFirstName().toLowerCase().contains(lowerCaseFilter)) {
-                    return true; // Filter matches first name.
-                } else if (customerCard.getLastName().toLowerCase().contains(lowerCaseFilter)) {
-                    return true; // Filter matches last name.
-                }
-                return false; // Does not match.
-            });
-        });
-
-        SortedList<CustomerCard> sortedData = new SortedList<>(filteredData);
-        sortedData.comparatorProperty().bind(customerCardTableView.comparatorProperty());
-
-        customerCardTableView.setItems(sortedData);
-
-        gridPane.add(customerCardTableView, 0, 1, 2, 5);
+        gridPane.add(bonnenTableView, 0, 0);
         dialog.setResultConverter(dialogButton -> {
             return null;
         });
@@ -323,7 +286,7 @@ public class MainMenu extends MainScene implements SceneImplementation {
         gridPane.setPadding(new Insets(10, 10, 10, 10));
 
         gridPane.add(new Label("Naam:"), 0, 0);
-        TextField filterField = new TextField("Zoeken");
+        TextField filterField = new TextField("Zoeken op datum");
         gridPane.add(filterField, 1, 0);
 
         customerCardTableView = new TableView();

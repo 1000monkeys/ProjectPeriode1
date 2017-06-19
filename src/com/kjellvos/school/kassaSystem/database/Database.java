@@ -3,10 +3,7 @@ package com.kjellvos.school.kassaSystem.database;
 import com.kjellvos.school.kassaSystem.Main;
 import com.kjellvos.school.kassaSystem.MainMenu;
 import com.kjellvos.school.kassaSystem.common.Extensions.DatabaseExt;
-import com.kjellvos.school.kassaSystem.common.database.Categorie;
-import com.kjellvos.school.kassaSystem.common.database.CustomerCard;
-import com.kjellvos.school.kassaSystem.common.database.Item;
-import com.kjellvos.school.kassaSystem.common.database.ReceiptItem;
+import com.kjellvos.school.kassaSystem.common.database.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
@@ -18,6 +15,7 @@ import org.apache.commons.dbcp2.BasicDataSource;
 
 import java.io.InputStream;
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -261,7 +259,49 @@ public class Database extends DatabaseExt {
     }
 
     public ObservableList getReceipts(){
+        ObservableList<Receipt> data = FXCollections.observableArrayList();
+        try {
+            super.setConnection(super.getBasicDataSource().getConnection());
 
+            String sql =    "SELECT receipts.ID, receipts.WhenReceipt, customercards.FirstName, customercards.LastName FROM receipts \n" +
+                            "   LEFT JOIN customercards ON customercards.ID = receipts.CustomerCardId ORDER BY receipts.WhenReceipt ASC;";
+            super.setPreparedStatement(super.getConnection().prepareStatement(sql));
+            ResultSet resultSet = super.getPreparedStatement().executeQuery();
+            if (resultSet.next()) {
+                resultSet.beforeFirst();
+                while (resultSet.next()) {
+                    int id = resultSet.getInt("ID");
+                    String firstName = resultSet.getString("firstName");
+                    if (firstName == null) {
+                        firstName = "NULL";
+                    }
+                    String lastName = resultSet.getString("lastName");
+                    if (lastName == null) {
+                        lastName = "NULL";
+                    }
+                    Timestamp whenReceiptTimeStamp = resultSet.getTimestamp("WhenReceipt");
+                    LocalDateTime whenReceipt = null;
+                    if (whenReceiptTimeStamp != null) {
+                        whenReceipt = whenReceiptTimeStamp.toLocalDateTime();
+                    }
+
+                    data.add(new Receipt(id, firstName, lastName, whenReceipt));
+                }
+            } else {
+                showNoDataAlert();
+                System.out.println("Error 1");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                super.getPreparedStatement().close();
+                super.getConnection().close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return data;
     }
 
     public void showOopsAlert(){

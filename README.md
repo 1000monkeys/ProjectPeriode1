@@ -72,4 +72,7 @@ And build the normal things needed for a register, For example 'scanning' an ite
 Lots.<br />
 Bugfixes.<br />
 Bugfix getScene()<br />
+Toevoegen zien welke klantenkaart geselecteerd.<br />
+Selectie toevoegen aan bonnen lijst.<br />
+Correctie uitwerken.
 

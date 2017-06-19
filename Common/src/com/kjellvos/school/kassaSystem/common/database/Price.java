@@ -11,10 +11,10 @@ import java.time.LocalDateTime;
  * Created by kjevo on 3/26/17.
  */
 public class Price {
-    IntegerProperty id;
-    LocalDateTime fromWhen, tillWhen;
-    StringProperty price;
-    boolean defaultPrice;
+    private IntegerProperty id;
+    private LocalDateTime fromWhen, tillWhen;
+    private StringProperty price;
+    private boolean defaultPrice;
 
     public Price(int id, LocalDateTime fromWhen, LocalDateTime tillWhen, String price){
         this.id = new SimpleIntegerProperty(id);
